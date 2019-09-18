@@ -38,7 +38,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
      */
     private ApiInfo metaInfo() {
         return new ApiInfo(
-                "Smart home API",
+                "Hire yourself API",
                 "Smart home api to interact with house and app",
                 "1.0",
                 null,
