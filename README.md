@@ -2,9 +2,11 @@
 
 ##
 
-create files **docker-compose.yml** from __dist__ file
-create files **src/environments/environment.ts** from __dist__ file
-create files **src/environments/environment.prod.ts** from __dist__ file
+create files **docker-compose.yml** from __dist__ file 
+
+create files **src/environments/environment.ts** from __dist__ file 
+
+create files **src/environments/environment.prod.ts** from __dist__ file 
 
 configure your environment files 
 
