@@ -14,6 +14,7 @@ public class GlobalConst {
     public static final String LIMIT_FIELD = "limit";
     public static final String ERROR_STATUS = "error";
     public static final String HEADER_FIELD = "header";
+    public static final String EMAIL_FIELD = "email";
     public static final String STRING_FIELD = "string";
     public static final String SECRET_FIELD = "secret";
     public static final String USER_IP_FIELD = "userIp";
@@ -23,5 +24,7 @@ public class GlobalConst {
     public static final String LOCAL_HOST_IP = "0:0:0:0:0:0:0:1";
     public static final String CONTENT_TYPE_HEADER = "Content-Type";
     public static final String SOMETHING_WRONG = "Something went wrong";
+    public static final String USER_NOT_FOUND = "USER_NOT_FOUND";
+    public static final String DUPLICATE_EMAIL_EXISTS = "This email already exists";
 
 }
