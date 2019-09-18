@@ -14,8 +14,8 @@ configure your environment files
 
 ```
 docker network create \
-        --subnet=172.38.0.0/16 \
-        --ip-range=172.38.5.0/24 \
+        --subnet=172.38.0.0/24 \
+        --ip-range=172.38.0.0/24 \
         --gateway=172.38.0.1 \
         hirey-network
 
