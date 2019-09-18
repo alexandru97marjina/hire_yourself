@@ -1,0 +1,3 @@
+docker-compose.yml
+angular/src/environments/environment.ts
+angular/src/environments/environment.prod.ts

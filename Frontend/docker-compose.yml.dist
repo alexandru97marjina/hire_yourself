@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+    angular:
+        build:
+            context: ./docker/angular
+        volumes:
+            - ./angular:/var/www/app
+        container_name: hirey-angular
+        ports:
+            - "4200:4200"
+        networks:
+            hirey-network:
+                ipv4_address: 172.38.0.2
+        working_dir: /var/www/app
+        restart: unless-stopped
+
+networks:
+    hirey-network:
+        external: true
