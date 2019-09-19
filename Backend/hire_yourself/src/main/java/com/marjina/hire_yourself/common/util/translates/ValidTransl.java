@@ -31,6 +31,9 @@ public class ValidTransl {
     public enum Words {
         UNAUTHORIZED_TOKEN(ImmutableMap.of(
                 "en", "You don't have access to this API. Please provide a valid token"
+        )),
+        USER_NOT_FOUND(ImmutableMap.of(
+                "en", "User with a such email is not registered!"
         ));
 
         private final Map<String, String> translates;

@@ -53,4 +53,18 @@ public class SecurityManagerImpl implements SecurityManager {
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
     }
 
+    /**
+     * Change user password
+     *
+     * @param securityReqDTO SecurityReqDTO
+     * @throws NotFoundException in case of not found user
+     */
+    @Override
+    public void changeUserPassword(SecurityReqDTO securityReqDTO) throws NotFoundException {
+        User user = getUserByEmail(securityReqDTO.getEmail());
+        user.setPassword(securityReqDTO.getPassword());
+
+        userDAO.save(user);
+    }
+
 }

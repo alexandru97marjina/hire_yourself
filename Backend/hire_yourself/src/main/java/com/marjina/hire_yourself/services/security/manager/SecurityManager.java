@@ -11,4 +11,6 @@ public interface SecurityManager {
 
     User getUserByEmail(String email) throws NotFoundException;
 
+    void changeUserPassword(SecurityReqDTO securityReqDTO) throws NotFoundException;
+
 }
