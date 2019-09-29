@@ -33,7 +33,13 @@ public class ValidTransl {
                 "en", "You don't have access to this API. Please provide a valid token"
         )),
         USER_NOT_FOUND(ImmutableMap.of(
-                "en", "User with a such email is not registered!"
+                "en", "User with a such email or id is not found!"
+        )),
+        EDUCATION_NOT_FOUND(ImmutableMap.of(
+                "en", "Education entity with this id does not exits please first create one!"
+        )),
+        ACTIVITY_FIELD_NOT_FOUND(ImmutableMap.of(
+                "en", "Activity entity with this id does not exits please first create one!"
         ));
 
         private final Map<String, String> translates;

@@ -65,8 +65,9 @@ public class User implements Serializable {
     @Column(name = "graduation_year")
     private Integer graduationYear;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private Experience experience;
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    @JsonManagedReference
+    private List<Experience> experiences;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "activity_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))

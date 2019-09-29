@@ -30,6 +30,10 @@ public class ActivityField implements Serializable {
 
     @OneToMany(mappedBy = "activityField", fetch = LAZY)
     @JsonManagedReference
+    private List<User> users;
+
+    @OneToMany(mappedBy = "activityField", fetch = LAZY)
+    @JsonManagedReference
     private List<Post> posts;
 
     @Temporal(TemporalType.TIMESTAMP)

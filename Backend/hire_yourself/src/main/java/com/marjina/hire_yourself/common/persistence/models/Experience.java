@@ -1,5 +1,6 @@
 package com.marjina.hire_yourself.common.persistence.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Data
@@ -23,12 +26,13 @@ public class Experience {
     @Column(name = "company_name")
     private String companyName;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JsonBackReference
     private User user;
 
-    @Column(name = "experience_period")
-    private Integer experiencePeriod;
+    @Column(name = "experience_months")
+    private Integer monthsOfExperience;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd H:i:s")

@@ -6,18 +6,23 @@ import com.marjina.hire_yourself.common.persistence.models.User;
 import com.marjina.hire_yourself.common.persistence.repository.UserRepository;
 import com.marjina.hire_yourself.common.util.ExceptionUtil;
 import com.marjina.hire_yourself.services.security.dto.SecurityReqDTO;
+import com.marjina.hire_yourself.services.user.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static com.marjina.hire_yourself.common.util.consts.GlobalConst.*;
+import static com.marjina.hire_yourself.common.util.consts.GlobalConst.DUPLICATE_EMAIL_EXISTS;
+import static com.marjina.hire_yourself.common.util.consts.GlobalConst.EMAIL_FIELD;
 
 @Component
 public class SecurityManagerImpl implements SecurityManager {
 
     @Autowired
     private UserRepository userDAO;
+
+    @Autowired
+    private UserManager userManager;
 
     /**
      * Check if user with this email already exists in db, if exists throw exception, else create new
@@ -40,18 +45,7 @@ public class SecurityManagerImpl implements SecurityManager {
         }
     }
 
-    /**
-     * Get user by email
-     *
-     * @param email User email
-     * @return User
-     * @throws NotFoundException in case of not found user
-     */
-    @Override
-    public User getUserByEmail(String email) throws NotFoundException {
-        return userDAO.findUserByEmail(email)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-    }
+
 
     /**
      * Change user password
@@ -61,7 +55,7 @@ public class SecurityManagerImpl implements SecurityManager {
      */
     @Override
     public void changeUserPassword(SecurityReqDTO securityReqDTO) throws NotFoundException {
-        User user = getUserByEmail(securityReqDTO.getEmail());
+        User user = userManager.getUserByEmail(securityReqDTO.getEmail());
         user.setPassword(securityReqDTO.getPassword());
 
         userDAO.save(user);

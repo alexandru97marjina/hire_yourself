@@ -6,12 +6,16 @@ import com.marjina.hire_yourself.common.helper.mail.EMailSender;
 import com.marjina.hire_yourself.common.persistence.models.User;
 import com.marjina.hire_yourself.services.security.dto.SecurityReqDTO;
 import com.marjina.hire_yourself.services.security.manager.SecurityManager;
+import com.marjina.hire_yourself.services.user.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class
 SecurityServiceImpl implements SecurityService {
+
+    @Autowired
+    private UserManager userManager;
 
     @Autowired
     private SecurityManager manager;
@@ -39,7 +43,7 @@ SecurityServiceImpl implements SecurityService {
      */
     @Override
     public Boolean login(SecurityReqDTO securityReqDTO) throws NotFoundException {
-        User user = manager.getUserByEmail(securityReqDTO.getEmail());
+        User user = userManager.getUserByEmail(securityReqDTO.getEmail());
 
         return user.getPassword().equals(securityReqDTO.getPassword());
     }
@@ -52,7 +56,7 @@ SecurityServiceImpl implements SecurityService {
      */
     @Override
     public void restorePassword(String email) throws NotFoundException {
-        User user = manager.getUserByEmail(email);
+        User user = userManager.getUserByEmail(email);
         mailSender.sendEmail(user.getEmail(),user.getPassword());
         System.out.println("mail sent to " + user.getEmail());
     }

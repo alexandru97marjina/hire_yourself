@@ -4,7 +4,6 @@ import com.marjina.hire_yourself.common.helper.exception.AppException;
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
 import com.marjina.hire_yourself.common.response.ErrorDTO;
 import com.marjina.hire_yourself.common.response.ResponseDTO;
-import com.marjina.hire_yourself.services.security.dto.SecurityReqDTO;
 import com.marjina.hire_yourself.services.user.UserService;
 import com.marjina.hire_yourself.services.user.dto.UserReqDTO;
 import io.swagger.annotations.ApiImplicitParam;
@@ -44,7 +43,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
     })
     @PostMapping(value = "/create", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDTO> createUser(@RequestBody UserReqDTO reqDTO) throws AppException {
+    public ResponseEntity<ResponseDTO> createUser(@RequestBody UserReqDTO reqDTO) throws AppException, NotFoundException {
         service.createUser(reqDTO);
 
         return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful registration!", emptyList()));
