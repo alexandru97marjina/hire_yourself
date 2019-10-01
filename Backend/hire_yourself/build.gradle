@@ -4,6 +4,11 @@ plugins {
     id 'java'
 }
 
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
 group = 'com.marjina'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -37,6 +42,7 @@ dependencies {
     compile('io.springfox:springfox-swagger2:2.4.0')
     compile 'joda-time:joda-time:2.10.4'
     compileOnly 'org.projectlombok:lombok'
+    compile group: 'org.json', name: 'json', version: '20190722'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 //    runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

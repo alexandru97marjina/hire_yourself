@@ -50,10 +50,10 @@ public class Post implements Serializable {
     private String imagePath;
 
     @Column(name = "salary_min")
-    private String salaryMin;
+    private Integer salaryMin;
 
     @Column(name = "salary_max")
-    private String salaryMax;
+    private Integer salaryMax;
 
     @Column(name = "job_position")
     private String jobPosition;

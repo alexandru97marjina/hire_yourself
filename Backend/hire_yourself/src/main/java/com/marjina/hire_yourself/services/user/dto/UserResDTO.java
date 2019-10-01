@@ -1,17 +1,18 @@
 package com.marjina.hire_yourself.services.user.dto;
 
-import com.marjina.hire_yourself.services.experience.dto.ExperienceReqDTO;
+import com.marjina.hire_yourself.services.experience.dto.ExperienceResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserReqDTO implements Serializable {
+public class UserResDTO {
+
+    private Integer id;
     private String email;
     private String password;
     private String firstName;
@@ -21,7 +22,7 @@ public class UserReqDTO implements Serializable {
     private String cvPath;
     private Integer educationId;
     private Integer graduationYear;
-    private List<ExperienceReqDTO> experience;
+    private List<ExperienceResDTO> experience;
     private Integer activityId;
 
 }
