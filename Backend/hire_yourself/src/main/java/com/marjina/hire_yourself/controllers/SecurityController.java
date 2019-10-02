@@ -12,10 +12,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
 
 import static com.marjina.hire_yourself.common.util.consts.GlobalConst.*;
 import static java.util.Collections.emptyList;
@@ -72,6 +71,47 @@ public class SecurityController {
         }
 
         return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, true, "Successful login!", emptyList()));
+    }
+
+    /**
+     * Retrieve user password
+     *
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "Retrieve user password")
+    @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
+            @ApiResponse(code = 400, message = "Validation not passed", response = ErrorDTO.class),
+            @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
+            @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
+    })
+    @GetMapping(value = "/users/password-request", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDTO> passwordRequest(@PathParam("email") String email) throws NotFoundException {
+        service.restorePassword(email);
+
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, email, "Successful  password request!", emptyList()));
+    }
+
+    /**
+     * Change password for a user
+     *
+     * @param securityReqDTO SecurityReqDTO
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "Change password user")
+    @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
+            @ApiResponse(code = 400, message = "Validation not passed", response = ErrorDTO.class),
+            @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
+            @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
+    })
+    @PostMapping(value = "/users/password-change", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDTO> passwordChange(@RequestBody SecurityReqDTO securityReqDTO) throws NotFoundException {
+        service.changePassword(securityReqDTO);
+
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, securityReqDTO.getEmail(), "Change user password", emptyList()));
     }
 
 }

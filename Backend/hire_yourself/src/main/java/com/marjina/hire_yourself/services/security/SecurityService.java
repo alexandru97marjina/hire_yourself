@@ -10,4 +10,8 @@ public interface SecurityService {
 
     Boolean login(SecurityReqDTO securityReqDTO) throws NotFoundException;
 
+    void restorePassword(String email) throws NotFoundException;
+
+    void changePassword(SecurityReqDTO securityReqDTO) throws NotFoundException;
+
 }

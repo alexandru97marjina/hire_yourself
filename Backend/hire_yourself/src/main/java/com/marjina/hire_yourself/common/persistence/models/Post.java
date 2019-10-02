@@ -1,15 +1,18 @@
 package com.marjina.hire_yourself.common.persistence.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -30,6 +33,15 @@ public class Post implements Serializable {
     @JsonBackReference
     private User user;
 
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            mappedBy = "favoritePosts"
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private List<User> favoriteUser;
+
     private String title;
 
     private String description;
@@ -38,15 +50,19 @@ public class Post implements Serializable {
     private String imagePath;
 
     @Column(name = "salary_min")
-    private String salaryMin;
+    private Integer salaryMin;
 
     @Column(name = "salary_max")
-    private String salaryMax;
+    private Integer salaryMax;
 
     @Column(name = "job_position")
     private String jobPosition;
 
-    private Integer experience;
+    @Column(name = "min_experience")
+    private Integer minExperience;
+
+    @Column(name = "max_experience")
+    private Integer maxExperience;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "activity_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
@@ -56,7 +72,7 @@ public class Post implements Serializable {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "education_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     @JsonBackReference
-    private ActivityField education;
+    private Education education;
 
     @Column(name = "job_location")
     private String jobLocation;

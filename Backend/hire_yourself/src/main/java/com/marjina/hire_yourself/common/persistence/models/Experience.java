@@ -1,15 +1,13 @@
 package com.marjina.hire_yourself.common.persistence.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -17,27 +15,34 @@ import static javax.persistence.FetchType.LAZY;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "education")
-public class Education implements Serializable {
+@Table(name = "experience")
+public class Experience {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
 
-    @Column(name = "speciality_name")
-    private String specialityName;
+    @Column(name = "company_name")
+    private String companyName;
 
-    @Column(name = "study_grade")
-    private String studyGrade;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JsonBackReference
+    private User user;
 
-    @OneToMany(mappedBy = "education", fetch = LAZY)
-    @JsonManagedReference
-    private List<Post> posts;
+    @Column(name = "experience_months")
+    private Integer monthsOfExperience;
 
-    @OneToMany(mappedBy = "education", fetch = LAZY)
-    @JsonManagedReference
-    private List<User> users;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd H:i:s")
+    @Column(name = "date_started", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date dateStarted;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd H:i:s")
+    @Column(name = "date_ended", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date dateEnded;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd H:i:s")
@@ -48,4 +53,5 @@ public class Education implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd H:i:s")
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date updatedAt;
+
 }
