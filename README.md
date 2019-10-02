@@ -27,3 +27,12 @@ docker-compose up
 ##
 ### Access
 access pages via [172.38.0.2:4200](https://172.38.0.2:4200) or [localhost:4200](https://localhost:4200)
+
+##
+##
+
+### Useful links
+
+1) [Api endpoints](https://docs.google.com/spreadsheets/d/1VXxShSliQx0vOeyRRCRZR6xITRyGK37wyzB9lwsKdAc/edit?usp=sharing)
+2) [Doc specifications](https://drive.google.com/open?id=1eKqyzhiffXpzLL7itROobQrRCpgpAIsV)
+3) [Trello dashboard](https://trello.com/b/YpSdcRcu/hitproject)

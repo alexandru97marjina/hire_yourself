@@ -1,5 +1,7 @@
 {
-    "test": {
-        "me": "test 12123123123"
+    "menu": {
+        "announces": "Announces",
+        "my_added": "My Ads",
+        "favorites": "Favorites"
     }
 }
