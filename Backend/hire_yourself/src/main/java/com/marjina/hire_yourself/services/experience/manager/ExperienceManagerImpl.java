@@ -5,12 +5,14 @@ import com.marjina.hire_yourself.common.persistence.models.Experience;
 import com.marjina.hire_yourself.common.persistence.repository.ExperienceRepository;
 import com.marjina.hire_yourself.common.util.DateUtil;
 import com.marjina.hire_yourself.services.experience.dto.ExperienceReqDTO;
+import com.marjina.hire_yourself.services.experience.dto.ExperienceResDTO;
 import com.marjina.hire_yourself.services.user.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ExperienceManagerImpl implements ExperienceManager {
@@ -23,7 +25,11 @@ public class ExperienceManagerImpl implements ExperienceManager {
 
     @Override
     public List<Experience> saveExperiencesByUser(List<ExperienceReqDTO> experienceReqDTOS, Integer userId) throws NotFoundException {
-        List<Experience> experiences = new ArrayList<>();
+        List<Experience> experiences = experienceDAO.findAllByUser_Id(userId);
+
+        if (experiences == null) {
+            experiences = new ArrayList<>();
+        }
 
         for (ExperienceReqDTO reqDTO : experienceReqDTOS) {
             Experience experience = new Experience();
@@ -36,6 +42,18 @@ public class ExperienceManagerImpl implements ExperienceManager {
             experiences.add(experience);
         }
 
-        return experienceDAO.saveAll(experiences);
+        experienceDAO.saveAll(experiences);
+
+        return experiences;
+    }
+
+    @Override
+    public List<ExperienceResDTO> getExperienceResDTOs(Integer userId) {
+        List<Experience> experienceList = experienceDAO.findAllByUser_Id(userId);
+
+        return experienceList
+                .stream()
+                .map(ExperienceResDTO::new)
+                .collect(Collectors.toList());
     }
 }
