@@ -1,0 +1,45 @@
+@import "variables";
+
+.nav-spacer {
+    margin-top: 100px;
+}
+
+.nav-link {
+    font-weight: bold;
+    color: $black;
+
+    &.active {
+        color: $primary !important;
+        background-color: transparent !important;
+    }
+}
+
+.nav {
+    &-link {
+        font-weight: bold;
+        color: $black;
+
+        &.active {
+            color: $primary !important;
+            background-color: transparent !important;
+        }
+    }
+
+    &-item {
+        margin-left: 3rem;
+        margin-right: 3rem;
+
+        img {
+            max-height: 65px;
+            margin-top: -10px;
+        }
+    }
+}
+
+.superscript-number {
+    padding: 2px 4px;
+    border-radius: 75%;
+    box-sizing: border-box;
+    background-color: $primary;
+    color: $white;
+}

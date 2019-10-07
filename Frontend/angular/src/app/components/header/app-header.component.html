@@ -1,20 +1,27 @@
-<div class="menu-wrapper">
-    <div class="container">
-        <div class="menu">
-            <ul>
-                <li>
-                    <img src="assets/images/logo.png" alt="logo"/>
-                </li>
-                <li>
-                    <a href="#home">{{'test.me' | translate}}</a>
-                </li>
-                <li>
-                    <a href="#home">Home</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div>
-    another textss
+<div class="container">
+    <div class="nav-spacer"></div>
+    <ul class="nav nav-pills">
+        <li class="nav-item mr-auto">
+            <img [src]="'assets/images/logo.png'" alt="logo" />
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/']">{{ 'menu.announces' | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">{{ 'menu.my_added' | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">{{ 'menu.favorites' | translate }} <sup class="superscript-number">1</sup></a>
+        </li>
+        <li class="nav-item ml-auto">
+            <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem><i class="fa fa-calendar"></i></button>
+                    <button ngbDropdownItem>Another Action</button>
+                    <button ngbDropdownItem>Something else is here</button>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>
