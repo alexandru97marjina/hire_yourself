@@ -40,6 +40,9 @@ public class ValidTransl {
         )),
         ACTIVITY_FIELD_NOT_FOUND(ImmutableMap.of(
                 "en", "Activity entity with this id does not exits please first create one!"
+        )),
+        POST_NOT_FOUND(ImmutableMap.of(
+                "en", "Post entity with this id does not exits please first create one!"
         ));
 
         private final Map<String, String> translates;

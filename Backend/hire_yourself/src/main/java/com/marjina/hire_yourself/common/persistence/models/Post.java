@@ -81,14 +81,17 @@ public class Post implements Serializable {
 
     private Boolean active;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd H:i:s")
     @Column(name = "date_created")
     private Date dateCreated;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd H:i:s")
     @Column(name = "date_updated")
     private Date dateUpdated;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd H:i:s")
     @Column(name = "date_expired")
     private Date dateExpired;
