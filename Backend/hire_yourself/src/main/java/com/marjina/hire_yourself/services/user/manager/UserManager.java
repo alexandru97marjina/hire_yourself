@@ -5,6 +5,8 @@ import com.marjina.hire_yourself.common.persistence.models.User;
 import com.marjina.hire_yourself.services.user.dto.UserReqDTO;
 import com.marjina.hire_yourself.services.user.dto.UserResDTO;
 
+import java.util.List;
+
 public interface UserManager {
 
     void createUser(UserReqDTO reqDTO) throws NotFoundException;
@@ -17,5 +19,7 @@ public interface UserManager {
 
     UserResDTO getUserResDTO(Integer userId) throws NotFoundException;
 
-    void mapUserReqDTOToUser(User user , UserReqDTO reqDTO) throws NotFoundException;
+    List<UserResDTO> getListOfUsers();
+
+    void deleteUserById(Integer userId);
 }
