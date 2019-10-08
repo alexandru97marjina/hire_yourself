@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class UserManagerImpl implements UserManager {
     private UserMapHelper helper;
 
     @Override
-    public void createUser(UserReqDTO reqDTO) throws NotFoundException {
+    public void createUser(UserReqDTO reqDTO) throws NotFoundException, ParseException {
         User user = new User();
         helper.mapUserReqDTOToUser(user, reqDTO);
     }
@@ -58,7 +59,7 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public void updateUser(Integer userId, UserReqDTO reqDTO) throws NotFoundException {
+    public void updateUser(Integer userId, UserReqDTO reqDTO) throws NotFoundException, ParseException {
         User user = getUserById(userId);
         helper.mapUserReqDTOToUser(user, reqDTO);
     }

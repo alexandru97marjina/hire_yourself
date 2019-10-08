@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+
 import static com.marjina.hire_yourself.common.util.consts.GlobalConst.*;
 import static java.util.Collections.emptyList;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -39,7 +41,7 @@ public class PostController {
             @ApiResponse(code = 404, message = "Post not found", response = NotFoundException.class)
     })
     @PostMapping(value = "/create", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDTO> createPost(@RequestBody PostReqDTO reqDTO) throws NotFoundException {
+    public ResponseEntity<ResponseDTO> createPost(@RequestBody PostReqDTO reqDTO) throws NotFoundException, ParseException {
         service.createPost(reqDTO);
 
         return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful post create", emptyList()));
@@ -63,7 +65,7 @@ public class PostController {
     @PutMapping(value = "/update/{postId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> updatePost(
             @PathVariable Integer postId,
-            @RequestBody PostReqDTO reqDTO) throws NotFoundException {
+            @RequestBody PostReqDTO reqDTO) throws NotFoundException, ParseException {
         service.updatePost(postId, reqDTO);
 
         return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful post update", emptyList()));

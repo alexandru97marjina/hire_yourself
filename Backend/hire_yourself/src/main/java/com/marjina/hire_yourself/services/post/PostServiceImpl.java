@@ -7,6 +7,7 @@ import com.marjina.hire_yourself.services.post.manager.PostManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -16,12 +17,12 @@ public class PostServiceImpl implements PostService {
     private PostManager manager;
 
     @Override
-    public void createPost(PostReqDTO reqDTO) throws NotFoundException {
+    public void createPost(PostReqDTO reqDTO) throws NotFoundException, ParseException {
         manager.createPost(reqDTO);
     }
 
     @Override
-    public void updatePost(Integer postId, PostReqDTO reqDTO) throws NotFoundException {
+    public void updatePost(Integer postId, PostReqDTO reqDTO) throws NotFoundException, ParseException {
         manager.updatePost(postId, reqDTO);
     }
 

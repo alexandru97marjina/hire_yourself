@@ -9,12 +9,15 @@ import com.marjina.hire_yourself.common.persistence.repository.ActivityRepositor
 import com.marjina.hire_yourself.common.persistence.repository.EducationRepository;
 import com.marjina.hire_yourself.common.persistence.repository.PostRepository;
 import com.marjina.hire_yourself.common.persistence.repository.UserRepository;
+import com.marjina.hire_yourself.common.util.DateUtil;
 import com.marjina.hire_yourself.services.activity.manager.ActivityManager;
 import com.marjina.hire_yourself.services.education.manager.EducationManager;
 import com.marjina.hire_yourself.services.post.dto.PostReqDTO;
 import com.marjina.hire_yourself.services.user.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.text.ParseException;
 
 @Component
 public class PostMapHelperImpl implements PostMapHelper {
@@ -41,7 +44,7 @@ public class PostMapHelperImpl implements PostMapHelper {
     private EducationManager educationManager;
 
     @Override
-    public Post mapPostReqDTOToPost(Post post, PostReqDTO reqDTO) throws NotFoundException {
+    public Post mapPostReqDTOToPost(Post post, PostReqDTO reqDTO) throws NotFoundException, ParseException {
         post.setTitle(reqDTO.getTitle());
         post.setDescription(reqDTO.getDescription());
         post.setImagePath(reqDTO.getImagePath());
@@ -53,9 +56,9 @@ public class PostMapHelperImpl implements PostMapHelper {
         post.setJobLocation(reqDTO.getJobLocation());
         post.setEmail(reqDTO.getEmail());
         post.setActive(reqDTO.getActive());
-//        post.setDateCreated();
-//        post.setDateUpdated();
-//        post.setDateExpired();
+        post.setDateCreated(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateCreated()));
+        post.setDateUpdated(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateUpdated()));
+        post.setDateExpired(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateExpired()));
         User user = userManager.getUserById(reqDTO.getUserId());
         post.setUser(user);
         user.getPosts().add(post);

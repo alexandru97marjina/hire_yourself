@@ -9,6 +9,7 @@ import com.marjina.hire_yourself.services.post.helper.PostMapHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,13 +36,13 @@ public class PostManagerImpl implements PostManager {
     }
 
     @Override
-    public void createPost(PostReqDTO reqDTO) throws NotFoundException {
+    public void createPost(PostReqDTO reqDTO) throws NotFoundException, ParseException {
         Post post = new Post();
         helper.mapPostReqDTOToPost(post, reqDTO);
     }
 
     @Override
-    public void updatePost(Integer postId, PostReqDTO reqDTO) throws NotFoundException {
+    public void updatePost(Integer postId, PostReqDTO reqDTO) throws NotFoundException, ParseException {
         Post post = getPostById(postId);
         helper.mapPostReqDTOToPost(post, reqDTO);
     }

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+
 import static com.marjina.hire_yourself.common.util.consts.GlobalConst.*;
 import static java.util.Collections.emptyList;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -39,7 +41,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
     })
     @PostMapping(value = "/create", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDTO> createUser(@RequestBody UserReqDTO reqDTO) throws NotFoundException {
+    public ResponseEntity<ResponseDTO> createUser(@RequestBody UserReqDTO reqDTO) throws NotFoundException, ParseException {
         service.createUser(reqDTO);
 
         return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful user create", emptyList()));
@@ -63,7 +65,7 @@ public class UserController {
     @PutMapping(value = "/update/{userId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> updateUser(
             @PathVariable Integer userId,
-            @RequestBody UserReqDTO reqDTO) throws NotFoundException {
+            @RequestBody UserReqDTO reqDTO) throws NotFoundException, ParseException {
         service.updateUser(userId, reqDTO);
 
         return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful user update", emptyList()));

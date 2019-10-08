@@ -13,7 +13,7 @@ import java.util.Date;
 public class ExperienceReqDTO {
 
     private String companyName;
-    private Date dateStarted;
-    private Date dateEnded;
+    private String dateStarted;
+    private String dateEnded;
 
 }

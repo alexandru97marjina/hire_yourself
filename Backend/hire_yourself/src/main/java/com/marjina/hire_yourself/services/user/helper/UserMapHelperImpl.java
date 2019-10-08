@@ -18,6 +18,7 @@ import com.marjina.hire_yourself.services.user.dto.UserResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.util.stream.Collectors;
 
 @Component
@@ -45,7 +46,7 @@ public class UserMapHelperImpl implements UserMapHelper {
     private PostManager postManager;
 
     @Override
-    public void mapUserReqDTOToUser(User user, UserReqDTO reqDTO) throws NotFoundException {
+    public void mapUserReqDTOToUser(User user, UserReqDTO reqDTO) throws NotFoundException, ParseException {
         user.setEmail(reqDTO.getEmail());
         user.setPassword(reqDTO.getPassword());
         user.setFirstName(reqDTO.getFirstName());

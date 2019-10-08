@@ -10,6 +10,7 @@ import com.marjina.hire_yourself.services.user.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class ExperienceManagerImpl implements ExperienceManager {
     private UserManager userManager;
 
     @Override
-    public List<Experience> saveExperiencesByUser(List<ExperienceReqDTO> experienceReqDTOS, Integer userId) throws NotFoundException {
+    public List<Experience> saveExperiencesByUser(List<ExperienceReqDTO> experienceReqDTOS, Integer userId) throws NotFoundException, ParseException {
         List<Experience> experiences = experienceDAO.findAllByUser_Id(userId);
 
         if (experiences == null) {
@@ -34,9 +35,9 @@ public class ExperienceManagerImpl implements ExperienceManager {
         for (ExperienceReqDTO reqDTO : experienceReqDTOS) {
             Experience experience = new Experience();
             experience.setCompanyName(reqDTO.getCompanyName());
-            experience.setDateStarted(reqDTO.getDateStarted());
-            experience.setDateEnded(reqDTO.getDateEnded());
-            experience.setMonthsOfExperience(DateUtil.getMonthDifference(reqDTO.getDateStarted(), reqDTO.getDateStarted()));
+            experience.setDateStarted(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateStarted()));
+            experience.setDateEnded(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateEnded()));
+            experience.setMonthsOfExperience(DateUtil.getMonthDifference(experience.getDateStarted(), experience.getDateStarted()));
             experience.setUser(userManager.getUserById(userId));
 
             experiences.add(experience);
