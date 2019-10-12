@@ -40,7 +40,7 @@ public class PostController {
             @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
             @ApiResponse(code = 404, message = "Post not found", response = NotFoundException.class)
     })
-    @PostMapping(value = "/create", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> createPost(@RequestBody PostReqDTO reqDTO) throws NotFoundException, ParseException {
         service.createPost(reqDTO);
 
@@ -62,7 +62,7 @@ public class PostController {
             @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
             @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
     })
-    @PutMapping(value = "/update/{postId}", produces = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{postId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> updatePost(
             @PathVariable Integer postId,
             @RequestBody PostReqDTO reqDTO) throws NotFoundException, ParseException {

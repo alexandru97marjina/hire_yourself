@@ -37,7 +37,7 @@ public class ExperienceManagerImpl implements ExperienceManager {
             experience.setCompanyName(reqDTO.getCompanyName());
             experience.setDateStarted(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateStarted()));
             experience.setDateEnded(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateEnded()));
-            experience.setMonthsOfExperience(DateUtil.getMonthDifference(experience.getDateStarted(), experience.getDateStarted()));
+            experience.setMonthsOfExperience(DateUtil.getMonthDifference(experience.getDateStarted(), experience.getDateEnded()));
             experience.setUser(userManager.getUserById(userId));
 
             experiences.add(experience);

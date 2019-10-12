@@ -85,6 +85,7 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
+    @Transactional
     public void deleteUserById(Integer userId) {
         userDAO.deleteById(userId);
     }

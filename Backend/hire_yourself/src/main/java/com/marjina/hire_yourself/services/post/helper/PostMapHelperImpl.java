@@ -17,6 +17,7 @@ import com.marjina.hire_yourself.services.user.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 
 @Component
@@ -44,6 +45,7 @@ public class PostMapHelperImpl implements PostMapHelper {
     private EducationManager educationManager;
 
     @Override
+    @Transactional
     public Post mapPostReqDTOToPost(Post post, PostReqDTO reqDTO) throws NotFoundException, ParseException {
         post.setTitle(reqDTO.getTitle());
         post.setDescription(reqDTO.getDescription());
@@ -52,7 +54,7 @@ public class PostMapHelperImpl implements PostMapHelper {
         post.setSalaryMax(reqDTO.getSalaryMax());
         post.setJobPosition(reqDTO.getJobPosition());
         post.setMinExperience(reqDTO.getMinExperience());
-        post.setMinExperience(reqDTO.getMaxExperience());
+        post.setMaxExperience(reqDTO.getMaxExperience());
         post.setJobLocation(reqDTO.getJobLocation());
         post.setEmail(reqDTO.getEmail());
         post.setActive(reqDTO.getActive());

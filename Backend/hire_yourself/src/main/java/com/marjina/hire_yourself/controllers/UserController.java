@@ -40,7 +40,7 @@ public class UserController {
             @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
             @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
     })
-    @PostMapping(value = "/create", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> createUser(@RequestBody UserReqDTO reqDTO) throws NotFoundException, ParseException {
         service.createUser(reqDTO);
 
@@ -62,7 +62,7 @@ public class UserController {
             @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
             @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
     })
-    @PutMapping(value = "/update/{userId}", produces = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> updateUser(
             @PathVariable Integer userId,
             @RequestBody UserReqDTO reqDTO) throws NotFoundException, ParseException {
@@ -87,9 +87,7 @@ public class UserController {
     })
     @GetMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> getUserById(@PathVariable Integer userId) throws NotFoundException {
-        service.getUser(userId);
-
-        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful user request", emptyList()));
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, service.getUser(userId), "Successful user request", emptyList()));
     }
 
     /**
@@ -117,7 +115,7 @@ public class UserController {
      * @param userId User ID
      * @return ResponseEntity
      */
-    @ApiOperation(value = "Get a user")
+    @ApiOperation(value = "Delete a user")
     @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
