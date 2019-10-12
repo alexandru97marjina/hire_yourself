@@ -9,6 +9,7 @@ import com.marjina.hire_yourself.services.activity.helper.ActivityMapHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,7 @@ public class ActivityManagerImpl implements ActivityManager {
         List<ActivityField> activityFields = activityDAO.findAll();
 
         if (activityFields == null) {
-            return null;
+            return new ArrayList<>();
         }
 
         return activityFields.stream()
