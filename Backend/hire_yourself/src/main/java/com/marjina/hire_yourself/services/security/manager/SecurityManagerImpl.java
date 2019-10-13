@@ -45,8 +45,6 @@ public class SecurityManagerImpl implements SecurityManager {
         }
     }
 
-
-
     /**
      * Change user password
      *

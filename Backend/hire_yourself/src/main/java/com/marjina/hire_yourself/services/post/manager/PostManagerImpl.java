@@ -2,6 +2,7 @@ package com.marjina.hire_yourself.services.post.manager;
 
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
 import com.marjina.hire_yourself.common.persistence.models.Post;
+import com.marjina.hire_yourself.common.persistence.models.User;
 import com.marjina.hire_yourself.common.persistence.repository.PostRepository;
 import com.marjina.hire_yourself.services.post.dto.PostReqDTO;
 import com.marjina.hire_yourself.services.post.dto.PostResDTO;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,6 +75,13 @@ public class PostManagerImpl implements PostManager {
                 .stream()
                 .map(PostResDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostResDTO> getListOfFavoritePosts(User user) {
+        List<Post> posts = postDAO.findAllByFavoriteUser(user).orElse(new ArrayList<>());
+
+        return posts.stream().map(PostResDTO::new).collect(Collectors.toList());
     }
 
 }
