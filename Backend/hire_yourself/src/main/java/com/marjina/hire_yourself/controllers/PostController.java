@@ -5,6 +5,7 @@ import com.marjina.hire_yourself.common.response.ErrorDTO;
 import com.marjina.hire_yourself.common.response.ResponseDTO;
 import com.marjina.hire_yourself.services.post.PostService;
 import com.marjina.hire_yourself.services.post.dto.PostReqDTO;
+import com.marjina.hire_yourself.services.post.dto.PostResDTO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -88,7 +89,13 @@ public class PostController {
     @GetMapping(value = "/{postId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> getPostById(
             @PathVariable Integer postId) throws NotFoundException {
-        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, service.getPostById(postId), "Successful post request", emptyList()));
+        PostResDTO postResDTO = service.getPostById(postId);
+
+        if (postResDTO == null) {
+            return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Postcard not found", emptyList()));
+        }
+
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, postResDTO, "Successful post request", emptyList()));
     }
 
     /**

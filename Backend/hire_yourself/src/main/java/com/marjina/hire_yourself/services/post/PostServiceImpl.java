@@ -3,6 +3,7 @@ package com.marjina.hire_yourself.services.post;
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
 import com.marjina.hire_yourself.services.post.dto.PostReqDTO;
 import com.marjina.hire_yourself.services.post.dto.PostResDTO;
+import com.marjina.hire_yourself.services.post.helper.PostMapHelper;
 import com.marjina.hire_yourself.services.post.manager.PostManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostManager manager;
+
+    @Autowired
+    private PostMapHelper helper;
 
     @Override
     public void createPost(PostReqDTO reqDTO) throws NotFoundException, ParseException {

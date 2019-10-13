@@ -61,14 +61,17 @@ public class PostMapHelperImpl implements PostMapHelper {
         post.setDateCreated(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateCreated()));
         post.setDateUpdated(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateUpdated()));
         post.setDateExpired(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateExpired()));
+
         User user = userManager.getUserById(reqDTO.getUserId());
         post.setUser(user);
         user.getPosts().add(post);
         userDAO.save(user);
+
         ActivityField activityField = activityManager.getActivityById(reqDTO.getActivityId());
         post.setActivityField(activityField);
         activityField.getPosts().add(post);
         activityDAO.save(activityField);
+
         Education education = educationManager.getEducationById(reqDTO.getEducationId());
         post.setEducation(education);
         education.getPosts().add(post);
