@@ -43,3 +43,16 @@
     background-color: $primary;
     color: $white;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.test {
+    display: flex;
+    flex-wrap: wrap;
+
+    &:nth-child(even) {
+        margin: auto;
+    }
+}

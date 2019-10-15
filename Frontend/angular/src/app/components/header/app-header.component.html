@@ -2,23 +2,26 @@
     <div class="nav-spacer"></div>
     <ul class="nav nav-pills">
         <li class="nav-item mr-auto">
-            <img [src]="'assets/images/logo.png'" alt="logo" />
+            <img [src]="'assets/images/logo.png'" alt="logo" class="cursor-pointer" [routerLink]="'/'" />
         </li>
         <li class="nav-item">
-            <a class="nav-link active" [routerLink]="['/']">{{ 'menu.announces' | translate }}</a>
+            <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'posts']">{{ 'menu.announces' | translate }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">{{ 'menu.my_added' | translate }}</a>
+            <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'my-posts']">{{ 'menu.my_added' | translate }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">{{ 'menu.favorites' | translate }} <sup class="superscript-number">1</sup></a>
+            <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'favorites']">{{ 'menu.favorites' | translate }} <sup class="superscript-number">1</sup></a>
         </li>
         <li class="nav-item ml-auto">
-            <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+            <div *ngIf="!isAuthenticated()">
+                <button class="btn btn-info" (click)="authenticate()">Login</button>
+            </div>
+            <div ngbDropdown class="d-inline-block" *ngIf="isAuthenticated()">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-user"></i> My Profile</button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                     <button ngbDropdownItem><i class="fa fa-calendar"></i></button>
-                    <button ngbDropdownItem>Another Action</button>
+                    <button ngbDropdownItem (click)="logout()">Logout</button>
                     <button ngbDropdownItem>Something else is here</button>
                 </div>
             </div>

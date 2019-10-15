@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '@services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
     styleUrls: ['./app-header.component.scss']
 })
 export class AppHeaderComponent {
-    title = 'angular';
+
+    authenticate() {
+        AuthService.setAuthenticated(true);
+    }
+
+    isAuthenticated() {
+        return AuthService.getAuthenticated();
+    }
+
+    logout() {
+        AuthService.setAuthenticated(false);
+    }
 }
