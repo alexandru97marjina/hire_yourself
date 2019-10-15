@@ -1,0 +1,8 @@
+<nav class="three-nav">
+    <div *ngFor="let post of postsList">
+        <img src="{{post.image_path}}">
+        <div><b>{{post.title}}</b></div>
+        <div>{{post.description}}</div>
+        <div><div class="col-md-8">{{post.start_date}}</div><div class="col-md-8">{{post.job_location}}</div></div>
+    </div>
+</nav>
