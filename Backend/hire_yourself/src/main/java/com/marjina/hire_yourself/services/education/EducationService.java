@@ -1,15 +1,12 @@
-package com.marjina.hire_yourself.services.education.manager;
+package com.marjina.hire_yourself.services.education;
 
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
-import com.marjina.hire_yourself.common.persistence.models.Education;
 import com.marjina.hire_yourself.services.education.dto.EducationReqDTO;
 import com.marjina.hire_yourself.services.education.dto.EducationResDTO;
 
 import java.util.List;
 
-public interface EducationManager {
-
-    Education getEducationById(Integer id) throws NotFoundException;
+public interface EducationService {
 
     void createEducation(EducationReqDTO reqDTO);
 
@@ -17,5 +14,8 @@ public interface EducationManager {
 
     void deleteEducation(Integer educationId);
 
-    List<EducationResDTO> getEducationList();
+    EducationResDTO getEducationById(Integer educationId) throws NotFoundException;
+
+    List<EducationResDTO> getListOfEducations();
+
 }

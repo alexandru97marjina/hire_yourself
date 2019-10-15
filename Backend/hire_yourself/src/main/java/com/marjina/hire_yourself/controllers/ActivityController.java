@@ -3,8 +3,8 @@ package com.marjina.hire_yourself.controllers;
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
 import com.marjina.hire_yourself.common.response.ErrorDTO;
 import com.marjina.hire_yourself.common.response.ResponseDTO;
-import com.marjina.hire_yourself.services.user.UserService;
-import com.marjina.hire_yourself.services.user.dto.UserReqDTO;
+import com.marjina.hire_yourself.services.activity.ActivityService;
+import com.marjina.hire_yourself.services.activity.dto.ActivityReqDTO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -13,121 +13,118 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-
 import static com.marjina.hire_yourself.common.util.consts.GlobalConst.*;
 import static java.util.Collections.emptyList;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api/activity")
+public class ActivityController {
 
     @Autowired
-    private UserService service;
+    private ActivityService service;
 
     /**
-     * Create a user
+     * Create a activity
      *
-     * @param reqDTO UserReqDto
+     * @param reqDTO ActivityReqDTO
      * @return ResponseEntity
      */
-    @ApiOperation(value = "Create a user")
+    @ApiOperation(value = "Create a activity field")
     @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
             @ApiResponse(code = 400, message = "Validation not passed", response = ErrorDTO.class),
             @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
-            @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
+            @ApiResponse(code = 404, message = "Activity not found", response = NotFoundException.class)
     })
     @PostMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDTO> createUser(@RequestBody UserReqDTO reqDTO) throws NotFoundException, ParseException {
-        service.createUser(reqDTO);
+    public ResponseEntity<ResponseDTO> createActivity(@RequestBody ActivityReqDTO reqDTO) throws NotFoundException {
+        service.createActivity(reqDTO);
 
-        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful user create", emptyList()));
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful activity create", emptyList()));
     }
 
     /**
-     * Update a user
+     * Update a activity
      *
-     * @param reqDTO UserReqDto
-     * @param userId User ID
+     * @param reqDTO     ActivityReqDTO
+     * @param activityId Activity Id
      * @return ResponseEntity
      */
-    @ApiOperation(value = "Update a user")
+    @ApiOperation(value = "Update a activity field")
     @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
             @ApiResponse(code = 400, message = "Validation not passed", response = ErrorDTO.class),
             @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
-            @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
+            @ApiResponse(code = 404, message = "Activity not found", response = NotFoundException.class)
     })
-    @PutMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDTO> updateUser(
-            @PathVariable Integer userId,
-            @RequestBody UserReqDTO reqDTO) throws NotFoundException, ParseException {
-        service.updateUser(userId, reqDTO);
+    @PutMapping(value = "/{activityId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDTO> updateActivity(
+            @PathVariable Integer activityId, @RequestBody ActivityReqDTO reqDTO) throws NotFoundException {
+        service.updateActivity(activityId, reqDTO);
 
-        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful user update", emptyList()));
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful activity update", emptyList()));
     }
 
     /**
-     * Get user by Id
+     * Get a activity by id
      *
-     * @param userId User ID
+     * @param activityId Activity Id
      * @return ResponseEntity
      */
-    @ApiOperation(value = "Get a user")
+    @ApiOperation(value = "Update a activity field")
     @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
             @ApiResponse(code = 400, message = "Validation not passed", response = ErrorDTO.class),
             @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
-            @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
+            @ApiResponse(code = 404, message = "Activity not found", response = NotFoundException.class)
     })
-    @GetMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDTO> getUserById(@PathVariable Integer userId) throws NotFoundException {
-        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, service.getUser(userId), "Successful user request", emptyList()));
+    @GetMapping(value = "/{activityId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDTO> getActivityById(@PathVariable Integer activityId) throws NotFoundException {
+
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, service.getActivityById(activityId), "Successful activity request", emptyList()));
     }
 
     /**
-     * Get all users
+     * Delete a activity by id
      *
+     * @param activityId Activity Id
      * @return ResponseEntity
      */
-    @ApiOperation(value = "Get all users")
+    @ApiOperation(value = "Delete a activity field")
     @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
             @ApiResponse(code = 400, message = "Validation not passed", response = ErrorDTO.class),
             @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
-            @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
+            @ApiResponse(code = 404, message = "Activity not found", response = NotFoundException.class)
+    })
+    @DeleteMapping(value = "/{activityId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDTO> deleteActivityById(@PathVariable Integer activityId) throws NotFoundException {
+        service.deleteActivity(activityId);
+
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful activity delete", emptyList()));
+    }
+
+    /**
+     * Get a list of activity
+     *
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "Get a list of activity")
+    @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
+            @ApiResponse(code = 400, message = "Validation not passed", response = ErrorDTO.class),
+            @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
+            @ApiResponse(code = 404, message = "Activity not found", response = NotFoundException.class)
     })
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDTO> getAllUsers() throws NotFoundException {
-        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, service.getAllUsers(),
-                "Successful user list request", emptyList()));
-    }
-
-    /**
-     * Delete user by Id
-     *
-     * @param userId User ID
-     * @return ResponseEntity
-     */
-    @ApiOperation(value = "Delete a user")
-    @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
-            @ApiResponse(code = 400, message = "Validation not passed", response = ErrorDTO.class),
-            @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
-            @ApiResponse(code = 404, message = "User not found", response = NotFoundException.class)
-    })
-    @DeleteMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDTO> deleteUserById(@PathVariable Integer userId) throws NotFoundException {
-        service.deleteUser(userId);
-
-        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, null, "Successful deleted user", emptyList()));
+    public ResponseEntity<ResponseDTO> getListOfActivity() throws NotFoundException {
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, service.getActivityList(), "Successful activity list request", emptyList()));
     }
 
 }

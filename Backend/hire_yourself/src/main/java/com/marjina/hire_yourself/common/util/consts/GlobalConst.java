@@ -25,8 +25,11 @@ public class GlobalConst {
     public static final String CONTENT_TYPE_HEADER = "Content-Type";
     public static final String SOMETHING_WRONG = "Something went wrong";
     public static final String USER_NOT_FOUND = "USER_NOT_FOUND";
+    public static final String POST_NOT_FOUND = "POST_NOT_FOUND";
     public static final String EDUCATION_NOT_FOUND = "EDUCATION_NOT_FOUND";
     public static final String ACTIVITY_FIELD_NOT_FOUND = "ACTIVITY_FIELD_NOT_FOUND";
     public static final String DUPLICATE_EMAIL_EXISTS = "This email already exists";
+    public static final String FULL_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String HALF_DATE_TIME_FORMAT = "yyyy-MM-dd h:mm:ss a";
 
 }

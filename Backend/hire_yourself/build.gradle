@@ -43,6 +43,7 @@ dependencies {
     compile 'joda-time:joda-time:2.10.4'
     compileOnly 'org.projectlombok:lombok'
     compile group: 'org.json', name: 'json', version: '20190722'
+    compile group: 'javax.interceptor', name: 'javax.interceptor-api', version: '1.2.2'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 //    runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

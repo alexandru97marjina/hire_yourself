@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -54,7 +52,7 @@ public class User implements Serializable {
     @Column(name = "cv_path")
     private String cvPath;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "user")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private UserRole userRole;
 
     @ManyToOne(fetch = LAZY)
@@ -87,7 +85,6 @@ public class User implements Serializable {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "post_id")}
     )
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<Post> favoritePosts;
 

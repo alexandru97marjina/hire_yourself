@@ -15,7 +15,7 @@ public class MainConfig {
     /**
      * Secret key used for security purposes
      */
-    @Value("${authentication.secret:marjina}")
+    @Value("${authentication.secret:hitProj}")
     private String secret;
 
     /**
