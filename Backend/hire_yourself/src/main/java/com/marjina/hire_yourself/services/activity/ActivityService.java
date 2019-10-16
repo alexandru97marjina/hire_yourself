@@ -1,6 +1,7 @@
 package com.marjina.hire_yourself.services.activity;
 
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
+import com.marjina.hire_yourself.services.activity.dto.ActivityNameResDTO;
 import com.marjina.hire_yourself.services.activity.dto.ActivityReqDTO;
 import com.marjina.hire_yourself.services.activity.dto.ActivityResDTO;
 
@@ -17,4 +18,7 @@ public interface ActivityService {
     void deleteActivity(Integer activityId);
 
     List<ActivityResDTO> getActivityList();
+
+    List<ActivityNameResDTO> getActivityNameList();
+
 }

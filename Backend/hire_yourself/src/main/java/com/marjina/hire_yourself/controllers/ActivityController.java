@@ -127,4 +127,22 @@ public class ActivityController {
         return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, service.getActivityList(), "Successful activity list request", emptyList()));
     }
 
+    /**
+     * Get a list of activity
+     *
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "Get a list of activity")
+    @ApiImplicitParam(name = TOKEN, value = TOKEN_DESC, paramType = HEADER_FIELD, required = true, dataType = STRING_FIELD)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success response", response = ResponseDTO.class),
+            @ApiResponse(code = 400, message = "Validation not passed", response = ErrorDTO.class),
+            @ApiResponse(code = 403, message = "Incorrect bearer token", response = ErrorDTO.class),
+            @ApiResponse(code = 404, message = "Activity not found", response = NotFoundException.class)
+    })
+    @GetMapping(value = "/names", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDTO> getListOfActivityNames() throws NotFoundException {
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, service.getActivityNameList(), "Successful activity list request", emptyList()));
+    }
+
 }

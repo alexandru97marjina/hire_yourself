@@ -1,6 +1,7 @@
 package com.marjina.hire_yourself.services.activity;
 
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
+import com.marjina.hire_yourself.services.activity.dto.ActivityNameResDTO;
 import com.marjina.hire_yourself.services.activity.dto.ActivityReqDTO;
 import com.marjina.hire_yourself.services.activity.dto.ActivityResDTO;
 import com.marjina.hire_yourself.services.activity.manager.ActivityManager;
@@ -38,6 +39,11 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<ActivityResDTO> getActivityList() {
         return manager.getActivityList();
+    }
+
+    @Override
+    public List<ActivityNameResDTO> getActivityNameList() {
+        return manager.getActivityNameList();
     }
 
 }

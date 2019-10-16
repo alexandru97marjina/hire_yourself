@@ -2,6 +2,7 @@ package com.marjina.hire_yourself.services.activity.manager;
 
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
 import com.marjina.hire_yourself.common.persistence.models.ActivityField;
+import com.marjina.hire_yourself.services.activity.dto.ActivityNameResDTO;
 import com.marjina.hire_yourself.services.activity.dto.ActivityReqDTO;
 import com.marjina.hire_yourself.services.activity.dto.ActivityResDTO;
 
@@ -20,5 +21,7 @@ public interface ActivityManager {
     void deleteActivity(Integer activityId);
 
     List<ActivityResDTO> getActivityList();
+
+    List<ActivityNameResDTO> getActivityNameList();
 
 }

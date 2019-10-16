@@ -14,6 +14,7 @@ import java.util.Date;
 public class PostResDTO implements Serializable {
 
     private Integer id;
+    private Integer userId;
     private String title;
     private String description;
     private String imagePath;
@@ -33,6 +34,7 @@ public class PostResDTO implements Serializable {
 
     public PostResDTO(Post post) {
         this.id = post.getId();
+        this.userId = post.getUser().getId();
         this.title = post.getTitle();
         this.description = post.getDescription();
         this.imagePath = post.getImagePath();

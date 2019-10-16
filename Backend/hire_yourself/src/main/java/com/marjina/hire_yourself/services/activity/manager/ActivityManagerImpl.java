@@ -3,12 +3,14 @@ package com.marjina.hire_yourself.services.activity.manager;
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
 import com.marjina.hire_yourself.common.persistence.models.ActivityField;
 import com.marjina.hire_yourself.common.persistence.repository.ActivityRepository;
+import com.marjina.hire_yourself.services.activity.dto.ActivityNameResDTO;
 import com.marjina.hire_yourself.services.activity.dto.ActivityReqDTO;
 import com.marjina.hire_yourself.services.activity.dto.ActivityResDTO;
 import com.marjina.hire_yourself.services.activity.helper.ActivityMapHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 import static com.marjina.hire_yourself.common.util.consts.GlobalConst.ACTIVITY_FIELD_NOT_FOUND;
 
 @Component
+@Transactional
 public class ActivityManagerImpl implements ActivityManager {
 
     @Autowired
@@ -64,6 +67,15 @@ public class ActivityManagerImpl implements ActivityManager {
         return activityFields.stream()
                 .map(activityField -> helper.mapActivityToActivityResDTO(activityField))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ActivityNameResDTO> getActivityNameList() {
+        List<ActivityField> activityFields = activityDAO.findAll();
+
+        return activityFields != null ? activityFields.stream()
+                .map(ActivityNameResDTO::new)
+                .collect(Collectors.toList()) : new ArrayList<>();
     }
 
 }
