@@ -13,6 +13,7 @@ import { PostComponent } from '@components/post/post.component';
 import { IsAuthenticatedGuard } from '@app/guards/isAuthenticated.guard';
 import { MyPostsComponent } from '@app/pages/my-posts/my-posts.component';
 import { FavoritesPostsComponent } from '@app/pages/favorites-posts/favorites-posts.component';
+import { LengthPipe } from '@app/pipes/length.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -26,6 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         PostComponent,
         MyPostsComponent,
         FavoritesPostsComponent,
+        LengthPipe,
     ],
     imports: [
         BrowserModule,

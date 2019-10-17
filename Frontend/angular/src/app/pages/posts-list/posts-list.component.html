@@ -1,8 +1,5 @@
 <div class="container">
     <div class="flex-wrap d-flex">
-        <div class="test"  *ngFor="let i of numbers">
-            <app-post></app-post>
-        </div>
-
+        <app-post *ngFor="let post of POSTS" [post]="post"></app-post>
     </div>
 </div>

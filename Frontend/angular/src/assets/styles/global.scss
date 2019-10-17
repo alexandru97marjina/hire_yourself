@@ -48,11 +48,12 @@
     cursor: pointer;
 }
 
-.test {
-    display: flex;
-    flex-wrap: wrap;
+.post-info {
+    span {
+        margin: 5px;
 
-    &:nth-child(even) {
-        margin: auto;
+        i {
+            margin: 0 5px;
+        }
     }
 }
