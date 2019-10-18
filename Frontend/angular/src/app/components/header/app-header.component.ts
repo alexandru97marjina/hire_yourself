@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '@services/auth.service';
+import { AuthHelper } from '@helpers/auth.helper';
 
 @Component({
     selector: 'app-header',
@@ -9,14 +10,14 @@ import { AuthService } from '@services/auth.service';
 export class AppHeaderComponent {
 
     authenticate() {
-        AuthService.setAuthenticated(true);
+        AuthHelper.setAuthenticated(true);
     }
 
     isAuthenticated() {
-        return AuthService.getAuthenticated();
+        return AuthHelper.getAuthenticated();
     }
 
     logout() {
-        AuthService.setAuthenticated(false);
+        AuthHelper.setAuthenticated(false);
     }
 }

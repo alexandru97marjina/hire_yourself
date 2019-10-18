@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="flex-wrap d-flex">
-        <app-post *ngFor="let post of POSTS" [post]="post"></app-post>
+    <div class="flex-row d-flex post-collection">
+        <app-post *ngFor="let post of posts$|async" [post]="post"></app-post>
     </div>
 </div>
