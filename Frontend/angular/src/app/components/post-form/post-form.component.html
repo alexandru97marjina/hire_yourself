@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="onCrossClick()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form">
+        <div class="form-row">
+            <div class="col-md-4">
+                <label for="validationServer01">Title</label>
+            </div>
+            <div class="col-md-8">
+                <input
+                    formControlName="title"
+                    type="text"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('title')}"
+                    id="validationServer01"
+                    placeholder="First name">
+                <div class="valid-feedback" *ngIf="isSubmittedAndValid('title')">
+                    Looks good!
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="onFormSubmit()">Submit form</button>
+</div>

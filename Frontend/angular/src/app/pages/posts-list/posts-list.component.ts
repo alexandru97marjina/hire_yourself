@@ -3,6 +3,7 @@ import { PostService } from '@services/post.service';
 import { ReplaySubject, Subject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { ResponseInterface } from '@interfaces/response.interface';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-posts-list',
@@ -20,6 +21,7 @@ export class PostsListComponent implements OnInit {
 
     constructor(
         protected postService: PostService,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -27,16 +29,7 @@ export class PostsListComponent implements OnInit {
         this.postsObserver.next('');
     }
 
-    // numbers = [1, 1, 1, 1, 1, 1, 1, 1, ];
-    // public POSTS: Post[] = [
-    //     {
-    //         id: 0,
-    //         title: 'test1',
-    //         imagePath: 'https://picsum.photos/286/180',
-    //         description: 'A developer position of 5E/hour.',
-    //         jobLocation: 'Chisinau',
-    //         dateCreated: '10/10/2019',
-    //         activityId: 'IT'
-    //     },
-    // ];
+    openVerticallyCentered(content) {
+        this.modalService.open(content, { centered: true });
+    }
 }

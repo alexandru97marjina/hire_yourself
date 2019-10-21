@@ -1,4 +1,5 @@
 import { EntityInterface } from './entity.interface';
+import { Validators } from '@angular/forms';
 
 export interface PostInterface extends EntityInterface {
     title: string;

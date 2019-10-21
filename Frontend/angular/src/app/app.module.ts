@@ -14,6 +14,8 @@ import { IsAuthenticatedGuard } from '@app/guards/isAuthenticated.guard';
 import { MyPostsComponent } from '@app/pages/my-posts/my-posts.component';
 import { FavoritesPostsComponent } from '@app/pages/favorites-posts/favorites-posts.component';
 import { LengthPipe } from '@app/pipes/length.pipe';
+import { PostFormComponent } from '@components/post-form/post-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -25,6 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AppHeaderComponent,
         PostsListComponent,
         PostComponent,
+        PostFormComponent,
         MyPostsComponent,
         FavoritesPostsComponent,
         LengthPipe,
@@ -41,7 +44,8 @@ export function HttpLoaderFactory(http: HttpClient) {
                 useFactory: (HttpLoaderFactory),
                 deps: [HttpClient]
             }
-        })
+        }),
+        ReactiveFormsModule
     ],
     providers: [
         HttpClient,
