@@ -1,7 +1,14 @@
 @import "variables";
 
 .nav-spacer {
-    margin-top: 100px;
+    margin-top: 25px;
+}
+
+.nav-container {
+    -webkit-box-shadow: 0 15px 15px -10px transparentize($gray, .75);
+    -moz-box-shadow: 0 15px 15px -10px transparentize($gray, .75);
+    box-shadow: 0 15px 15px -10px transparentize($gray, .75);
+    width: 100%;
 }
 
 .nav-link {
@@ -60,4 +67,66 @@
 
 .post-collection {
     justify-content: center;
+}
+
+.modal-form {
+    margin: 10px auto;
+
+    .col-md-4 {
+        display: flex;
+
+        label {
+            margin: auto 0;
+            font-weight: bold;
+        }
+    }
+}
+
+.salary-input {
+    display: inline-block;
+    width: 100px;
+    margin: 8px;
+    text-align: center;
+
+    input[type="number"] {
+        width: inherit;
+    }
+
+    label {
+        text-align: center;
+        color: $dark-primary;
+        font-size: 12px;
+        font-weight: bolder;
+    }
+}
+
+.btn-icon {
+    cursor: pointer;
+}
+
+.border-raw {
+    border: 2px solid black;
+
+    input {
+        border: none;
+
+        &:active, &:hover, &:focus {
+            border: none;
+            box-shadow: none;
+        }
+    }
+}
+
+.w-95 {
+    width: 95% !important;
+}
+
+.no-borders {
+    border: none !important;
+    box-shadow: none !important;
+
+    &:active, &:hover, &:focus {
+        border: none !important;
+        box-shadow: none !important;
+    }
 }

@@ -2,8 +2,8 @@ import { UserInterface } from '@interfaces/user.interface';
 
 export class AuthHelper {
 
-    public static getMe() {
-        return JSON.parse(localStorage.getItem('me'));
+    public static getMe(): UserInterface {
+        return localStorage.getItem('me') ? (JSON.parse(localStorage.getItem('me')) as UserInterface) : null;
     }
 
     public static setMe(user: UserInterface) {

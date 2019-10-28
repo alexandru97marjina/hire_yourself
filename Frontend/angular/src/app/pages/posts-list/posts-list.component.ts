@@ -4,6 +4,7 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { ResponseInterface } from '@interfaces/response.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-posts-list',
@@ -19,14 +20,20 @@ export class PostsListComponent implements OnInit {
         tap(console.log)
     );
 
+    searchForm: FormGroup;
+
     constructor(
-        protected postService: PostService,
+        private postService: PostService,
         private modalService: NgbModal,
+        private fb: FormBuilder,
     ) {
     }
 
     ngOnInit() {
         this.postsObserver.next('');
+        this.searchForm = this.fb.group({
+            search: this.fb.control(null, []),
+        });
     }
 
     openVerticallyCentered(content) {

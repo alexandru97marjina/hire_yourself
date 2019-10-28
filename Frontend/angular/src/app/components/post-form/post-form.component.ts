@@ -32,16 +32,20 @@ export class PostFormComponent implements OnInit {
             jobLocation: this.fb.control(null, [Validators.required]),
             salaryMin: this.fb.control(null, [Validators.required]),
             salaryMax: this.fb.control(null, []),
-            minExperience: this.fb.control(null, [Validators.required]),
             email: this.fb.control(null, [Validators.required]),
             description: this.fb.control(null, []),
             education: this.fb.control(null, []),
-            domain: this.fb.control(null, []),
+            domain: this.fb.control(null, [Validators.required]),
+            image: this.fb.control(null, []),
         });
     }
 
     isSubmittedAndValid(control: string) {
-        return this.submitted && this.form.get(control) && this.form.get(control).valid;
+        return this.submitted && this.form.get(control) && this.form.get(control).valid && this.form.get(control).value;
+    }
+
+    isSubmittedAndInvalid(control: string) {
+        return this.submitted && this.form.get(control) && this.form.get(control).invalid;
     }
 
     onCrossClick() {
@@ -50,6 +54,7 @@ export class PostFormComponent implements OnInit {
 
     onFormSubmit() {
         this.submitted = true;
+        console.log(this.form.value);
         if (this.form.valid) {
             this.formSubmit.emit(true);
         }

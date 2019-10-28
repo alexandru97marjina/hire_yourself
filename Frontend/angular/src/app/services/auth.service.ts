@@ -16,7 +16,6 @@ export class AuthService {
     constructor(private httpService: HttpService) {
     }
 
-
     public login({ email, password }) {
         return this.httpService.post('/login_check', { email, password }).pipe(
             tap((data: UserInterface) => {
