@@ -1,11 +1,28 @@
 <div class="card" style="width: 18rem;">
-    <img class="card-img-top" [src]="'assets/images/' + post.imagePath" [alt]="post.title"/>
+    <img class="card-img-top" [src]="'assets/images/no_image.png'" [alt]="post.title" />
+    <!--    <img class="card-img-top" [src]="post.imagePath" [alt]="post.title"/>-->
     <div class="card-body">
-        <h5 class="card-title">{{post.title | length: 30}}</h5>
-        <p class="card-text">{{post.description | length: 100}}</p>
+        <h5 class="card-title">
+            {{post.title | length: 20}}
+            <span class="action-icons">
+                <i class="fa fa-pencil" *ngIf="post.userId === me"></i>
+                <i class="fa fa-trash" *ngIf="post.userId === me"></i>
+            </span>
+        </h5>
+        <p class="card-text">
+            {{post.description | length: 100}}
+        </p>
+    </div>
+    <div class="card-footer">
         <div class="post-info">
-            <span *ngIf="post.jobLocation"><i class="fa fa-map-marker"></i>{{post.jobLocation}}</span>
-            <span *ngIf="post.dateCreated"><i class="fa fa-calendar"></i>{{post.dateCreated | date: 'yyyy-MM-dd'}}</span>
+            <span *ngIf="post.jobLocation">
+                <i class="fa fa-map-marker"></i>
+                {{post.jobLocation}}
+            </span>
+            <span *ngIf="post.dateCreated">
+                <i class="fa fa-calendar"></i>
+                {{post.dateCreated | date: 'yyyy-MM-dd'}}
+            </span>
         </div>
     </div>
 </div>
