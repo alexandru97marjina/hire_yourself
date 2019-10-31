@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthHelper } from '@helpers/auth.helper';
 
 @Component({
     selector: 'app-root',
@@ -13,5 +14,9 @@ export class AppComponent {
         translate.setDefaultLang('en');
 
         translate.use('en');
+    }
+
+    isAuthenticated() {
+        return AuthHelper.getAuthenticated();
     }
 }

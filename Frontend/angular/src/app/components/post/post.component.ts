@@ -8,4 +8,5 @@ import { PostInterface } from '@interfaces/post.interface';
 })
 export class PostComponent {
     @Input() post: PostInterface;
+    @Input() me: number;
 }

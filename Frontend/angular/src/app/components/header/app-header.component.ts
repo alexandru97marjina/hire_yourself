@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthHelper } from '@helpers/auth.helper';
 import { UserInterface } from '@interfaces/user.interface';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -10,6 +11,9 @@ import { UserInterface } from '@interfaces/user.interface';
 export class AppHeaderComponent implements OnInit {
 
     public user: UserInterface = null;
+
+    constructor(private router: Router) {
+    }
 
     ngOnInit(): void {
         this.user = AuthHelper.getMe();
@@ -33,7 +37,9 @@ export class AppHeaderComponent implements OnInit {
     }
 
     logout() {
-        AuthHelper.setAuthenticated(false);
-        AuthHelper.setMe(null);
+        this.router.navigate(['/public']).then(() => {
+            AuthHelper.setAuthenticated(false);
+            AuthHelper.setMe(null);
+        });
     }
 }
