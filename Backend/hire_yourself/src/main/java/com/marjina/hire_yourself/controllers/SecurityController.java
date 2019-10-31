@@ -2,10 +2,12 @@ package com.marjina.hire_yourself.controllers;
 
 import com.marjina.hire_yourself.common.helper.exception.AppException;
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
+import com.marjina.hire_yourself.common.persistence.models.User;
 import com.marjina.hire_yourself.common.response.ErrorDTO;
 import com.marjina.hire_yourself.common.response.ResponseDTO;
 import com.marjina.hire_yourself.services.security.SecurityService;
 import com.marjina.hire_yourself.services.security.dto.SecurityReqDTO;
+import com.marjina.hire_yourself.services.user.dto.UserResDTO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -64,13 +66,13 @@ public class SecurityController {
     })
     @PostMapping(value = "/users/log", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> login(@RequestBody SecurityReqDTO securityReqDTO) throws AppException, NotFoundException {
-        Boolean logged = service.login(securityReqDTO);
+        UserResDTO user = service.login(securityReqDTO);
 
-        if(!logged){
-            return ResponseEntity.ok(new ResponseDTO<>(ERROR_STATUS, false, "Wrong password or email", emptyList()));
+        if(user == null){
+            return ResponseEntity.ok(new ResponseDTO<>(ERROR_STATUS, null, "Wrong password or email", emptyList()));
         }
 
-        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, true, "Successful login!", emptyList()));
+        return ResponseEntity.ok(new ResponseDTO<>(SUCCESS, user, "Successful login!", emptyList()));
     }
 
     /**

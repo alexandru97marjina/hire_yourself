@@ -2,7 +2,6 @@ package com.marjina.hire_yourself.services.post.manager;
 
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
 import com.marjina.hire_yourself.common.persistence.models.Post;
-import com.marjina.hire_yourself.common.persistence.models.User;
 import com.marjina.hire_yourself.services.post.dto.PostReqDTO;
 import com.marjina.hire_yourself.services.post.dto.PostResDTO;
 
@@ -23,5 +22,5 @@ public interface PostManager {
 
     List<PostResDTO> getListOfPosts();
 
-    List<PostResDTO> getListOfFavoritePosts(User user);
+    List<PostResDTO> getListOfFavoritePosts(Integer userId);
 }

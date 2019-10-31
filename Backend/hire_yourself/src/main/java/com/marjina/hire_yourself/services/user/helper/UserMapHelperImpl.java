@@ -11,15 +11,15 @@ import com.marjina.hire_yourself.services.activity.manager.ActivityManager;
 import com.marjina.hire_yourself.services.education.dto.EducationResDTO;
 import com.marjina.hire_yourself.services.education.manager.EducationManager;
 import com.marjina.hire_yourself.services.experience.manager.ExperienceManager;
-import com.marjina.hire_yourself.services.post.dto.PostResDTO;
+import com.marjina.hire_yourself.services.favorites.manager.FavoritesManager;
 import com.marjina.hire_yourself.services.post.manager.PostManager;
 import com.marjina.hire_yourself.services.user.dto.UserReqDTO;
 import com.marjina.hire_yourself.services.user.dto.UserResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
-import java.util.stream.Collectors;
 
 @Component
 public class UserMapHelperImpl implements UserMapHelper {
@@ -44,6 +44,9 @@ public class UserMapHelperImpl implements UserMapHelper {
 
     @Autowired
     private PostManager postManager;
+
+    @Autowired
+    private FavoritesManager favoritesManager;
 
     @Override
     public void mapUserReqDTOToUser(User user, UserReqDTO reqDTO) throws NotFoundException, ParseException {
@@ -77,6 +80,7 @@ public class UserMapHelperImpl implements UserMapHelper {
     }
 
     @Override
+    @Transactional
     public UserResDTO mapUserToUserResDTO(User user) {
         UserResDTO userResDTO = new UserResDTO();
         userResDTO.setId(user.getId());
@@ -87,17 +91,14 @@ public class UserMapHelperImpl implements UserMapHelper {
         userResDTO.setAddress(user.getAddress());
         userResDTO.setPhone(user.getPhoneNumber());
         userResDTO.setCvPath(user.getCvPath());
-        userResDTO.setActivityField(user.getActivityField().getActivityName());
+        userResDTO.setActivityField(user.getActivityField() != null? user.getActivityField().getActivityName() : null);
         userResDTO.setActive(user.getActive());
         userResDTO.setPostLimit(user.getPostLimit());
         userResDTO.setGraduationYear(user.getGraduationYear());
-        userResDTO.setEducation(new EducationResDTO(user.getEducation()));
+        userResDTO.setEducation(user.getEducation() != null ? new EducationResDTO(user.getEducation()) : null);
         userResDTO.setExperience(experienceManager.getExperienceResDTOs(user.getId()));
         userResDTO.setPosts(postManager.getListOfPostResDTObyUser(user.getId()));
-        userResDTO.setFavoritePosts(user.getFavoritePosts()
-                .stream()
-                .map(PostResDTO::new)
-                .collect(Collectors.toList()));
+        userResDTO.setFavoritePosts(postManager.getListOfFavoritePosts(user.getId()));
 
         return userResDTO;
     }

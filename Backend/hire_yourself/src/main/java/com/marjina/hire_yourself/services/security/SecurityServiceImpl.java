@@ -6,6 +6,8 @@ import com.marjina.hire_yourself.common.helper.mail.EMailSender;
 import com.marjina.hire_yourself.common.persistence.models.User;
 import com.marjina.hire_yourself.services.security.dto.SecurityReqDTO;
 import com.marjina.hire_yourself.services.security.manager.SecurityManager;
+import com.marjina.hire_yourself.services.user.dto.UserResDTO;
+import com.marjina.hire_yourself.services.user.helper.UserMapHelper;
 import com.marjina.hire_yourself.services.user.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ SecurityServiceImpl implements SecurityService {
 
     @Autowired
     private UserManager userManager;
+
+    @Autowired
+    private UserMapHelper userMapHelper;
 
     @Autowired
     private SecurityManager manager;
@@ -42,10 +47,10 @@ SecurityServiceImpl implements SecurityService {
      * @throws NotFoundException in case of not found user
      */
     @Override
-    public Boolean login(SecurityReqDTO securityReqDTO) throws NotFoundException {
+    public UserResDTO login(SecurityReqDTO securityReqDTO) throws NotFoundException {
         User user = userManager.getUserByEmail(securityReqDTO.getEmail());
 
-        return user.getPassword().equals(securityReqDTO.getPassword());
+        return user.getPassword().equals(securityReqDTO.getPassword()) ? userMapHelper.mapUserToUserResDTO(user) : null;
     }
 
     /**

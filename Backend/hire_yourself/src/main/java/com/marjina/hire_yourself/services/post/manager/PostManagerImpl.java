@@ -78,8 +78,8 @@ public class PostManagerImpl implements PostManager {
     }
 
     @Override
-    public List<PostResDTO> getListOfFavoritePosts(User user) {
-        List<Post> posts = postDAO.findAllByFavoriteUser(user).orElse(new ArrayList<>());
+    public List<PostResDTO> getListOfFavoritePosts(Integer userId) {
+        List<Post> posts = postDAO.findAllByFavoriteUser_Id(userId).orElse(new ArrayList<>());
 
         return posts.stream().map(PostResDTO::new).collect(Collectors.toList());
     }

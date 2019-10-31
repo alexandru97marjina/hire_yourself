@@ -83,6 +83,6 @@ public class FavoritesManagerImpl implements FavoritesManager {
     public List<PostResDTO> getUserFavorites(Integer userId) throws NotFoundException {
         User user = userManager.getUserById(userId);
 
-        return postManager.getListOfFavoritePosts(user);
+        return postManager.getListOfFavoritePosts(user.getId());
     }
 }
