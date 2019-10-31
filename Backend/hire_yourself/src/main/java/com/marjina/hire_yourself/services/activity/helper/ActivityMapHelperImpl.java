@@ -33,9 +33,9 @@ public class ActivityMapHelperImpl implements ActivityMapHelper {
         activityResDTO.setId(activityField.getId());
         activityResDTO.setActivityName(activityField.getActivityName());
         List<Post> postList = postDAO.findAllByActivityField_Id(activityField.getId()).orElse(new ArrayList<>());
-//        List<User> userList = userDAO.findAllByActivityField_Id(activityField.getId()).orElse(new ArrayList<>());
-//        activityResDTO.setUsers(userList.stream()
-//                .map(user -> userMapHelper.mapUserToUserResDTO(user)).collect(Collectors.toList()));
+        List<User> userList = userDAO.findAllByActivityField_Id(activityField.getId()).orElse(new ArrayList<>());
+        activityResDTO.setUsers(userList.stream()
+                .map(user -> userMapHelper.mapUserToUserResDTO(user)).collect(Collectors.toList()));
         activityResDTO.setPosts(postList.stream()
                 .map(PostResDTO::new).collect(Collectors.toList()));
 

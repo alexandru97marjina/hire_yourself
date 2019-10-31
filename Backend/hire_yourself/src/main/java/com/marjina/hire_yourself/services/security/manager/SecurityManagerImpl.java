@@ -34,14 +34,14 @@ public class SecurityManagerImpl implements SecurityManager {
     public void registerUser(SecurityReqDTO securityReqDTO) throws AppException {
         Optional<User> user = userDAO.findUserByEmail(securityReqDTO.getEmail());
 
-        if(user.isPresent()){
-            throw ExceptionUtil.newAppException(200,EMAIL_FIELD,DUPLICATE_EMAIL_EXISTS);
-        }else {
+        if (user.isPresent()) {
+            throw ExceptionUtil.newAppException(200, EMAIL_FIELD, DUPLICATE_EMAIL_EXISTS);
+        } else {
             User newUser = new User();
-             newUser.setEmail(securityReqDTO.getEmail());
-             newUser.setPassword(securityReqDTO.getPassword());
+            newUser.setEmail(securityReqDTO.getEmail());
+            newUser.setPassword(securityReqDTO.getPassword());
 
-             userDAO.save(newUser);
+            userDAO.save(newUser);
         }
     }
 
