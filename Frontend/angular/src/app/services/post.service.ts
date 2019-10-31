@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Api } from '@helpers/api.helper';
-import { Post } from '@interfaces/post';
+import { PostInterface } from '@interfaces/post.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -21,15 +21,15 @@ export class PostService {
         return this.httpService.get(this.postApi.getList);
     }
 
-    public updatePost(post: Post) {
+    public updatePost(post: PostInterface) {
         return this.httpService.put(this.postApi.update(post.id), post);
     }
 
-    public createPost(post: Post) {
+    public createPost(post: PostInterface) {
         return this.httpService.post(this.postApi.create, post);
     }
 
-    public deletePost(post: Post) {
+    public deletePost(post: PostInterface) {
         return this.httpService.delete(this.postApi.delete(post.id));
     }
 

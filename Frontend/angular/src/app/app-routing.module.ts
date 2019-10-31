@@ -1,12 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PostsListComponent } from '@app/pages/posts-list/posts-list.component';
+import { PostsListComponent } from '@app/pages/logged/posts-list/posts-list.component';
 import { IsAuthenticatedGuard } from '@app/guards/isAuthenticated.guard';
-import { MyPostsComponent } from '@app/pages/my-posts/my-posts.component';
-import { FavoritesPostsComponent } from '@app/pages/favorites-posts/favorites-posts.component';
+import { MyPostsComponent } from '@app/pages/logged/my-posts/my-posts.component';
+import { FavoritesPostsComponent } from '@app/pages/logged/favorites-posts/favorites-posts.component';
+import { LoginComponent } from '@app/pages/logged/login/login.component';
+import { PublicComponent } from '@app/pages/public/public.component';
 
 
 const routes: Routes = [
+    {
+        path: '',
+        component: PublicComponent,
+        canActivate: [IsAuthenticatedGuard]
+    },
+    {
+        path: 'public',
+        component: PublicComponent
+    },
     {
         path: 'posts',
         component: PostsListComponent,
@@ -21,6 +32,15 @@ const routes: Routes = [
         path: 'favorites',
         component: FavoritesPostsComponent,
         canActivate: [IsAuthenticatedGuard]
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: '**',
+        redirectTo: '/',
+        pathMatch: 'full'
     }
 ];
 

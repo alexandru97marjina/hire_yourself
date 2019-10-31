@@ -1,0 +1,124 @@
+<div class="modal-header">
+    <h4 class="modal-title" *ngIf="!post">Create add</h4>
+    <h4 class="modal-title" *ngIf="post">Edit add</h4>
+    <button type="button" class="close" aria-label="Close" (click)="onCrossClick()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form">
+        <div class="form-row modal-form">
+            <div class="col-md-4">
+                <label for="title">Title</label>
+            </div>
+            <div class="col-md-8">
+                <input
+                    formControlName="title"
+                    type="text"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('title'), 'is-invalid': isSubmittedAndInvalid('title')}"
+                    id="title"
+                    placeholder="Title"
+                />
+            </div>
+        </div>
+
+        <div class="form-row modal-form">
+            <div class="col-md-4">
+                <label for="domain">Domain</label>
+            </div>
+            <div class="col-md-8">
+                <input
+                    formControlName="domain"
+                    type="text"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('domain'), 'is-invalid': isSubmittedAndInvalid('domain')}"
+                    id="domain"
+                    placeholder="Domain"
+                />
+            </div>
+        </div>
+
+        <div class="form-row modal-form">
+            <div class="col-md-4">
+                <label for="jobLocation">Location</label>
+            </div>
+            <div class="col-md-8">
+                <input
+                    formControlName="jobLocation"
+                    type="text"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('jobLocation'), 'is-invalid': isSubmittedAndInvalid('jobLocation')}"
+                    id="jobLocation"
+                    placeholder="Job location"
+                />
+            </div>
+        </div>
+
+        <div class="form-row modal-form">
+            <div class="col-md-4">
+                <label>Salary</label>
+            </div>
+            <div class="col-md-8 justify-content-center">
+                <div class="salary-input">
+                    <label for="salaryMin">Min</label>
+                    <input
+                        type="number"
+                        id="salaryMin"
+                        [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('salaryMin'), 'is-invalid': isSubmittedAndInvalid('salaryMin')}"
+                        placeholder="..."
+                        formControlName="salaryMin"
+                    />
+                </div>
+                <div class="salary-input">
+                    <label for="salaryMax">Max</label>
+                    <input
+                        type="number"
+                        id="salaryMax"
+                        [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('salaryMax'), 'is-invalid': isSubmittedAndInvalid('salaryMax')}"
+                        placeholder="..."
+                        formControlName="salaryMax"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row modal-form">
+            <div class="col-md-4">
+                <label for="education">Education</label>
+            </div>
+            <div class="col-md-8">
+                <input
+                    formControlName="education"
+                    type="text"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('education'), 'is-invalid': isSubmittedAndInvalid('education')}"
+                    id="education"
+                    placeholder="Education"
+                />
+            </div>
+        </div>
+
+        <div class="form-row modal-form">
+            <div class="col-md-4">
+                <label for="description">Description</label>
+            </div>
+            <div class="col-md-8">
+                <textarea
+                    id="description"
+                    formControlName="description"
+                    rows="3"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('description'), 'is-invalid': isSubmittedAndInvalid('description')}"
+                ></textarea>
+            </div>
+        </div>
+
+        <div class="form-row modal-form">
+            <div class="col-md-4">
+                <label for="image">Image</label>
+            </div>
+            <div class="col-md-8">
+                <input type="file" (change)="test($event)" class="form-control-file" id="image" formControlName="image" />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="onFormSubmit()">Submit form</button>
+</div>

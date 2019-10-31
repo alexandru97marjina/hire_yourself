@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Api } from '@helpers/api.helper';
-import { User } from '@interfaces/user';
+import { UserInterface } from '@interfaces/user.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -21,15 +21,15 @@ export class UserService {
         return this.httpService.get(this.userApi.getList);
     }
 
-    public updateUser(user: User) {
+    public updateUser(user: UserInterface) {
         return this.httpService.put(this.userApi.update(user.id), user);
     }
 
-    public createUser(user: User) {
+    public createUser(user: UserInterface) {
         return this.httpService.post(this.userApi.create, user);
     }
 
-    public deleteUser(user: User) {
+    public deleteUser(user: UserInterface) {
         return this.httpService.delete(this.userApi.delete(user.id));
     }
 

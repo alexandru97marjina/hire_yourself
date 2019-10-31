@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="management-area">
+        <div class="w-75 border-raw d-inline-block">
+            <form [formGroup]="searchForm" class="form-inline active-pink-3 active-pink-4">
+                <input
+                    class="form-control form-control-sm mr-3 w-95"
+                    type="text"
+                    placeholder="Search"
+                    aria-label="Search"
+                    aria-describedby="searchBlock"
+                />
+                <i class="fa fa-search btn-icon" aria-hidden="true"></i>
+            </form>
+        </div>
+        <div class="d-inline-block w-25">
+            <button class="btn btn-outline-info w-75 m-3" >Filters</button>
+        </div>
+        <small id="searchBlock" class="form-text text-muted text-center w-75">
+            I do not say that I don't want to work. I say that I don't want to twerk.
+        </small>
+    </div>
+<!--    <div class="flex-row d-flex post-collection">-->
+<!--        <app-post *ngFor="let post of posts$|async" [post]="post"></app-post>-->
+<!--    </div>-->
+</div>

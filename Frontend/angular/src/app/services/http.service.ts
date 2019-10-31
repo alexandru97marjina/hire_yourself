@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { throwError } from 'rxjs';
-import { AuthService } from './auth.service';
+import { AuthHelper } from '@helpers/auth.helper';
 
 @Injectable({
     providedIn: 'root'
@@ -12,17 +12,18 @@ export class HttpService {
     constructor(private http: HttpClient) {
     }
 
-
     public get(apiEndPoint: string, checkAuthenticated = true) {
-        if (checkAuthenticated && !AuthService.getAuthenticated()) {
+        if (checkAuthenticated && !AuthHelper.getAuthenticated()) {
             return throwError('not authenticated');
         }
 
-        return this.http.get(environment.apiRoute + apiEndPoint);
+        const headers = (new HttpHeaders()).set('token', 'hitProj');
+
+        return this.http.get(environment.apiRoute + apiEndPoint, { headers });
     }
 
     public post(apiEndPoint: string, body: object, checkAuthenticated = true) {
-        if (checkAuthenticated && !AuthService.getAuthenticated()) {
+        if (checkAuthenticated && !AuthHelper.getAuthenticated()) {
             return throwError('not authenticated');
         }
 
@@ -30,7 +31,7 @@ export class HttpService {
     }
 
     public put(apiEndPoint: string, body: object, checkAuthenticated = true) {
-        if (checkAuthenticated && !AuthService.getAuthenticated()) {
+        if (checkAuthenticated && !AuthHelper.getAuthenticated()) {
             return throwError('not authenticated');
         }
 
@@ -38,7 +39,7 @@ export class HttpService {
     }
 
     public delete(apiEndPoint: string, checkAuthenticated = true) {
-        if (checkAuthenticated && !AuthService.getAuthenticated()) {
+        if (checkAuthenticated && !AuthHelper.getAuthenticated()) {
             return throwError('not authenticated');
         }
 

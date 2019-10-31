@@ -11,7 +11,7 @@ export const Api = {
         update: (id: number) => `/api/posts/${id}`,
         create: '/api/posts-list',
         delete: (id: number) => `/api/posts/${id}`,
-        getList: '/api/posts-list',
+        getList: '/api/posts',
         apply: (postId: number, userId: number) => `/api/apply/${postId}/${userId}`,
         accept: (postId: number, userId: number) => `/api/accept/${postId}/${userId}`,
         addToFavorite: (postId: number, userId: number) => `/api/favorites/${postId}/${userId}`,

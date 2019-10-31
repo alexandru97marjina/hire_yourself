@@ -1,30 +1,43 @@
-<div class="container">
-    <div class="nav-spacer"></div>
-    <ul class="nav nav-pills">
-        <li class="nav-item mr-auto">
-            <img [src]="'assets/images/logo.png'" alt="logo" class="cursor-pointer" [routerLink]="'/'" />
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'posts']">{{ 'menu.announces' | translate }}</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'my-posts']">{{ 'menu.my_added' | translate }}</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'favorites']">{{ 'menu.favorites' | translate }} <sup class="superscript-number">1</sup></a>
-        </li>
-        <li class="nav-item ml-auto">
-            <div *ngIf="!isAuthenticated()">
-                <button class="btn btn-info" (click)="authenticate()">Login</button>
-            </div>
-            <div ngbDropdown class="d-inline-block" *ngIf="isAuthenticated()">
-                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-user"></i> My Profile</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem><i class="fa fa-calendar"></i></button>
-                    <button ngbDropdownItem (click)="logout()">Logout</button>
-                    <button ngbDropdownItem>Something else is here</button>
+<div class="nav-container">
+    <div class="container">
+        <div class="nav-spacer"></div>
+        <ul class="nav nav-pills">
+            <li class="nav-item mr-auto">
+                <img [src]="'assets/images/logo.png'" alt="logo" class="cursor-pointer" [routerLink]="'/'" />
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'posts']">{{ 'menu.announces' | translate }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'my-posts']">{{ 'menu.my_added' | translate }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'favorites']">{{ 'menu.favorites' | translate }} <sup class="superscript-number">1</sup></a>
+            </li>
+            <li class="nav-item ml-auto">
+                <div *ngIf="!isAuthenticated()">
+                    <button class="btn btn-info" (click)="authenticate()">Login</button>
                 </div>
-            </div>
-        </li>
-    </ul>
+
+                <div class="d-inline-block m-auto" *ngIf="isAuthenticated()">
+                    <i class="fa fa-user d-inline-block"></i>
+                </div>
+
+                <div ngbDropdown class="d-inline-block" *ngIf="isAuthenticated()">
+                    <div class="d-flex flex-wrap" style="max-width: 150px;">
+                        <span style="margin: 2px;">{{user.first_name | length: 40}}</span>
+                        <span style="margin: 2px;">{{user.last_name | length: 40}}</span>
+                    </div>
+
+                    <button class="btn btn-outline-primary no-borders" id="dropdownBasic1" ngbDropdownToggle>{{user.email| length: 30}}</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button ngbDropdownItem><i class="fa fa-calendar"></i></button>
+                        <button ngbDropdownItem (click)="logout()">Logout</button>
+                        <button ngbDropdownItem>Something else is here</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
 </div>
