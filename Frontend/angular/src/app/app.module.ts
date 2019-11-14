@@ -15,11 +15,12 @@ import { MyPostsComponent } from '@app/pages/logged/my-posts/my-posts.component'
 import { FavoritesPostsComponent } from '@app/pages/logged/favorites-posts/favorites-posts.component';
 import { LengthPipe } from '@app/pipes/length.pipe';
 import { PostFormComponent } from '@components/post-form/post-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from '@app/pages/logged/login/login.component';
 import { IsAuthenticatedDirective } from '@app/directives/isAuthenticated.directive';
 import { LoggedComponent } from '@app/pages/logged/logged.component';
 import { PublicComponent } from '@app/pages/public/public.component';
+import {ToastComponent} from '@components/toast/toast.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -39,11 +40,13 @@ export function HttpLoaderFactory(http: HttpClient) {
         IsAuthenticatedDirective,
         LoggedComponent,
         PublicComponent,
+        ToastComponent,
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
         AppRoutingModule,
+        FormsModule,
         NgbModule,
         NgbDropdownModule,
         TranslateModule.forRoot({
