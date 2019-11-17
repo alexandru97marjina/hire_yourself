@@ -5,6 +5,7 @@ import {AuthService} from '@services/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {catchError, tap} from 'rxjs/operators';
 import { NotificationService } from '@services/notification.service';
+import { of } from 'rxjs';
 
 enum Page {
     login = 'login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
     public loading = false;
     public pages = Page;
     public page: Page = Page.login;
+    public isSubmitted = false;
 
     constructor(
         private router: Router,
@@ -33,18 +35,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.initForm();
-
-        // this.router.navigate(['/']).then(() => {
-        //     AuthHelper.setAuthenticated(true);
-        //     AuthHelper.setMe({
-        //         id: 0,
-        //         email: 'email@example.com',
-        //         first_name: 'Eugeniu',
-        //         last_name: 'Nicolenco',
-        //         address: 'Chisinau',
-        //         phone: '+37360123456'
-        //     });
-        // });
+        this.initResetPasswordForm();
     }
 
     initForm() {
@@ -61,8 +52,9 @@ export class LoginComponent implements OnInit {
     }
 
     public login() {
+        this.isSubmitted = true;
         if (this.form.invalid) {
-            // TODO: add notification
+            this.notificationService.error('Form is not correctly completed');
             return;
         }
 
@@ -70,8 +62,8 @@ export class LoginComponent implements OnInit {
         this.authService.login(credentials).pipe(
             tap(() => { this.loading = true; }),
             catchError((error) => {
-                // TODO add notification
-                return null;
+                this.notificationService.error(error);
+                return of(null);
             })
         ).subscribe((data) => {
             this.loading = false;
@@ -81,7 +73,7 @@ export class LoginComponent implements OnInit {
 
     public resetPassword() {
         if (this.resetPasswordForm.invalid) {
-            // TODO add notification
+            this.notificationService.error('Form is not correctly completed');
             return;
         }
 
@@ -89,12 +81,20 @@ export class LoginComponent implements OnInit {
         this.authService.requestResetPassword(credentials).pipe(
             tap(() => { this.loading = true; }),
             catchError((error) => {
-                // TODO add notification
-                return null;
+                this.notificationService.error(error);
+                return of(null);
             })
         ).subscribe((data) => {
             this.page = this.pages.login;
             this.loading = false;
         });
+    }
+
+    isInvalid(controlName: string) {
+        return this.isSubmitted && this.form.get(controlName).invalid;
+    }
+
+    changePage(page: Page) {
+        this.page = page;
     }
 }

@@ -8,12 +8,42 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="login--form">
-                        <form class="form-group" [formGroup]="form">
-                            <h5>Authentication!</h5>
-                            <input class="form-control" type="text" />
-                            <input class="form-control" type="password" />
-                            <button class="btn btn-light btn-info">test</button>
+                    <div class="login--form d-flex">
+                        <form class="form-group m-auto" [formGroup]="form" *ngIf="page === pages.login">
+                            <h5 class="text-center">Authentication!</h5>
+                            <label for="login-email" class="d-none"></label>
+                            <input
+                                id="login-email"
+                                [ngClass]="{'form-control': true, 'is-invalid': isInvalid('email')}"
+                                type="text"
+                                formControlName="email"
+                                [placeholder]="'E-mail'"
+                            />
+                            <label for="login-password" class="d-none"></label>
+                            <input
+
+                                id="login-password"
+                                [ngClass]="{'form-control': true, 'is-invalid': isInvalid('password')}"
+                                type="password"
+                                formControlName="password"
+                                [placeholder]="'password'"
+                            />
+                            <button class="btn btn-light btn-info m-1" (click)="login()">Login</button>
+                            <a class="btn-link m-1 clickable" href="/login#" (click)="changePage(pages.resetPassword)">Forgot password</a>
+                        </form>
+
+                        <form class="form-group m-auto" [formGroup]="resetPasswordForm" *ngIf="page === pages.resetPassword">
+                            <h5 class="text-center">Reset password!</h5>
+                            <label for="resetPassword-email" class="d-none"></label>
+                            <input
+                                id="resetPassword-email"
+                                [ngClass]="{'form-control': true, 'is-invalid': isInvalid('email')}"
+                                type="text"
+                                formControlName="email"
+                                [placeholder]="'E-mail'"
+                            />
+                            <button class="btn btn-light btn-info m-1" (click)="resetPassword()">Reset Password</button>
+                            <a class="btn-link m-1 clickable" href="/login#" (click)="changePage(pages.login)">Login</a>
                         </form>
                     </div>
                 </div>

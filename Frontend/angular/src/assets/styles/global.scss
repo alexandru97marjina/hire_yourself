@@ -189,3 +189,22 @@
         }
     }
 }
+
+.clickable {
+    cursor: pointer;
+    color: navy;
+    text-decoration: underline;
+
+    :hover, :focus {
+        text-decoration: none;
+        color: lighten(navy, 30%);
+    }
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.d-none {
+    display: none;
+}
