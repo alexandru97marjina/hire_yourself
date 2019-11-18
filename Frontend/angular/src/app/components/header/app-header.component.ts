@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthHelper } from '@helpers/auth.helper';
 import { UserInterface } from '@interfaces/user.interface';
 import { Router } from '@angular/router';
+import { PostService } from '@services/post.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { PostInterface } from '@interfaces/post.interface';
+import { ResponseInterface } from '@interfaces/response.interface';
+import { EmptyDataResponse } from '@interfaces/emptyDataResponse';
 
 @Component({
     selector: 'app-header',
@@ -11,29 +17,33 @@ import { Router } from '@angular/router';
 export class AppHeaderComponent implements OnInit {
 
     public user: UserInterface = null;
+    public favoritesCount = 0;
 
-    constructor(private router: Router) {
+    constructor(
+        private router: Router,
+        private postService: PostService,
+    ) {
     }
 
     ngOnInit(): void {
         this.user = AuthHelper.getMe();
+        this.initFavoritesCount();
     }
 
-    authenticate() {
-        const user: UserInterface = {
-            id: 0,
-            email: 'email@example.com',
-            first_name: 'Eugeniu',
-            last_name: 'Nicolenco',
-            address: 'Chisinau',
-            phone: '+37360123456'
-        };
-        AuthHelper.setAuthenticated(true);
-        AuthHelper.setMe(user);
-    }
+    initFavoritesCount() {
+        this.postService.getFavorites(this.user.id)
+            .pipe(
+                catchError(error => {
+                    if (error.hasOwnProperty('message')) {
+                        // TODO : add notification
+                    }
 
-    isAuthenticated() {
-        return AuthHelper.getAuthenticated();
+                    return of(new EmptyDataResponse());
+                })
+            )
+            .subscribe((data: ResponseInterface) => {
+                    this.favoritesCount = data.data.length;
+            });
     }
 
     logout() {

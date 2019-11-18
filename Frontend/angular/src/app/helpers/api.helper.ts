@@ -28,3 +28,14 @@ export const Api = {
     }
 };
 
+export class ApiHelper {
+    public static queryParams(object: object = {}): string {
+        let str = '';
+        if (Object.values(object).length) {
+            str += '?';
+            str += (Object.keys(object).map(key => `${key}=${object[key]}`).join('&'));
+        }
+
+        return str;
+    }
+}

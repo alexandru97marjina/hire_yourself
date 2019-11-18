@@ -11,8 +11,8 @@ import { PublicComponent } from '@app/pages/public/public.component';
 const routes: Routes = [
     {
         path: '',
-        component: PublicComponent,
-        canActivate: [IsAuthenticatedGuard]
+        redirectTo: 'posts',
+        pathMatch: 'full'
     },
     {
         path: 'public',

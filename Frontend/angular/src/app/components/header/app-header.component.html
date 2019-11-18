@@ -12,18 +12,17 @@
                 <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'my-posts']">{{ 'menu.my_added' | translate }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'favorites']">{{ 'menu.favorites' | translate }} <sup class="superscript-number">1</sup></a>
+                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'favorites']">
+                    {{ 'menu.favorites' | translate }}
+                    <sup class="superscript-number">{{favoritesCount}}</sup>
+                </a>
             </li>
             <li class="nav-item ml-auto">
-                <div *ngIf="!isAuthenticated()">
-                    <button class="btn btn-info" (click)="authenticate()">Login</button>
-                </div>
-
-                <div class="d-inline-block m-auto" *ngIf="isAuthenticated()">
+                <div class="d-inline-block m-auto">
                     <i class="fa fa-user d-inline-block"></i>
                 </div>
 
-                <div ngbDropdown class="d-inline-block" *ngIf="isAuthenticated()">
+                <div ngbDropdown class="d-inline-block">
                     <div class="d-flex flex-wrap" style="max-width: 150px;">
                         <span style="margin: 2px;">{{user.first_name | length: 40}}</span>
                         <span style="margin: 2px;">{{user.last_name | length: 40}}</span>

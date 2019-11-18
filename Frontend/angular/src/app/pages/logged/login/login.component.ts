@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, tap } from 'rxjs/operators';
 import { NotificationService } from '@services/notification.service';
 import { of } from 'rxjs';
+import { AuthHelper } from '@helpers/auth.helper';
 
 enum Page {
     login = 'login',
@@ -34,6 +35,17 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.router.navigate(['/']).then(() => {
+            AuthHelper.setAuthenticated(true);
+            AuthHelper.setMe({
+                id: 1,
+                email: 'email@example.com',
+                first_name: 'Eugeniu',
+                last_name: 'Nicolenco',
+                address: 'Chisinau',
+                phone: '+37360123456'
+            });
+        });
         this.initForm();
         this.initResetPasswordForm();
     }
