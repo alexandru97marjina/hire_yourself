@@ -17,13 +17,18 @@ export class AuthService {
     }
 
     public login({ email, password }) {
-        return this.httpService.post('/login_check', { email, password }).pipe(
+        return this.httpService.post('/api/security/users/log', { email, password }, false).pipe(
             tap((data: UserInterface) => {
                 AuthHelper.setMe(data);
                 AuthHelper.setAuthenticated(true);
             }),
             catchError((error) => {
+                console.log(error);
                 AuthHelper.setAuthenticated(false);
+                if (error && error.hasOwnProperty('message')) {
+                    return throwError(error.message);
+                }
+
                 return throwError(error);
             })
         );
@@ -35,14 +40,14 @@ export class AuthService {
     }
 
     public resetPassword(email: string, password: string) {
-        return this.httpService.post(this.authApi.resetPassword, { email, password });
+        return this.httpService.post(this.authApi.resetPassword, { email, password }, false);
     }
 
     public requestResetPassword(email: string) {
-        return this.httpService.post(this.authApi.requestPassword, { email });
+        return this.httpService.post(this.authApi.requestPassword, { email }, false);
     }
 
     public register(email: string, password: string) {
-        return this.httpService.post(this.authApi.register, { email, password });
+        return this.httpService.post(this.authApi.register, { email, password }, false);
     }
 }

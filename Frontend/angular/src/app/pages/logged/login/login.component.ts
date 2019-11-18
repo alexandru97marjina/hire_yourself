@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthHelper } from '@helpers/auth.helper';
 import { Router } from '@angular/router';
-import {AuthService} from '@services/auth.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {catchError, tap} from 'rxjs/operators';
+import { AuthService } from '@services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { catchError, tap } from 'rxjs/operators';
 import { NotificationService } from '@services/notification.service';
 import { of } from 'rxjs';
 
@@ -11,6 +10,7 @@ enum Page {
     login = 'login',
     resetPassword = 'resetPassword',
 }
+
 @Component({
     selector: 'app-my-posts',
     templateUrl: './login.component.html',
@@ -60,14 +60,20 @@ export class LoginComponent implements OnInit {
 
         const credentials = this.form.value;
         this.authService.login(credentials).pipe(
-            tap(() => { this.loading = true; }),
+            tap((data) => {
+                console.log(data);
+                this.loading = true;
+            }),
             catchError((error) => {
+                console.log(error);
                 this.notificationService.error(error);
                 return of(null);
             })
         ).subscribe((data) => {
             this.loading = false;
-            this.router.navigate(['/']);
+            if (data) {
+                this.router.navigate(['/']);
+            }
         });
     }
 
@@ -79,13 +85,17 @@ export class LoginComponent implements OnInit {
 
         const credentials = this.form.value;
         this.authService.requestResetPassword(credentials).pipe(
-            tap(() => { this.loading = true; }),
+            tap(() => {
+                this.loading = true;
+            }),
             catchError((error) => {
                 this.notificationService.error(error);
                 return of(null);
             })
         ).subscribe((data) => {
-            this.page = this.pages.login;
+            if (data) {
+                this.page = this.pages.login;
+            }
             this.loading = false;
         });
     }

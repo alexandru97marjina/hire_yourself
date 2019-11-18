@@ -17,7 +17,8 @@ export class HttpService {
             return throwError('not authenticated');
         }
 
-        const headers = (new HttpHeaders()).set('token', 'hitProj');
+        const headers = (new HttpHeaders()).set('Token', 'hitProj');
+        headers.set('Content-Type', 'application/json');
 
         return this.http.get(environment.apiRoute + apiEndPoint, { headers });
     }
@@ -27,7 +28,10 @@ export class HttpService {
             return throwError('not authenticated');
         }
 
-        return this.http.post(environment.apiRoute + apiEndPoint, body);
+        const headers = (new HttpHeaders()).set('Token', 'hitProj');
+        headers.set('Content-Type', 'application/json');
+
+        return this.http.post(environment.apiRoute + apiEndPoint, body, { headers });
     }
 
     public put(apiEndPoint: string, body: object, checkAuthenticated = true) {
@@ -35,7 +39,10 @@ export class HttpService {
             return throwError('not authenticated');
         }
 
-        return this.http.put(environment.apiRoute + apiEndPoint, body);
+        const headers = (new HttpHeaders()).set('Token', 'hitProj');
+        headers.set('Content-Type', 'application/json');
+
+        return this.http.put(environment.apiRoute + apiEndPoint, body, { headers });
     }
 
     public delete(apiEndPoint: string, checkAuthenticated = true) {
@@ -43,7 +50,10 @@ export class HttpService {
             return throwError('not authenticated');
         }
 
-        return this.http.delete(environment.apiRoute + apiEndPoint);
+        const headers = (new HttpHeaders()).set('Token', 'hitProj');
+        headers.set('Content-Type', 'application/json');
+
+        return this.http.delete(environment.apiRoute + apiEndPoint, { headers });
     }
 
 }
