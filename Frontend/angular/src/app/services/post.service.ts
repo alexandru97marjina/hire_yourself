@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Api } from '@helpers/api.helper';
 import { PostInterface } from '@interfaces/post.interface';
+import { AuthHelper } from '@helpers/auth.helper';
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +14,29 @@ export class PostService {
     constructor(private httpService: HttpService) {
     }
 
+    private static getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    public static mapData(formData): PostInterface {
+        delete formData.file;
+        if (!formData.imagePath || !formData.imagePath.includes('picsum')) {
+            formData.imagePath = `https://picsum.photos/id/${this.getRandomInt(500)}/286/180`;
+        }
+
+        return {
+            ...formData,
+            dateCreated: '2016-03-22 00:00:00',
+            active: true,
+            minExperience: 1,
+            maxExperience: 1,
+            jobPosition: 'Developer',
+            dateExpired: '2016-05-22 00:00:00',
+            dateUpdated: '2016-03-22 00:00:00',
+            userId: AuthHelper.getMe().id,
+        } as PostInterface;
+    }
+
     public getPost(id: number) {
         return this.httpService.get(this.postApi.getOne(id));
     }
@@ -21,8 +45,8 @@ export class PostService {
         return this.httpService.get(this.postApi.getList);
     }
 
-    public updatePost(post: PostInterface) {
-        return this.httpService.put(this.postApi.update(post.id), post);
+    public updatePost(id: number, post: PostInterface) {
+        return this.httpService.put(this.postApi.update(id), post);
     }
 
     public createPost(post: PostInterface) {

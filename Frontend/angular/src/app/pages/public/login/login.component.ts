@@ -35,17 +35,17 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.router.navigate(['/']).then(() => {
-            AuthHelper.setAuthenticated(true);
-            AuthHelper.setMe({
-                id: 1,
-                email: 'email@example.com',
-                first_name: 'Eugeniu',
-                last_name: 'Nicolenco',
-                address: 'Chisinau',
-                phone: '+37360123456'
-            });
-        });
+        // this.router.navigate(['/']).then(() => {
+        //     AuthHelper.setAuthenticated(true);
+        //     AuthHelper.setMe({
+        //         id: 1,
+        //         email: 'email@example.com',
+        //         first_name: 'Eugeniu',
+        //         last_name: 'Nicolenco',
+        //         address: 'Chisinau',
+        //         phone: '+37360123456'
+        //     });
+        // });
         this.initForm();
         this.initResetPasswordForm();
     }

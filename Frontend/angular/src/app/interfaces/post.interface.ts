@@ -1,5 +1,4 @@
 import { EntityInterface } from './entity.interface';
-import { Validators } from '@angular/forms';
 
 export interface PostInterface extends EntityInterface {
     title: string;
@@ -12,9 +11,9 @@ export interface PostInterface extends EntityInterface {
     salaryMax?: number;
     minExperience?: number;
     maxExperience?: number;
-    educationId?: number;
+    educationId?: EntityInterface | number;
     email?: string;
-    activityId?: string;
+    activityId?: EntityInterface | number;
     userId?: EntityInterface | number;
     active?: boolean;
 }

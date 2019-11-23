@@ -1,0 +1,43 @@
+
+.buttons-area {
+    background-size: auto;
+    text-align: left;
+    label {
+        margin-left: 5px;
+        cursor: pointer;
+    }
+}
+
+.btn-circle {
+    &.btn-xl {
+        width: 70px;
+        height: 70px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    &.btn-md {
+        width: 50px;
+        height: 50px;
+        padding: 7px 10px;
+        border-radius: 25px;
+        font-size: 10px;
+        text-align: center;
+    }
+
+    &.btn-sm {
+        width: 30px;
+        height: 30px;
+        padding: 6px 0;
+        border-radius: 15px;
+        font-size: 8px;
+        text-align: center;
+    }
+
+    span.xl-text {
+        line-height: 25px;
+    }
+
+}

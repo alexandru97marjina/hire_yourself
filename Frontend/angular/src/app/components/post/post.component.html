@@ -1,12 +1,37 @@
 <div class="card" style="width: 18rem;">
-    <img class="card-img-top" [src]="'assets/images/no_image.png'" [alt]="post.title" />
-    <!--    <img class="card-img-top" [src]="post.imagePath" [alt]="post.title"/>-->
+    <i class="fa fa-star-o" style="position: absolute;"></i>
+    <img
+        class="card-img-top"
+        *ngIf="!post.imagePath"
+        [src]="'assets/images/no_image.png'"
+        [alt]="post.title"
+        width="286"
+        height="180"
+    />
+    <img
+        class="card-img-top"
+        *ngIf="post.imagePath"
+        [src]="post.imagePath"
+        [alt]="post.title"
+        width="286"
+        height="180"
+    />
     <div class="card-body">
         <h5 class="card-title">
             {{post.title | length: 20}}
             <span class="action-icons">
-                <i class="fa fa-pencil" *ngIf="post.userId === me"></i>
-                <i class="fa fa-trash" *ngIf="post.userId === me"></i>
+                <i
+                    (click)="editPost()"
+                    class="fa fa-pencil clickable-icon"
+                    [ngbTooltip]="'edit post'| translate"
+                    *ngIf="post.userId === me">
+                </i>
+                <i
+                    (click)="removePost()"
+                    class="fa fa-trash clickable-icon"
+                    [ngbTooltip]="'delete post'| translate"
+                    *ngIf="post.userId === me">
+                </i>
             </span>
         </h5>
         <p class="card-text">

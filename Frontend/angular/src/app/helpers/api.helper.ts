@@ -9,7 +9,7 @@ export const Api = {
     Post: {
         getOne: (id: number) => `/api/posts/${id}`,
         update: (id: number) => `/api/posts/${id}`,
-        create: '/api/posts-list',
+        create: '/api/posts',
         delete: (id: number) => `/api/posts/${id}`,
         getList: '/api/posts',
         apply: (postId: number, userId: number) => `/api/apply/${postId}/${userId}`,
@@ -24,7 +24,26 @@ export const Api = {
         register: '/api/register',
         resetPassword: '/api/reset-password',
         requestPassword: '/api/reset-password-request',
-        login: '/api/login_check',
+        login: '/api/security/users/log',
+    },
+    File: {
+        upload: '/api/file/uploadFile',
+        uploadMultiple: '/api/file/uploadMultipleFiles',
+        download: (filename: string) =>  `/api/file/getFilePath/${filename}`,
+    },
+    Education: {
+        getList: '/api/educations',
+        getOne: (id: number) => `/api/educations/${id}`,
+        create: '/api/educations',
+        delete: (id: number) => `/api/educations/${id}`,
+        update: (id: number) => `/api/educations/${id}`,
+    },
+    Activity: {
+        getList: '/api/activity',
+        getOne: (id: number) => `/api/activity/${id}`,
+        create: '/api/activity',
+        delete: (id: number) => `/api/activity/${id}`,
+        update: (id: number) => `/api/activity/${id}`,
     }
 };
 

@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { PostInterface } from '@interfaces/post.interface';
 import { ResponseInterface } from '@interfaces/response.interface';
-import { EmptyDataResponse } from '@interfaces/emptyDataResponse';
+import { EmptyDataResponse } from '@app/factories/emptyDataResponse';
 
 @Component({
     selector: 'app-header',

@@ -1,6 +1,6 @@
 export interface ResponseInterface {
     status: string;
-    data: object[];
+    data: object|any;
     message: string;
     errors: string[];
 }

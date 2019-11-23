@@ -5,6 +5,7 @@ import { UserInterface } from '@interfaces/user.interface';
 import { throwError } from 'rxjs';
 import { Api } from '@helpers/api.helper';
 import { AuthHelper } from '@helpers/auth.helper';
+import { ResponseInterface } from '@interfaces/response.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -17,13 +18,13 @@ export class AuthService {
     }
 
     public login({ email, password }) {
-        return this.httpService.post('/api/security/users/log', { email, password }, false).pipe(
-            tap((data: UserInterface) => {
-                AuthHelper.setMe(data);
+        return this.httpService.post(this.authApi.login, { email, password }, false).pipe(
+            tap((response: ResponseInterface) => {
+                console.log(response);
+                AuthHelper.setMe(response.data as UserInterface);
                 AuthHelper.setAuthenticated(true);
             }),
             catchError((error) => {
-                console.log(error);
                 AuthHelper.setAuthenticated(false);
                 if (error && error.hasOwnProperty('message')) {
                     return throwError(error.message);

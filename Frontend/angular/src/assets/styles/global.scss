@@ -1,5 +1,7 @@
 @import "variables";
 @import "ui-select";
+@import "file";
+@import "buttons";
 
 body {
     overflow-x: hidden;
@@ -200,6 +202,14 @@ body {
     color: navy;
     text-decoration: underline;
 
+    &-icon {
+        cursor: pointer;
+
+        &:hover, &:focus {
+            color: #0074d9;
+        }
+    }
+
     :hover, :focus {
         text-decoration: none;
         color: lighten(navy, 30%);
@@ -230,14 +240,23 @@ body {
 }
 
 @keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
+
 @-webkit-keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 .ng-option {
     line-height: 1.2;
     border-bottom: 1px solid #ececec;
     white-space: normal !important;
+}
+
+.xl-text {
+    font-size: 30px;
 }

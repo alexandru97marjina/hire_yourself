@@ -27,13 +27,18 @@
                 <label for="domain">Domain</label>
             </div>
             <div class="col-md-8">
-                <input
-                    formControlName="domain"
-                    type="text"
-                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('domain'), 'is-invalid': isSubmittedAndInvalid('domain')}"
+                <ng-select
                     id="domain"
-                    placeholder="Domain"
-                />
+                    [items]="activities$|async"
+                    [typeahead]="domainSubject"
+                    [multiple]="false"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('domain'), 'is-invalid': isSubmittedAndInvalid('domain')}"
+                    formControlName="activityId"
+                    bindValue="id"
+                    bindLabel="activityName"
+                    [placeholder]="'Domain'| ucfirst"
+                >
+                </ng-select>
             </div>
         </div>
 
@@ -87,13 +92,14 @@
             <div class="col-md-8">
                 <ng-select
                     id="education"
-                    [items]="testItems"
+                    [items]="educations$| async"
                     [typeahead]="educationSubject"
                     [multiple]="false"
                     [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('education'), 'is-invalid': isSubmittedAndInvalid('education')}"
-                    formControlName="education"
+                    formControlName="educationId"
                     bindValue="id"
-                    [placeholder]="'education'"
+                    bindLabel="mixedName"
+                    [placeholder]="'education'| ucfirst"
                 >
                 </ng-select>
             </div>
@@ -118,8 +124,47 @@
                 <label for="image">Image</label>
             </div>
             <div class="col-md-8">
-                <input type="file" (change)="test($event)" class="form-control-file" id="image" formControlName="image" />
+                <input
+                    type="file"
+                    #fileInput
+                    (change)="fileChange($event)"
+                    accept="image/*"
+                    class="form-control-file"
+                    id="image"
+                    hidden
+                />
+
+                <div class="buttons-area" *ngIf="!form.get('file').value && !form.get('imagePath').value">
+                    <button
+                        type="button"
+                        id="button"
+                        class="btn btn-primary btn-circle btn-md"
+                        (click)="fileInput.click()"
+                    >
+                        <span class="xl-text">+</span>
+                    </button>
+                    <label for="button" >Select a file</label>
+                </div>
+                <div class="text-left">
+                    <img
+                        class="clickable"
+                        [src]="'assets/images/image-icon.png'"
+                        alt="icon"
+                        *ngIf="form.get('file').value"
+                        (click)="fileInput.click()"
+                    />
+                </div>
+                <div class="text-left">
+                    <img
+                        class="clickable"
+                        [src]="form.get('imagePath').value"
+                        alt="image"
+                        *ngIf="form.get('imagePath').value && !form.get('file').value"
+                        (click)="fileInput.click()"
+                    />
+                </div>
             </div>
+
         </div>
     </form>
 </div>

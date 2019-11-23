@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthHelper } from '@helpers/auth.helper';
 
@@ -7,13 +7,18 @@ import { AuthHelper } from '@helpers/auth.helper';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
     title = 'angular';
 
-    constructor(translate: TranslateService) {
+    constructor(private translate: TranslateService) {
         translate.setDefaultLang('en');
 
         translate.use('en');
+    }
+
+    ngOnDestroy(): void {
+        AuthHelper.setAuthenticated(false);
+        AuthHelper.setMe(null);
     }
 
     isAuthenticated() {
