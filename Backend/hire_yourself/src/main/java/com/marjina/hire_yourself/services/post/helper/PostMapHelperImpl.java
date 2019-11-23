@@ -9,7 +9,6 @@ import com.marjina.hire_yourself.common.persistence.repository.ActivityRepositor
 import com.marjina.hire_yourself.common.persistence.repository.EducationRepository;
 import com.marjina.hire_yourself.common.persistence.repository.PostRepository;
 import com.marjina.hire_yourself.common.persistence.repository.UserRepository;
-import com.marjina.hire_yourself.common.util.DateUtil;
 import com.marjina.hire_yourself.services.activity.manager.ActivityManager;
 import com.marjina.hire_yourself.services.education.manager.EducationManager;
 import com.marjina.hire_yourself.services.post.dto.PostReqDTO;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
+import java.util.Date;
 
 @Component
 public class PostMapHelperImpl implements PostMapHelper {
@@ -58,9 +58,9 @@ public class PostMapHelperImpl implements PostMapHelper {
         post.setJobLocation(reqDTO.getJobLocation());
         post.setEmail(reqDTO.getEmail());
         post.setActive(reqDTO.getActive());
-        post.setDateCreated(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateCreated()));
-        post.setDateUpdated(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateUpdated()));
-        post.setDateExpired(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateExpired()));
+        post.setDateCreated(new Date(reqDTO.getDateCreated()));
+        post.setDateUpdated(new Date(reqDTO.getDateUpdated()));
+        post.setDateExpired(new Date(reqDTO.getDateExpired()));
 
         User user = userManager.getUserById(reqDTO.getUserId());
         post.setUser(user);
