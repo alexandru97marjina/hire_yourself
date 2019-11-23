@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PostInterface } from '@interfaces/post.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReplaySubject, Subject } from 'rxjs';
 
 @Component({
     selector: 'app-post-form',
@@ -15,6 +16,8 @@ export class PostFormComponent implements OnInit {
 
     form: FormGroup;
     public submitted = false;
+    testItems = ['test', '123', 123, 'the same'];
+    educationSubject: Subject<any> = new ReplaySubject();
 
     constructor(
         private modalService: NgbModal,
@@ -24,6 +27,7 @@ export class PostFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.initForm();
+        this.educationSubject.next('');
     }
 
     initForm() {
@@ -34,7 +38,7 @@ export class PostFormComponent implements OnInit {
             salaryMax: this.fb.control(null, []),
             email: this.fb.control(null, [Validators.required]),
             description: this.fb.control(null, []),
-            education: this.fb.control(null, []),
+            education: this.fb.control(null, [Validators.required]),
             domain: this.fb.control(null, [Validators.required]),
             image: this.fb.control(null, []),
         });
