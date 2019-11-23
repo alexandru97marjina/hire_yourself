@@ -12,9 +12,11 @@ import com.marjina.hire_yourself.services.user.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
-public class
-SecurityServiceImpl implements SecurityService {
+@Transactional
+public class SecurityServiceImpl implements SecurityService {
 
     @Autowired
     private UserManager userManager;

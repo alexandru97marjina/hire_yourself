@@ -22,6 +22,7 @@ import javax.transaction.Transactional;
 import java.text.ParseException;
 
 @Component
+@Transactional
 public class UserMapHelperImpl implements UserMapHelper {
 
     @Autowired

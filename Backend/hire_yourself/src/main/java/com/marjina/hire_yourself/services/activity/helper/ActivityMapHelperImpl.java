@@ -11,11 +11,13 @@ import com.marjina.hire_yourself.services.user.helper.UserMapHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@Transactional
 public class ActivityMapHelperImpl implements ActivityMapHelper {
 
     @Autowired
