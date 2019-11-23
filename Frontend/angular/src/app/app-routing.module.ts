@@ -4,7 +4,7 @@ import { PostsListComponent } from '@app/pages/logged/posts-list/posts-list.comp
 import { IsAuthenticatedGuard } from '@app/guards/isAuthenticated.guard';
 import { MyPostsComponent } from '@app/pages/logged/my-posts/my-posts.component';
 import { FavoritesPostsComponent } from '@app/pages/logged/favorites-posts/favorites-posts.component';
-import { LoginComponent } from '@app/pages/logged/login/login.component';
+import { LoginComponent } from '@app/pages/public/login/login.component';
 import { PublicComponent } from '@app/pages/public/public.component';
 
 

@@ -1,0 +1,17 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+$gray-200: darken(#fff, 0.20);
+
+ng-select.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+	box-shadow: none;
+}
+
+ng-select.ng-select > .ng-select-container {
+	min-height: 35px;
+    margin-top: -6px;
+	border: none;
+	cursor: pointer;
+}
+
+ng-select.ng-select.ng-select-single .ng-select-container {
+	min-height: 35px;
+}

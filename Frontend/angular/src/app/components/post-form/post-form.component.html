@@ -85,13 +85,17 @@
                 <label for="education">Education</label>
             </div>
             <div class="col-md-8">
-                <input
-                    formControlName="education"
-                    type="text"
-                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('education'), 'is-invalid': isSubmittedAndInvalid('education')}"
+                <ng-select
                     id="education"
-                    placeholder="Education"
-                />
+                    [items]="testItems"
+                    [typeahead]="educationSubject"
+                    [multiple]="false"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('education'), 'is-invalid': isSubmittedAndInvalid('education')}"
+                    formControlName="education"
+                    bindValue="id"
+                    [placeholder]="'education'"
+                >
+                </ng-select>
             </div>
         </div>
 

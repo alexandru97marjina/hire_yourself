@@ -16,11 +16,12 @@ import { FavoritesPostsComponent } from '@app/pages/logged/favorites-posts/favor
 import { LengthPipe } from '@app/pipes/length.pipe';
 import { PostFormComponent } from '@components/post-form/post-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from '@app/pages/logged/login/login.component';
+import { LoginComponent } from '@app/pages/public/login/login.component';
 import { IsAuthenticatedDirective } from '@app/directives/isAuthenticated.directive';
 import { LoggedComponent } from '@app/pages/logged/logged.component';
 import { PublicComponent } from '@app/pages/public/public.component';
 import {ToastComponent} from '@components/toast/toast.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,7 +57,8 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgSelectModule
     ],
     providers: [
         HttpClient,
