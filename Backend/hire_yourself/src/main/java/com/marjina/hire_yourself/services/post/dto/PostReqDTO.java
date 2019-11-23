@@ -25,8 +25,8 @@ public class PostReqDTO implements Serializable {
     private String jobLocation;
     private String email;
     private Boolean active;
-    private String dateCreated;
-    private String dateUpdated;
-    private String dateExpired;
+    private Long dateCreated;
+    private Long dateUpdated;
+    private Long dateExpired;
 
 }

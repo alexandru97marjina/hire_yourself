@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,8 +36,8 @@ public class ExperienceManagerImpl implements ExperienceManager {
         for (ExperienceReqDTO reqDTO : experienceReqDTOS) {
             Experience experience = new Experience();
             experience.setCompanyName(reqDTO.getCompanyName());
-            experience.setDateStarted(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateStarted()));
-            experience.setDateEnded(DateUtil.parseDateTimeToTimestamp(reqDTO.getDateEnded()));
+            experience.setDateStarted(new Date(reqDTO.getDateStarted()));
+            experience.setDateEnded(new Date(reqDTO.getDateEnded()));
             experience.setMonthsOfExperience(DateUtil.getMonthDifference(experience.getDateStarted(), experience.getDateEnded()));
             experience.setUser(userManager.getUserById(userId));
 
