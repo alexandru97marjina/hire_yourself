@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { PostService } from '@services/post.service';
-import { of, ReplaySubject, Subject } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { ResponseInterface } from '@interfaces/response.interface';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -25,6 +25,7 @@ export class PostsListComponent implements OnInit {
     );
     public me = AuthHelper.getMe();
     public postToEdit: PostInterface = null;
+    public favorites$: Observable<any>;
 
     public searchForm: FormGroup;
 
@@ -39,9 +40,19 @@ export class PostsListComponent implements OnInit {
 
     ngOnInit(): void {
         this.postsObserver.next('');
+        this.refreshFavoritesIds();
+        this.favorites$ = this.postService.favoritesIds;
         this.searchForm = this.fb.group({
             search: this.fb.control(null, []),
         });
+    }
+
+    isIncluded(values, post: PostInterface) {
+        if (values && Array.isArray(values)) {
+            return values.includes(post.id);
+        }
+
+        return false;
     }
 
     openVerticallyCentered(content) {
@@ -51,6 +62,12 @@ export class PostsListComponent implements OnInit {
     refreshList() {
         this.postsObserver.next('');
         this.clearEdit();
+        this.refreshFavoritesIds();
+    }
+
+    refreshFavoritesIds() {
+        this.postService.refreshCount();
+        this.postService.refreshList();
     }
 
     clearEdit() {
@@ -71,6 +88,45 @@ export class PostsListComponent implements OnInit {
             this.refreshList();
         });
     }
+
+    handleFavorite(event: boolean, post: PostInterface) {
+        if (event) {
+            this.addToFavorites(post);
+        } else {
+            this.removeFromFavorites(post);
+        }
+    }
+
+    removeFromFavorites(post: PostInterface) {
+        this.postService.deleteFavorite(post.id, this.me.id).pipe(
+            catchError((response) => {
+                this.notificationService.error(response.error);
+                return of(null);
+            })
+        ).subscribe((response: ResponseInterface) => {
+            if (response) {
+                this.notificationService.success(this.translate.instant('successfully removed from favorites'));
+            }
+
+            this.refreshList();
+        });
+    }
+
+    addToFavorites(post: PostInterface) {
+        this.postService.addToFavorites(post.id, this.me.id).pipe(
+            catchError((response) => {
+                this.notificationService.error(response.error);
+                return of(null);
+            })
+        ).subscribe((response: ResponseInterface) => {
+            if (response) {
+                this.notificationService.success(this.translate.instant('successfully added to favorites'));
+            }
+
+            this.refreshList();
+        });
+    }
+
 
     modalSubmit(modal: NgbActiveModal) {
         modal.close();

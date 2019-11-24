@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PostInterface } from '@interfaces/post.interface';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { of, ReplaySubject, Subject } from 'rxjs';
 import { ResponseInterface } from '@interfaces/response.interface';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';

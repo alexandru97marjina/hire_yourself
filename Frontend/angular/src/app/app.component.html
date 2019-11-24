@@ -1,3 +1,3 @@
 <app-toasts aria-live="polite" aria-atomic="true" class="toasts-zone"></app-toasts>
-<app-logged *ngIf="isAuthenticated()"></app-logged>
-<app-public *ngIf="!isAuthenticated()"></app-public>
+<app-header *ngIf="isAuthenticated()"></app-header>
+<router-outlet></router-outlet>

@@ -3,6 +3,9 @@ import { HttpService } from './http.service';
 import { Api } from '@helpers/api.helper';
 import { PostInterface } from '@interfaces/post.interface';
 import { AuthHelper } from '@helpers/auth.helper';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { ResponseInterface } from '@interfaces/response.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +13,19 @@ import { AuthHelper } from '@helpers/auth.helper';
 export class PostService {
 
     readonly postApi = Api.Post;
+    headerCounter: Subject<any> = new ReplaySubject();
+    favoritesCount: Observable<any> = this.headerCounter.pipe(
+        switchMap(() => this.getFavorites(AuthHelper.getMe().id)),
+        map((response: ResponseInterface) => response.data.length)
+    );
+    listObserver: Subject<any> = new ReplaySubject();
+    favoritesIds: Observable<any> = this.listObserver.pipe(
+        switchMap(() => this.getFavorites(AuthHelper.getMe().id)),
+        map((response: ResponseInterface) => {
+           return response.data ? response.data.map(item => item.id) : [];
+        }),
+        shareReplay(1)
+    );
 
     constructor(private httpService: HttpService) {
     }
@@ -24,17 +40,27 @@ export class PostService {
             formData.imagePath = `https://picsum.photos/id/${this.getRandomInt(500)}/286/180`;
         }
 
+        const time = new Date().getTime();
         return {
             ...formData,
-            dateCreated: '2016-03-22 00:00:00',
+            dateCreated: time,
             active: true,
             minExperience: 1,
             maxExperience: 1,
             jobPosition: 'Developer',
-            dateExpired: '2016-05-22 00:00:00',
-            dateUpdated: '2016-03-22 00:00:00',
+            dateExpired: time,
+            dateUpdated: time,
             userId: AuthHelper.getMe().id,
         } as PostInterface;
+    }
+
+    public refreshCount() {
+        this.headerCounter.next();
+    }
+
+    public refreshList() {
+        this.listObserver.next();
+        this.refreshCount();
     }
 
     public getPost(id: number) {
@@ -66,11 +92,11 @@ export class PostService {
     }
 
     public addToFavorites(postId: number, userId: number) {
-        return this.httpService.post(this.postApi.addToFavorite(postId, userId), {});
+        return this.httpService.get(this.postApi.addToFavorite(postId, userId));
     }
 
     public deleteFavorite(postId: number, userId: number) {
-        return this.httpService.post(this.postApi.deleteFavorite(postId, userId), {});
+        return this.httpService.delete(this.postApi.deleteFavorite(postId, userId));
     }
 
     public getFavorites(userId: number) {

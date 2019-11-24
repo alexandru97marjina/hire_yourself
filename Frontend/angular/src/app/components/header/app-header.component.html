@@ -9,12 +9,12 @@
                 <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'posts']">{{ 'menu.announces' | translate }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'my-posts']">{{ 'menu.my_added' | translate }}</a>
+                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['my-posts']">{{ 'menu.my_added' | translate }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/', 'favorites']">
+                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['favorites']">
                     {{ 'menu.favorites' | translate }}
-                    <sup class="superscript-number">{{favoritesCount}}</sup>
+                    <sup class="superscript-number">{{favorites$| async}}</sup>
                 </a>
             </li>
             <li class="nav-item ml-auto">

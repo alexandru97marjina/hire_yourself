@@ -9,9 +9,11 @@ import { PostInterface } from '@interfaces/post.interface';
 export class PostComponent {
     @Input() post: PostInterface;
     @Input() me: number;
+    @Input() isFavorite = false;
 
     @Output() edit: EventEmitter<void> = new EventEmitter<void>();
     @Output() remove: EventEmitter<void> = new EventEmitter<void>();
+    @Output() favorite: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     editPost() {
         this.edit.emit();
@@ -19,5 +21,13 @@ export class PostComponent {
 
     removePost() {
         this.remove.emit();
+    }
+
+    addToFavorites() {
+        this.favorite.emit(true);
+    }
+
+    removeFromFavorites() {
+        this.favorite.emit(false);
     }
 }

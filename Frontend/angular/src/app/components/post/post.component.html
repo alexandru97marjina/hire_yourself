@@ -1,5 +1,14 @@
 <div class="card" style="width: 18rem;">
-    <i class="fa fa-star-o" style="position: absolute;"></i>
+    <i
+        class="fa fa-star-o favorite-icon favorite-star"
+        *ngIf="post.userId !== me && !isFavorite"
+        (click)="addToFavorites()"
+    ></i>
+    <i
+        class="fa fa-times favorite-icon"
+        *ngIf="post.userId !== me && isFavorite"
+        (click)="removeFromFavorites()"
+    ></i>
     <img
         class="card-img-top"
         *ngIf="!post.imagePath"

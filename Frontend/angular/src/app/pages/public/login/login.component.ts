@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, tap } from 'rxjs/operators';
 import { NotificationService } from '@services/notification.service';
 import { of } from 'rxjs';
-import { AuthHelper } from '@helpers/auth.helper';
+import { SubHolderHelper } from '@helpers/subHolder.helper';
 
 enum Page {
     login = 'login',
@@ -17,7 +17,7 @@ enum Page {
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
     public form: FormGroup;
     public resetPasswordForm: FormGroup;
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     public pages = Page;
     public page: Page = Page.login;
     public isSubmitted = false;
+    public subH: SubHolderHelper = new SubHolderHelper();
 
     constructor(
         private router: Router,
@@ -35,19 +36,12 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.router.navigate(['/']).then(() => {
-        //     AuthHelper.setAuthenticated(true);
-        //     AuthHelper.setMe({
-        //         id: 1,
-        //         email: 'email@example.com',
-        //         first_name: 'Eugeniu',
-        //         last_name: 'Nicolenco',
-        //         address: 'Chisinau',
-        //         phone: '+37360123456'
-        //     });
-        // });
         this.initForm();
         this.initResetPasswordForm();
+    }
+
+    ngOnDestroy(): void {
+        this.subH.clear();
     }
 
     initForm() {
@@ -71,13 +65,11 @@ export class LoginComponent implements OnInit {
         }
 
         const credentials = this.form.value;
-        this.authService.login(credentials).pipe(
-            tap((data) => {
-                console.log(data);
+        this.subH.subscribe = this.authService.login(credentials).pipe(
+            tap(() => {
                 this.loading = true;
             }),
             catchError((error) => {
-                console.log(error);
                 this.notificationService.error(error);
                 return of(null);
             })
@@ -96,7 +88,7 @@ export class LoginComponent implements OnInit {
         }
 
         const credentials = this.form.value;
-        this.authService.requestResetPassword(credentials).pipe(
+        this.subH.subscribe = this.authService.requestResetPassword(credentials).pipe(
             tap(() => {
                 this.loading = true;
             }),

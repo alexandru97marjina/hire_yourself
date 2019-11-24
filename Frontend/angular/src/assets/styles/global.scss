@@ -206,7 +206,7 @@ body {
         cursor: pointer;
 
         &:hover, &:focus {
-            color: #0074d9;
+            color: $lightblue;
         }
     }
 
@@ -259,4 +259,22 @@ body {
 
 .xl-text {
     font-size: 30px;
+}
+
+.favorite-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    padding: 4px 4px 0 0;
+    font-size: 25px !important;
+
+    &:hover {
+        color: $lightblue;
+    }
+
+    &.favorite-star:hover {
+        &:before {
+            content: "\f005";
+        }
+    }
 }

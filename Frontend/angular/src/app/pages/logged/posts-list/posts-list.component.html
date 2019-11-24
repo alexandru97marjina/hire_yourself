@@ -26,10 +26,12 @@
         <app-post
             [ngClass]="'card-deck'"
             *ngFor="let post of posts$|async"
+            [isFavorite]="isIncluded((favorites$|async), post)"
             [post]="post"
             [me]="me.id"
             (edit)="editPost(post)"
             (remove)="removePost(post)"
+            (favorite)="handleFavorite($event, post)"
         ></app-post>
     </div>
 </div>

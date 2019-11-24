@@ -3,11 +3,7 @@ import { AuthHelper } from '@helpers/auth.helper';
 import { UserInterface } from '@interfaces/user.interface';
 import { Router } from '@angular/router';
 import { PostService } from '@services/post.service';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { PostInterface } from '@interfaces/post.interface';
-import { ResponseInterface } from '@interfaces/response.interface';
-import { EmptyDataResponse } from '@app/factories/emptyDataResponse';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-header',
@@ -17,7 +13,7 @@ import { EmptyDataResponse } from '@app/factories/emptyDataResponse';
 export class AppHeaderComponent implements OnInit {
 
     public user: UserInterface = null;
-    public favoritesCount = 0;
+    public favorites$: Observable<number>;
 
     constructor(
         private router: Router,
@@ -27,27 +23,14 @@ export class AppHeaderComponent implements OnInit {
 
     ngOnInit(): void {
         this.user = AuthHelper.getMe();
-        this.initFavoritesCount();
-    }
-
-    initFavoritesCount() {
-        this.postService.getFavorites(this.user.id)
-            .pipe(
-                catchError(error => {
-                    if (error.hasOwnProperty('message')) {
-                        // TODO : add notification
-                    }
-
-                    return of(new EmptyDataResponse());
-                })
-            )
-            .subscribe((data: ResponseInterface) => {
-                    this.favoritesCount = data.data.length;
-            });
+        this.postService.refreshCount();
+        this.favorites$ = this.postService.favoritesCount;
     }
 
     logout() {
-        this.router.navigate(['/public']).then(() => {
+        AuthHelper.setAuthenticated(false);
+        AuthHelper.setMe(null);
+        this.router.navigate(['/public/login']).then(() => {
             AuthHelper.setAuthenticated(false);
             AuthHelper.setMe(null);
         });

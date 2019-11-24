@@ -4,24 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from '@components/header/app-header.component';
-import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { PostsListComponent } from '@app/pages/logged/posts-list/posts-list.component';
-import { PostComponent } from '@components/post/post.component';
-import { IsAuthenticatedGuard } from '@app/guards/isAuthenticated.guard';
-import { MyPostsComponent } from '@app/pages/logged/my-posts/my-posts.component';
-import { FavoritesPostsComponent } from '@app/pages/logged/favorites-posts/favorites-posts.component';
-import { PostFormComponent } from '@components/post-form/post-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from '@app/pages/public/login/login.component';
-import { LoggedComponent } from '@app/pages/logged/logged.component';
-import { PublicComponent } from '@app/pages/public/public.component';
-import {ToastComponent} from '@components/toast/toast.component';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { Pipes } from '@app/pipes';
-import { Directives } from '@app/directives';
+import { SharedModule } from '@app/shared.module';
+import { RouterModule } from '@angular/router';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -29,27 +16,13 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
     declarations: [
-        AppComponent,
         AppHeaderComponent,
-        PostsListComponent,
-        PostComponent,
-        PostFormComponent,
-        MyPostsComponent,
-        FavoritesPostsComponent,
-        LoginComponent,
-        LoggedComponent,
-        PublicComponent,
-        ToastComponent,
-        ...Pipes,
-        ...Directives,
+        AppComponent,
     ],
     imports: [
         BrowserModule,
-        HttpClientModule,
+        RouterModule,
         AppRoutingModule,
-        FormsModule,
-        NgbModule,
-        NgbDropdownModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -57,12 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-        ReactiveFormsModule,
-        NgSelectModule
-    ],
-    providers: [
-        HttpClient,
-        IsAuthenticatedGuard,
+        SharedModule,
     ],
     bootstrap: [AppComponent]
 })
