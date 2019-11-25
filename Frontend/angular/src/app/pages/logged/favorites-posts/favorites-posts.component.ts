@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { of, ReplaySubject, Subject } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { ResponseInterface } from '@interfaces/response.interface';
 import { AuthHelper } from '@helpers/auth.helper';
 import { PostInterface } from '@interfaces/post.interface';
@@ -9,6 +9,7 @@ import { PostService } from '@services/post.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationService } from '@services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SubHolderHelper } from '@helpers/subHolder.helper';
 
 @Component({
     selector: 'app-posts-list',
@@ -20,13 +21,24 @@ export class FavoritesPostsComponent implements OnInit {
     @ViewChild('content', {static: false}) content: TemplateRef<any>;
     public postsObserver: Subject<any> = new ReplaySubject(1);
     public posts$ = this.postsObserver.pipe(
-        switchMap(() => this.postService.getFavorites(AuthHelper.getMe().id)),
-        map( (response: ResponseInterface) => response.data),
+        switchMap((term: string) => {
+            return this.postService.getFavorites(AuthHelper.getMe().id).pipe(
+                map( (response: ResponseInterface) => {
+                    let data = response.data;
+                    if (data && Array.isArray(data)) {
+                        data = data.filter((item: PostInterface) => item.title.toLowerCase().includes(term.toLowerCase()));
+                    }
+
+                    return data;
+                }),
+            );
+        }),
     );
     public me = AuthHelper.getMe();
     public postToEdit: PostInterface = null;
 
     public searchForm: FormGroup;
+    private subH: SubHolderHelper = new SubHolderHelper();
 
     constructor(
         private postService: PostService,
@@ -39,9 +51,17 @@ export class FavoritesPostsComponent implements OnInit {
 
     ngOnInit(): void {
         this.postsObserver.next('');
+        this.initSearchForm();
+    }
+
+    initSearchForm() {
         this.searchForm = this.fb.group({
-            search: this.fb.control(null, []),
+            name: this.fb.control(null, []),
         });
+
+        this.subH.subscribe = this.searchForm.get('name').valueChanges.pipe(
+            debounceTime(200)
+        ).subscribe((value) => this.postsObserver.next(value));
     }
 
     openVerticallyCentered(content) {

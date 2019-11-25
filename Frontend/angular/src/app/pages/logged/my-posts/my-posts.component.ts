@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PostInterface } from '@interfaces/post.interface';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { of, ReplaySubject, Subject } from 'rxjs';
 import { ResponseInterface } from '@interfaces/response.interface';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +9,7 @@ import { AuthHelper } from '@helpers/auth.helper';
 import { PostService } from '@services/post.service';
 import { NotificationService } from '@services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SubHolderHelper } from '@helpers/subHolder.helper';
 
 @Component({
     selector: 'app-my-posts',
@@ -20,13 +21,26 @@ export class MyPostsComponent implements OnInit {
     @ViewChild('content', {static: false}) content: TemplateRef<any>;
     public postsObserver: Subject<any> = new ReplaySubject(1);
     public posts$ = this.postsObserver.pipe(
-        switchMap(() => this.postService.getList()),
-        map( (response: ResponseInterface) => response.data.filter((item: PostInterface) => item.userId === AuthHelper.getMe().id)),
+        switchMap((term: string) => {
+            return this.postService.getList().pipe(
+                map( (response: ResponseInterface) => {
+                    let data = response.data;
+                    if (data && Array.isArray(data)) {
+                        data = data.filter((item: PostInterface) => {
+                            return item.title.toLowerCase().includes(term.toLowerCase()) && item.userId === AuthHelper.getMe().id;
+                        });
+                    }
+
+                    return data;
+                }),
+            );
+        }),
     );
     public me = AuthHelper.getMe();
     public postToEdit: PostInterface = null;
 
     public searchForm: FormGroup;
+    private subH: SubHolderHelper = new SubHolderHelper();
 
     constructor(
         private postService: PostService,
@@ -39,9 +53,17 @@ export class MyPostsComponent implements OnInit {
 
     ngOnInit(): void {
         this.postsObserver.next('');
+        this.initSearchForm();
+    }
+
+    initSearchForm() {
         this.searchForm = this.fb.group({
-            search: this.fb.control(null, []),
+            name: this.fb.control(null, []),
         });
+
+        this.subH.subscribe = this.searchForm.get('name').valueChanges.pipe(
+            debounceTime(200)
+        ).subscribe((value) => this.postsObserver.next(value));
     }
 
     openVerticallyCentered(content) {

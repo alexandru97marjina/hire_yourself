@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { PostService } from '@services/post.service';
 import { Observable, of, ReplaySubject, Subject } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { ResponseInterface } from '@interfaces/response.interface';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -9,6 +9,7 @@ import { AuthHelper } from '@helpers/auth.helper';
 import { PostInterface } from '@interfaces/post.interface';
 import { NotificationService } from '@services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SubHolderHelper } from '@helpers/subHolder.helper';
 
 @Component({
     selector: 'app-posts-list',
@@ -20,14 +21,25 @@ export class PostsListComponent implements OnInit {
     @ViewChild('content', {static: false}) content: TemplateRef<any>;
     public postsObserver: Subject<any> = new ReplaySubject(1);
     public posts$ = this.postsObserver.pipe(
-        switchMap(() => this.postService.getList()),
-        map( (response: ResponseInterface) => response.data),
+        switchMap((term: string) => {
+            return this.postService.getList().pipe(
+                map( (response: ResponseInterface) => {
+                    let data = response.data;
+                    if (data && Array.isArray(data)) {
+                        data = data.filter(item => item.title.toLowerCase().includes(term.toLowerCase()));
+                    }
+
+                    return data;
+                }),
+            );
+        }),
     );
     public me = AuthHelper.getMe();
     public postToEdit: PostInterface = null;
     public favorites$: Observable<any>;
 
     public searchForm: FormGroup;
+    private subH: SubHolderHelper = new SubHolderHelper();
 
     constructor(
         private postService: PostService,
@@ -42,9 +54,7 @@ export class PostsListComponent implements OnInit {
         this.postsObserver.next('');
         this.refreshFavoritesIds();
         this.favorites$ = this.postService.favoritesIds;
-        this.searchForm = this.fb.group({
-            search: this.fb.control(null, []),
-        });
+        this.initSearchForm();
     }
 
     isIncluded(values, post: PostInterface) {
@@ -53,6 +63,16 @@ export class PostsListComponent implements OnInit {
         }
 
         return false;
+    }
+
+    initSearchForm() {
+        this.searchForm = this.fb.group({
+            name: this.fb.control(null, []),
+        });
+
+        this.subH.subscribe = this.searchForm.get('name').valueChanges.pipe(
+            debounceTime(200)
+        ).subscribe((value) => this.postsObserver.next(value));
     }
 
     openVerticallyCentered(content) {
