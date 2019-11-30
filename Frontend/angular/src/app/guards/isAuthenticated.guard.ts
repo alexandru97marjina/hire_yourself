@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Router, CanLoad } from '@angular/router';
+import { Router, CanLoad, ActivatedRoute } from '@angular/router';
 import { AuthHelper } from '@helpers/auth.helper';
 
 @Injectable()
 export class IsAuthenticatedGuard implements CanLoad {
-    constructor(public router: Router) {
+    constructor(public router: Router, public route: ActivatedRoute) {
     }
 
     canLoad(): boolean {

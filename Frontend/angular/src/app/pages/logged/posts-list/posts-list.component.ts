@@ -25,6 +25,7 @@ export class PostsListComponent implements OnInit {
             return this.postService.getList().pipe(
                 map( (response: ResponseInterface) => {
                     let data = response.data;
+                    this.collectLocations(data);
                     if (data && Array.isArray(data)) {
                         data = data.filter(item => item.title.toLowerCase().includes(term.toLowerCase()));
                     }
@@ -37,6 +38,7 @@ export class PostsListComponent implements OnInit {
     public me = AuthHelper.getMe();
     public postToEdit: PostInterface = null;
     public favorites$: Observable<any>;
+    public locations: string[] = [];
 
     public searchForm: FormGroup;
     private subH: SubHolderHelper = new SubHolderHelper();
@@ -73,6 +75,15 @@ export class PostsListComponent implements OnInit {
         this.subH.subscribe = this.searchForm.get('name').valueChanges.pipe(
             debounceTime(200)
         ).subscribe((value) => this.postsObserver.next(value));
+    }
+
+    collectLocations(data: PostInterface[]) {
+        this.locations = [];
+        data.forEach((item: PostInterface) => {
+            if (!this.locations.find((location) => item.jobLocation === location)) {
+                this.locations.push(item.jobLocation);
+            }
+        });
     }
 
     openVerticallyCentered(content) {
