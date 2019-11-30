@@ -5,8 +5,8 @@ import { EducationInterface } from '@interfaces/education.interface';
 
 export interface UserInterface extends EntityInterface {
     email: string;
-    first_name?: string;
-    last_name?: string;
+    firstName?: string;
+    lastName?: string;
     address?: string;
     phone?: string;
     password?: string;

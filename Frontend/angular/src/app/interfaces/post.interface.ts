@@ -2,8 +2,9 @@ import { EntityInterface } from './entity.interface';
 
 export interface PostInterface extends EntityInterface {
     title: string;
-    dateCreated?: string;
-    dateExpired?: string;
+    dateCreated?: number;
+    dateExpired?: number;
+    dateUpdated?: number;
     description?: string;
     jobLocation?: string;
     imagePath?: string;

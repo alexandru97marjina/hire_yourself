@@ -1,7 +1,7 @@
 <div class="container">
-    <div class="management-area">
+    <div [formGroup]="searchForm" class="management-area">
         <div class="w-75 border-raw d-inline-block">
-            <form [formGroup]="searchForm" class="form-inline active-pink-3 active-pink-4">
+            <div class="form-inline active-pink-3 active-pink-4">
                 <input
                     class="form-control form-control-sm mr-3 w-95"
                     type="text"
@@ -11,13 +11,86 @@
                     aria-describedby="searchBlock"
                 />
                 <i class="fa fa-search btn-icon clickable-icon" aria-hidden="true"></i>
-            </form>
+            </div>
         </div>
         <div class="d-inline-block w-25">
             <button class="btn btn-info w-75 m-3" (click)="openVerticallyCentered(content)">Create add</button>
         </div>
         <div class="filters">
-            test
+            <div class="row justify-content-center text-center">
+                <div class="col-md-4 text-left labeled-input">
+                    <label class="d-inline-flex m-auto" for="startDate">
+                        start date
+                    </label>
+                    <input
+                        id="startDate"
+                        class="form-control d-inline-flex w-80"
+                        type="date"
+                        formControlName="startDate"
+                    />
+                </div>
+                <div class="col-md-4 text-left">
+                    <ng-select
+                        class="form-control"
+                        [items]="users$| async"
+                        [typeahead]="usersObserver"
+                        [hideSelected]="true"
+                        bindValue="id"
+                        bindLabel="username"
+                        formControlName="user"
+                        [placeholder]="'user ... '"
+                    >
+                    </ng-select>
+                </div>
+                <div class="col-md-4 text-left">
+                    <ng-select
+                        class="form-control"
+                        [items]="educations$| async"
+                        [typeahead]="educationObserver"
+                        formControlName="education"
+                        bindValue="id"
+                        bindLabel="specialityName"
+                        [placeholder]="'education ... '"
+                    >
+                    </ng-select>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="row justify-content-center text-center">
+                <div class="col-md-4 text-left labeled-input">
+                    <label class="d-inline-flex m-auto" for="endDate">
+                        end date
+                    </label>
+                    <input
+                        id="endDate"
+                        class="form-control d-inline-flex w-80"
+                        type="date"
+                        formControlName="endDate"
+                    />
+                </div>
+                <div class="col-md-4 text-left">
+                    <ng-select
+                        class="form-control"
+                        formControlName="location"
+                        [items]="locations"
+                        [placeholder]="'location ... '"
+                    >
+                    </ng-select>
+                </div>
+                <div class="col-md-4 text-left">
+                    <ng-select
+                        class="form-control"
+                        [items]="activities$| async"
+                        [typeahead]="activityObserver"
+                        [hideSelected]="true"
+                        bindValue="id"
+                        bindLabel="activityName"
+                        formControlName="activity"
+                        [placeholder]="'activity ... '"
+                    >
+                    </ng-select>
+                </div>
+            </div>
         </div>
         <small id="searchBlock" class="form-text text-muted text-center w-75">
             I do not say that I don't want to work. I say that I don't want to twerk.
