@@ -181,7 +181,7 @@ export class FavoritesPostsComponent implements OnInit {
 
     removeFromFavorites(event: boolean, post: PostInterface) {
         if (!event) {
-            this.postService.deleteFavorite(post.id, this.me.id).pipe(
+            this.postService.deleteFavorite(this.me.id, post.id).pipe(
                 catchError((response) => {
                     this.notificationService.error(response.error);
                     return of(null);

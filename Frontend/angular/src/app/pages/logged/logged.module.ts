@@ -10,6 +10,7 @@ import { LoggedRoutingModule } from '@app/pages/logged/logged-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { UsersComponent } from '@app/pages/logged/users/users.component';
 import { UserComponent } from '@components/user/user.component';
+import { UserEditComponent } from '@components/user-edit/user-edit.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { UserComponent } from '@components/user/user.component';
         FavoritesPostsComponent,
         UsersComponent,
         UserComponent,
+        UserEditComponent,
     ],
     imports: [
         SharedModule,

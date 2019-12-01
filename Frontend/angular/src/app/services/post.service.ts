@@ -91,12 +91,12 @@ export class PostService {
         return this.httpService.post(this.postApi.accept(postId, userId), {});
     }
 
-    public addToFavorites(postId: number, userId: number) {
-        return this.httpService.get(this.postApi.addToFavorite(postId, userId));
+    public addToFavorites(userId: number, postId: number) {
+        return this.httpService.get(this.postApi.addToFavorite(userId, postId));
     }
 
-    public deleteFavorite(postId: number, userId: number) {
-        return this.httpService.delete(this.postApi.deleteFavorite(postId, userId));
+    public deleteFavorite(userId: number, postId: number) {
+        return this.httpService.delete(this.postApi.deleteFavorite(userId, postId));
     }
 
     public getFavorites(userId: number) {

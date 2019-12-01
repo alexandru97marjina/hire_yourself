@@ -18,7 +18,7 @@ export class UserComponent {
     }
 
     entries(object = null) {
-        if (typeof object === 'object') {
+        if (object && typeof object === 'object') {
             return Object.entries(object);
         }
 

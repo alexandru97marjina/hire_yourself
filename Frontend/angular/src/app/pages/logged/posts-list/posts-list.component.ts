@@ -220,7 +220,7 @@ export class PostsListComponent implements OnInit {
     }
 
     removeFromFavorites(post: PostInterface) {
-        this.postService.deleteFavorite(post.id, this.me.id).pipe(
+        this.postService.deleteFavorite(this.me.id, post.id).pipe(
             catchError((response) => {
                 this.notificationService.error(response.error);
                 return of(null);
@@ -235,7 +235,7 @@ export class PostsListComponent implements OnInit {
     }
 
     addToFavorites(post: PostInterface) {
-        this.postService.addToFavorites(post.id, this.me.id).pipe(
+        this.postService.addToFavorites(this.me.id, post.id).pipe(
             catchError((response) => {
                 this.notificationService.error(response.error);
                 return of(null);
