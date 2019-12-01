@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.marjina.hire_yourself.common.util.consts.GlobalConst.USER_EXISTS;
 import static com.marjina.hire_yourself.common.util.consts.GlobalConst.USER_NOT_FOUND;
 
 @Component
@@ -29,6 +30,11 @@ public class UserManagerImpl implements UserManager {
     @Override
     public void createUser(UserReqDTO reqDTO) throws NotFoundException, ParseException {
         User user = new User();
+
+        if (userDAO.findUserByEmail(reqDTO.getEmail()).isPresent()) {
+            throw new NotFoundException(USER_EXISTS);
+        }
+
         helper.mapUserReqDTOToUser(user, reqDTO);
     }
 

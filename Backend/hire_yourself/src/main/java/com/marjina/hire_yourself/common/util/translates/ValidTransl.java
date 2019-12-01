@@ -35,6 +35,9 @@ public class ValidTransl {
         USER_NOT_FOUND(ImmutableMap.of(
                 "en", "User with a such email or id is not found!"
         )),
+        USER_EXISTS(ImmutableMap.of(
+                "en", "User with a such email already exists!"
+        )),
         EDUCATION_NOT_FOUND(ImmutableMap.of(
                 "en", "Education entity with this id does not exits please first create one!"
         )),

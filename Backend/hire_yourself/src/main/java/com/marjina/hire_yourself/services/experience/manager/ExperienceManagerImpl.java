@@ -27,11 +27,8 @@ public class ExperienceManagerImpl implements ExperienceManager {
 
     @Override
     public List<Experience> saveExperiencesByUser(List<ExperienceReqDTO> experienceReqDTOS, Integer userId) throws NotFoundException, ParseException {
-        List<Experience> experiences = experienceDAO.findAllByUser_Id(userId);
-
-        if (experiences == null) {
-            experiences = new ArrayList<>();
-        }
+        experienceDAO.deleteAllByUser_Id(userId);
+        List<Experience> experiences = new ArrayList<>();
 
         for (ExperienceReqDTO reqDTO : experienceReqDTOS) {
             Experience experience = new Experience();

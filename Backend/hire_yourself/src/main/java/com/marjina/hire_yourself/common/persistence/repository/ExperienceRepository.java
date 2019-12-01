@@ -11,4 +11,6 @@ public interface ExperienceRepository extends JpaRepository<Experience, Integer>
 
     List<Experience> findAllByUser_Id(Integer userId);
 
+    void deleteAllByUser_Id(Integer userId);
+
 }
