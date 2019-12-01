@@ -10,7 +10,6 @@ export class AuthHelper {
         localStorage.setItem('me', (user ? JSON.stringify(user) : null));
     }
 
-
     public static getAuthenticated() {
         return Boolean(JSON.parse(localStorage.getItem('authenticated')));
     }

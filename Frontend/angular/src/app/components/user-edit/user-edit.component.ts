@@ -9,7 +9,6 @@ import { ResponseInterface } from '@interfaces/response.interface';
 import { NotificationService } from '@services/notification.service';
 import { AuthHelper } from '@helpers/auth.helper';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { ActivityInterface } from '@interfaces/activity.interface';
 import { map, switchMap } from 'rxjs/operators';
 import { EducationInterface } from '@interfaces/education.interface';
 
@@ -22,11 +21,6 @@ export class UserEditComponent implements OnInit {
     public form: FormGroup;
     public user: UserInterface;
     public me = AuthHelper.getMe();
-    public experienceObserver: Subject<string> = new ReplaySubject(1);
-    public experiences$: Observable<ActivityInterface[]> = this.experienceObserver.pipe(
-        switchMap(() => this.activityService.getList()),
-        map((response: ResponseInterface) => response.data as ActivityInterface[])
-    );
     public educationObserver: Subject<string> = new ReplaySubject();
     public educations$: Observable<EducationInterface[]> = this.educationObserver.pipe(
         switchMap(() => this.educationService.getList()),
@@ -51,7 +45,6 @@ export class UserEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.initEditUser();
-        this.experienceObserver.next('');
         this.educationObserver.next('');
     }
 

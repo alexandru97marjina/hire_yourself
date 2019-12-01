@@ -23,6 +23,7 @@ import { EducationService } from '@services/education.service';
 export class FavoritesPostsComponent implements OnInit {
 
     @ViewChild('content', {static: false}) content: TemplateRef<any>;
+    @ViewChild('contentShow', {static: false}) contentShow: TemplateRef<any>;
     public postsObserver: Subject<any> = new ReplaySubject(1);
     public usersObserver: Subject<string> = new ReplaySubject(1);
     public activityObserver: Subject<any> = new ReplaySubject(1);
@@ -102,6 +103,7 @@ export class FavoritesPostsComponent implements OnInit {
     );
     public me = AuthHelper.getMe();
     public postToEdit: PostInterface = null;
+    public postToShow: PostInterface = null;
 
     public searchForm: FormGroup;
     private subH: SubHolderHelper = new SubHolderHelper();
@@ -177,6 +179,7 @@ export class FavoritesPostsComponent implements OnInit {
 
     clearEdit() {
         this.postToEdit = null;
+        this.postToShow = null;
     }
 
     removeFromFavorites(event: boolean, post: PostInterface) {
@@ -201,6 +204,11 @@ export class FavoritesPostsComponent implements OnInit {
         modal.close();
         this.refreshList();
         this.clearEdit();
+    }
+
+    openShow(post: PostInterface) {
+        this.postToShow = post;
+        this.openVerticallyCentered(this.contentShow);
     }
 
     modalClose(modal: NgbActiveModal) {

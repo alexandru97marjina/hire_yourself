@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  map, switchMap } from 'rxjs/operators';
 import { NotificationService } from '@services/notification.service';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { UserInterface } from '@interfaces/user.interface';
-import { ActivityInterface } from '@interfaces/activity.interface';
 import { ResponseInterface } from '@interfaces/response.interface';
 import { EducationInterface } from '@interfaces/education.interface';
 import { UserService } from '@services/user.service';
@@ -120,7 +118,6 @@ export class RegisterComponent implements OnInit {
 
     modalSubmit(modal: NgbActiveModal, event = null) {
         modal.close();
-        console.log(event);
         const experience: any[] = this.form.get('experience').value || [];
         experience.push(event);
         this.experiences = experience;

@@ -103,6 +103,7 @@
             *ngFor="let post of posts$|async"
             [post]="post"
             [me]="me.id"
+            (titleClick)="openShow(post)"
             (favorite)="removeFromFavorites($event, post)"
         ></app-post>
     </div>
@@ -114,4 +115,11 @@
         (formSubmit)="modalSubmit(modal)"
         (crossClick)="modalClose(modal)"
     ></app-post-form>
+</ng-template>
+
+<ng-template #contentShow let-modal>
+    <app-post-show
+        [post]="postToShow"
+        (closeShow)="modalClose(modal)"
+    ></app-post-show>
 </ng-template>

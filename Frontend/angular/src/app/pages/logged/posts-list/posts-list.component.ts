@@ -23,6 +23,7 @@ import { SearchHelper } from '@helpers/search.helper';
 export class PostsListComponent implements OnInit {
 
     @ViewChild('content', {static: false}) content: TemplateRef<any>;
+    @ViewChild('contentShow', {static: false}) contentShow: TemplateRef<any>;
     public postsObserver: Subject<any> = new ReplaySubject(1);
     public usersObserver: Subject<string> = new ReplaySubject(1);
     public activityObserver: Subject<any> = new ReplaySubject(1);
@@ -101,6 +102,7 @@ export class PostsListComponent implements OnInit {
     );
     public me = AuthHelper.getMe();
     public postToEdit: PostInterface = null;
+    public postToShow: PostInterface = null;
     public favorites$: Observable<any>;
     public locations: string[] = [];
 
@@ -194,6 +196,7 @@ export class PostsListComponent implements OnInit {
 
     clearEdit() {
         this.postToEdit = null;
+        this.postToShow = null;
     }
 
     removePost(post: PostInterface) {
@@ -259,6 +262,11 @@ export class PostsListComponent implements OnInit {
     modalClose(modal: NgbActiveModal) {
         modal.dismiss('Cross click');
         this.clearEdit();
+    }
+
+    openShow(post: PostInterface) {
+        this.postToShow = post;
+        this.openVerticallyCentered(this.contentShow);
     }
 
     editPost(post: PostInterface) {

@@ -38,7 +38,7 @@
                         bindValue="id"
                         bindLabel="username"
                         formControlName="user"
-                        [placeholder]="'user ... '"
+                        [placeholder]="'user-show ... '"
                     >
                     </ng-select>
                 </div>
@@ -103,6 +103,7 @@
             [isFavorite]="isIncluded((favorites$| async), post)"
             [post]="post"
             [me]="me.id"
+            (titleClick)="openShow(post)"
             (edit)="editPost(post)"
             (remove)="removePost(post)"
             (favorite)="handleFavorite($event, post)"
@@ -116,4 +117,11 @@
         (formSubmit)="modalSubmit(modal)"
         (crossClick)="modalClose(modal)"
     ></app-post-form>
+</ng-template>
+
+<ng-template #contentShow let-modal>
+    <app-post-show
+        [post]="postToShow"
+        (closeShow)="modalClose(modal)"
+    ></app-post-show>
 </ng-template>

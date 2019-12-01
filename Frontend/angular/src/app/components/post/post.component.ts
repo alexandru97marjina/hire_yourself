@@ -14,6 +14,7 @@ export class PostComponent {
     @Output() edit: EventEmitter<void> = new EventEmitter<void>();
     @Output() remove: EventEmitter<void> = new EventEmitter<void>();
     @Output() favorite: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() titleClick: EventEmitter<any> = new EventEmitter<any>();
 
     editPost() {
         this.edit.emit();

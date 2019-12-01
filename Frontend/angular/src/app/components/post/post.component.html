@@ -27,7 +27,9 @@
     />
     <div class="card-body">
         <h5 class="card-title">
-            {{post.title | length: 20}}
+            <span (click)="titleClick.emit(null)" class="cursor-pointer">
+                {{post.title | length: 20}}
+            </span>
             <span class="action-icons">
                 <i
                     (click)="editPost()"
