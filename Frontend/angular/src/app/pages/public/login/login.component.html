@@ -29,7 +29,8 @@
                                 [placeholder]="'password'"
                             />
                             <button class="btn btn-light btn-info m-1" (click)="login()">Login</button>
-                            <a class="btn-link m-1 clickable" href="/login#" (click)="changePage(pages.resetPassword)">Forgot password</a>
+                            <a class="btn-link m-1 clickable" href="/public/login#" (click)="changePage(pages.resetPassword)">Forgot password</a>
+                            <button class="btn btn-xl btn-info w-100" [routerLink]="['/', 'public', 'register']">Register</button>
                         </form>
 
                         <form class="form-group m-auto" [formGroup]="resetPasswordForm" *ngIf="page === pages.resetPassword">
@@ -43,7 +44,8 @@
                                 [placeholder]="'E-mail'"
                             />
                             <button class="btn btn-light btn-info m-1" (click)="resetPassword()">Reset Password</button>
-                            <a class="btn-link m-1 clickable" href="/login#" (click)="changePage(pages.login)">Login</a>
+                            <a class="btn-link m-1 clickable" href="/public/login#" (click)="changePage(pages.login)">Login</a>
+                            <button class="btn btn-xl btn-info w-100" [routerLink]="['/', 'public', 'register']">Register</button>
                         </form>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ enum Page {
 }
 
 @Component({
-    selector: 'app-my-posts',
+    selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
