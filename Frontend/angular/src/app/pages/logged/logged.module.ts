@@ -8,6 +8,8 @@ import { PostFormComponent } from '@components/post-form/post-form.component';
 import { SharedModule } from '@app/shared.module';
 import { LoggedRoutingModule } from '@app/pages/logged/logged-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { UsersComponent } from '@app/pages/logged/users/users.component';
+import { UserComponent } from '@components/user/user.component';
 
 @NgModule({
     declarations: [
@@ -16,6 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
         PostFormComponent,
         MyPostsComponent,
         FavoritesPostsComponent,
+        UsersComponent,
+        UserComponent,
     ],
     imports: [
         SharedModule,

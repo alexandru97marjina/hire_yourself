@@ -1,0 +1,76 @@
+@import "../../../../assets/styles/variables";
+.table {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .col {
+        flex-grow: 1;
+
+        :nth-child(even) {
+            &:not(span) {
+                background-color: #F8F8F9;
+            }
+        }
+
+        .cell {
+            display: block;
+            height: 50px;
+            padding: 10px;
+            white-space: nowrap;
+
+            &:hover {
+                cursor: pointer;
+                background-color: transparentize(lighten(lightgrey, 0.35), 0.4);
+                color: $dark-primary;
+            }
+
+            button {
+                background: none;
+                height: 50px;
+                width: 50px;
+                font-size: 20px;
+                color: #B3B3B3;
+                border-radius: 0;
+
+                &:hover {
+                    .ywi-icon {
+                        color: #3B73FF;
+                    }
+
+                    .ywi-trash {
+                        color: #FF5757;
+                    }
+                }
+
+                &:disabled {
+                    color: #e0e0e0;
+
+                    &:hover {
+                        color: #e0e0e0;
+                    }
+                }
+            }
+        }
+    }
+
+    .actions-col {
+        text-align: center;
+
+        .col-title {
+        }
+
+        .cell {
+            padding: 0;
+        }
+    }
+
+    .col-title {
+        display: block;
+        padding: 10px;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 18px;
+        color: #000000;
+    }
+}

@@ -24,15 +24,15 @@
 
                 <div ngbDropdown class="d-inline-block">
                     <div class="d-flex flex-wrap" style="max-width: 150px;">
-                        <span style="margin: 2px;">{{user.first_name | length: 40}}</span>
-                        <span style="margin: 2px;">{{user.last_name | length: 40}}</span>
+                        <span style="margin: 2px;">{{user.firstName | length: 40}}</span>
+                        <span style="margin: 2px;">{{user.lastName | length: 40}}</span>
                     </div>
 
                     <button class="btn btn-outline-primary no-borders" id="dropdownBasic1" ngbDropdownToggle>{{user.email| length: 30}}</button>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button ngbDropdownItem><i class="fa fa-calendar"></i></button>
-                        <button ngbDropdownItem (click)="logout()">Logout</button>
-                        <button ngbDropdownItem>Something else is here</button>
+                        <button ngbDropdownItem [routerLink]="['users', 'edit', user.id]"><i class="fa fa-address-card-o"></i> &nbsp;Profile</button>
+                        <button ngbDropdownItem (click)="logout()"><i class="fa fa-power-off"></i> &nbsp;Logout</button>
+                        <button ngbDropdownItem [routerLink]="['users']"><i class="fa fa-users"></i> &nbsp;Users list</button>
                     </div>
                 </div>
             </li>

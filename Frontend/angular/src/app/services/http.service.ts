@@ -80,7 +80,6 @@ export class HttpService {
 
         return this.http.delete(environment.apiRoute + apiEndPoint, { headers }).pipe(
             catchError((error) => {
-                console.log(error);
                 if (error && error.hasOwnProperty('error')) {
                     return throwError(error.error);
                 }

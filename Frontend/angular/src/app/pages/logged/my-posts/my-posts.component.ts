@@ -168,7 +168,7 @@ export class MyPostsComponent implements OnInit {
     }
 
     openVerticallyCentered(content) {
-        this.modalService.open(content, { centered: true });
+        this.modalService.open(content, { centered: true, backdrop: 'static' });
     }
 
     refreshList() {

@@ -20,7 +20,6 @@ export class AuthService {
     public login({ email, password }) {
         return this.httpService.post(this.authApi.login, { email, password }, false).pipe(
             tap((response: ResponseInterface) => {
-                console.log(response);
                 AuthHelper.setMe(response.data as UserInterface);
                 AuthHelper.setAuthenticated(true);
             }),

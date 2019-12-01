@@ -1,0 +1,65 @@
+<div class="container">
+    <div [formGroup]="searchForm" class="management-area">
+        <div class="w-75 border-raw d-inline-block">
+            <div class="form-inline active-pink-3 active-pink-4">
+                <input
+                    class="form-control form-control-sm mr-3 w-95"
+                    type="text"
+                    placeholder="Search"
+                    formControlName="name"
+                    aria-label="Search"
+                    aria-describedby="searchBlock"
+                />
+                <i class="fa fa-search btn-icon clickable-icon" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="d-inline-block w-25">
+            <button class="btn btn-info w-75 m-3" (click)="openVerticallyCentered(content)">Create user</button>
+        </div>
+        <small id="searchBlock" class="form-text text-muted text-center w-75">
+            I do not say that I don't want to work. I say that I don't want to twerk.
+        </small>
+    </div>
+
+    <div class="table">
+        <div class="col">
+            <div class="col-title  w-100 d-flex">
+                <span class="w-5">
+                </span>
+                <span class="w-35">
+                   {{'User name'| translate}}
+                </span>
+                <span class="w-20">
+                    {{'Email'| translate}}
+                </span>
+                <span class="w-20">
+                    {{'address'| translate}}
+                </span>
+                <span class="w-20">
+                    {{'phone Number'| translate}}
+                </span>
+            </div>
+            <div class="cell w-100 d-flex" *ngFor="let user of users$|async" (click)="openShowUser(user)">
+                <span class="w-5">
+                    <i class="fa fa-user"></i>
+                </span>
+                <span class="w-35">
+                    {{(user.firstName| length:30) + ' ' + (user.lastName| length: 30)}}
+                </span>
+                <span class="w-20">
+                    {{user.email| length:30}}
+                </span>
+                <span class="w-20">
+                    {{user.address| length:30}}
+                </span>
+                <span class="w-20">
+                    {{user.phone| length:30}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <app-user [user]="userToShow" (closeShow)="modalClose(modal)"></app-user>
+</ng-template>

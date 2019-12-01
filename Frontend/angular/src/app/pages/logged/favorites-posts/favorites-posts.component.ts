@@ -167,7 +167,7 @@ export class FavoritesPostsComponent implements OnInit {
     }
 
     openVerticallyCentered(content) {
-        this.modalService.open(content, { centered: true });
+        this.modalService.open(content, { centered: true, backdrop: 'static' });
     }
 
     refreshList() {
