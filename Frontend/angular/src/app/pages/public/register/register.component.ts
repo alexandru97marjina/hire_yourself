@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {  map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { NotificationService } from '@services/notification.service';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { ResponseInterface } from '@interfaces/response.interface';
 import { EducationInterface } from '@interfaces/education.interface';
 import { UserService } from '@services/user.service';
@@ -29,6 +29,8 @@ export class RegisterComponent implements OnInit {
     public experiences = [];
     public submitted = false;
 
+    private readonly PHONE_PATTERN = /^(?:(?:\+|00)373|0)\s*[1-9](\d){7}$/;
+
     constructor(
         private userService: UserService,
         private educationService: EducationService,
@@ -52,7 +54,7 @@ export class RegisterComponent implements OnInit {
             lastName: this.fb.control('', [Validators.required]),
             email: this.fb.control('', [Validators.required, Validators.email]),
             address: this.fb.control('', [Validators.required]),
-            phone: this.fb.control('', [Validators.required]),
+            phone: this.fb.control('', [Validators.required, Validators.pattern(this.PHONE_PATTERN)]),
             password: this.fb.control('', [Validators.minLength(6), Validators.required]),
             passwordConfirm: this.fb.control('',
                 this.confirmPasswordControl() ? [Validators.required] : []
@@ -94,10 +96,18 @@ export class RegisterComponent implements OnInit {
         }
 
         values.activityId = 1;
-        this.userService.createUser(values, false).subscribe(() => {
-            this.notificationService.success('successful register');
-            this.router.navigate(['/', 'public', 'login']);
-        });
+        this.userService.createUser(values, false)
+            .pipe(
+                catchError((error) => {
+                    this.notificationService.error(error.message);
+                    return of(null);
+                })
+            ).subscribe((data) => {
+                if (data) {
+                    this.notificationService.success('successful register');
+                    this.router.navigate(['/', 'public', 'login']);
+                }
+            });
     }
 
     checkPasswords(group: FormGroup) { // here we have the 'passwords' group

@@ -31,6 +31,7 @@ export class UserEditComponent implements OnInit {
 
     public experiences = [];
     public submitted = false;
+    private readonly PHONE_PATTERN = /^(?:(?:\+|00)373|0)\s*[1-9](\d){7}$/;
 
     constructor(
         private userService: UserService,
@@ -54,7 +55,7 @@ export class UserEditComponent implements OnInit {
             lastName: this.fb.control(user ? user.lastName : '', [Validators.required]),
             email: this.fb.control(user ? user.email : '', [Validators.required, Validators.email]),
             address: this.fb.control(user ? user.address : '', [Validators.required]),
-            phone: this.fb.control(user ? user.phone : '', [Validators.required]),
+            phone: this.fb.control(user ? user.phone : '', [Validators.required, Validators.pattern(this.PHONE_PATTERN)]),
             password: this.fb.control('', [Validators.minLength(6)]),
             passwordConfirm: this.fb.control('',
                 this.confirmPasswordControl() ? [Validators.required] : []
