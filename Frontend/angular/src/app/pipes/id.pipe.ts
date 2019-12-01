@@ -3,7 +3,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'id'})
 export class IdPipe implements PipeTransform {
     transform(value: any): string {
-        let result = null;
+        if (!value) {
+            return '';
+        }
+
+        let result: any = '';
 
         if (Array.isArray(value)) {
             result = value.map(item => item.hasOwnProperty('id') ? item.id : Object.values(item).pop());

@@ -21,12 +21,12 @@ export class UserService {
         return this.httpService.get(this.userApi.getList);
     }
 
-    public updateUser(user: UserInterface) {
-        return this.httpService.put(this.userApi.update(user.id), user);
+    public updateUser(id: number, user: UserInterface) {
+        return this.httpService.put(this.userApi.update(id), user);
     }
 
-    public createUser(user: UserInterface) {
-        return this.httpService.post(this.userApi.create, user);
+    public createUser(user: UserInterface, checkAuthenticated = true) {
+        return this.httpService.post(this.userApi.create, user, checkAuthenticated);
     }
 
     public deleteUser(user: UserInterface) {

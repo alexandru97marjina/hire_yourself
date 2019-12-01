@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="modal-title">Post details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <ng-container *ngFor="let entry of entries(post)">
+            <div class="col-md-3">{{entry[0]}}</div>
+            <div class="col-md-9">{{entry[1]| id}}</div>
+        </ng-container>
+    </div>
+</div>

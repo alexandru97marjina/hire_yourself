@@ -1,0 +1,210 @@
+<div class="login-background">
+    <div class="w-50 m-auto justify-content-center">
+        <div class="register-container">
+            <div class="row h-100">
+                <div class="container">
+                    <div class="highlighted-box" [formGroup]="form">
+                        <div class="row spacing-row">
+                            <div class="col-md-3 text-right">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                    type="text"
+                                    formControlName="email"
+                                    id="email"
+                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('email'), 'is-invalid': isSubmittedAndInvalid('email')}"
+                                />
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row spacing-row">
+                            <div class="col-md-3 text-right">
+                                <label for="first_name">First name</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                    type="text"
+                                    formControlName="firstName"
+                                    id="first_name"
+                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('firstName'), 'is-invalid': isSubmittedAndInvalid('firstName')}"
+                                />
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row spacing-row">
+                            <div class="col-md-3 text-right">
+                                <label for="last_name">Last name</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                    type="text"
+                                    formControlName="lastName"
+                                    id="last_name"
+                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('lastName'), 'is-invalid': isSubmittedAndInvalid('lastName')}"
+                                />
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row spacing-row">
+                            <div class="col-md-3 text-right">
+                                <label for="address">Address</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                    type="text"
+                                    formControlName="address"
+                                    id="address"
+                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('address'), 'is-invalid': isSubmittedAndInvalid('address')}"
+                                />
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row spacing-row">
+                            <div class="col-md-3 text-right">
+                                <label for="phone">Phone number</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                    type="text"
+                                    formControlName="phone"
+                                    id="phone"
+                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('phone'), 'is-invalid': isSubmittedAndInvalid('phone')}"
+                                />
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row spacing-row">
+                            <div class="col-md-3 text-right">
+                                <label for="age">Age</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                    type="number"
+                                    formControlName="age"
+                                    id="age"
+                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('age'), 'is-invalid': isSubmittedAndInvalid('age')}"
+                                />
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row spacing-row">
+                            <div class="col-md-3 text-right">
+                                <label for="education">Education</label>
+                            </div>
+                            <div class="col-md-5">
+                                <ng-select
+                                    id="education"
+                                    [items]="educations$|async"
+                                    [typeahead]="educationObserver"
+                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('educationId'), 'is-invalid': isSubmittedAndInvalid('educationId')}"
+                                    formControlName="educationId"
+                                    bindValue="id"
+                                    bindLabel="mixedName"
+                                    [placeholder]="'Education'| ucfirst"
+                                >
+                                </ng-select>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row spacing-row">
+                            <div class="col-md-3 text-right">
+                                <label for="experience">Experience</label>
+                            </div>
+                            <div class="col-md-5">
+                                <ng-select
+                                    id="experience"
+                                    [items]="experiences"
+                                    [multiple]="true"
+                                    formControlName="experience"
+                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('experience'), 'is-invalid': isSubmittedAndInvalid('experience')}"
+                                    bindLabel="companyName"
+                                    [placeholder]="'Experience'| ucfirst"
+                                >
+                                </ng-select>
+                                <a href="/public/register#" (click)="openVerticallyCentered(content)"> Add experience</a>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row spacing-row">
+                            <div class="col-md-3 text-right">
+                                <label for="graduation_year"> Graduation Year</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                    type="text"
+                                    formControlName="graduationYear"
+                                    id="graduation_year"
+                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('graduationYear'), 'is-invalid': isSubmittedAndInvalid('graduationYear')}"
+                                />
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+
+                        <div style="border: 1px solid black; padding: 15px; margin:10px;">
+                            <label class="form-header-label">
+                                Password
+                            </label>
+                            <div class="row spacing-row">
+                                <div class="col-md-3 text-right">
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input
+                                        type="password"
+                                        formControlName="password"
+                                        id="password"
+                                        [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('password'), 'is-invalid': isSubmittedAndInvalid('password')}"
+                                    />
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <div class="row spacing-row">
+                                <div class="col-md-3 text-right">
+                                    <label for="password_confirm">Password Confirm</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input
+                                        type="password"
+                                        formControlName="passwordConfirm"
+                                        id="password_confirm"
+                                        [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('passwordConfirm'), 'is-invalid': isSubmittedAndInvalid('passwordConfirm')}"
+                                    />
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </div>
+                        <div class="row spacing-row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-3">
+                                <button
+                                    class="btn btn-danger"
+                                    [routerLink]="['/', 'public', 'login']"
+                                >
+                                    Back
+                                </button>
+                                &nbsp;
+                                <button
+                                    class="btn btn-success"
+                                    (click)="submit()"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <app-experience-form
+        (formSubmit)="modalSubmit(modal, $event)"
+        (crossClick)="modalClose(modal)"
+    ></app-experience-form>
+</ng-template>
+
+

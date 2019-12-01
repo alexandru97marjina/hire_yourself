@@ -17,8 +17,8 @@ export class EducationService {
         return this.httpService.get(this.educationApi.getOne(id));
     }
 
-    public getList() {
-        return this.httpService.get(this.educationApi.getList);
+    public getList(checkAuthenticated = true) {
+        return this.httpService.get(this.educationApi.getList, checkAuthenticated);
     }
 
     public updateEducation(education: EducationInterface) {

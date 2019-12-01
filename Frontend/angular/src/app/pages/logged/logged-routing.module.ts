@@ -4,6 +4,7 @@ import { PostsListComponent } from '@app/pages/logged/posts-list/posts-list.comp
 import { MyPostsComponent } from '@app/pages/logged/my-posts/my-posts.component';
 import { FavoritesPostsComponent } from '@app/pages/logged/favorites-posts/favorites-posts.component';
 import { UsersComponent } from '@app/pages/logged/users/users.component';
+import { UserEditComponent } from '@components/user-edit/user-edit.component';
 
 
 const routes: Routes = [
@@ -26,8 +27,17 @@ const routes: Routes = [
     },
     {
         path: 'users',
-        component: UsersComponent
-    }
+        children: [
+            {
+                path: '',
+                component: UsersComponent
+            },
+            {
+                path: 'edit/:id',
+                component: UserEditComponent
+            }
+        ]
+    },
 ];
 
 @NgModule({
