@@ -2,7 +2,6 @@ package com.marjina.hire_yourself.services.post.manager;
 
 import com.marjina.hire_yourself.common.helper.exception.NotFoundException;
 import com.marjina.hire_yourself.common.persistence.models.Post;
-import com.marjina.hire_yourself.common.persistence.models.User;
 import com.marjina.hire_yourself.common.persistence.repository.PostRepository;
 import com.marjina.hire_yourself.services.post.dto.PostReqDTO;
 import com.marjina.hire_yourself.services.post.dto.PostResDTO;
@@ -79,7 +78,7 @@ public class PostManagerImpl implements PostManager {
 
     @Override
     public List<PostResDTO> getListOfFavoritePosts(Integer userId) {
-        List<Post> posts = postDAO.findAllByFavoriteUser_Id(userId).orElse(new ArrayList<>());
+        List<Post> posts = postDAO.findAllByFavoriteUser_IdOrderById(userId).orElse(new ArrayList<>());
 
         return posts.stream().map(PostResDTO::new).collect(Collectors.toList());
     }
