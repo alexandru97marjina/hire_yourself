@@ -3,7 +3,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { HttpService } from './http.service';
 import { UserInterface } from '@interfaces/user.interface';
 import { throwError } from 'rxjs';
-import { Api } from '@helpers/api.helper';
+import { Api, ApiHelper } from '@helpers/api.helper';
 import { AuthHelper } from '@helpers/auth.helper';
 import { ResponseInterface } from '@interfaces/response.interface';
 
@@ -44,7 +44,9 @@ export class AuthService {
     }
 
     public requestResetPassword(email: string) {
-        return this.httpService.post(this.authApi.requestPassword, { email }, false);
+        console.log(email);
+        const api = ApiHelper.queryParams({email});
+        return this.httpService.get(this.authApi.requestPassword + api, false);
     }
 
     public register(email: string, password: string) {

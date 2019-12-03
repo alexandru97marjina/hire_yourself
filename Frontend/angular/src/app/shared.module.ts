@@ -9,12 +9,14 @@ import { Directives } from '@app/directives';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastComponent } from '@components/toast/toast.component';
+import { ExperienceFormComponent } from '@components/experience-form/experience-form.component';
 
 @NgModule({
     declarations: [
         ...Pipes,
         ...Directives,
         ToastComponent,
+        ExperienceFormComponent,
     ],
     imports: [
         HttpClientModule,
@@ -32,6 +34,7 @@ import { ToastComponent } from '@components/toast/toast.component';
     exports: [
         ...Pipes,
         ...Directives,
+        ExperienceFormComponent,
         NgbModule,
         NgbDropdownModule,
         NgSelectModule,

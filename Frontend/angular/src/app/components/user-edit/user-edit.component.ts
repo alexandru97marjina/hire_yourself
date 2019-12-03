@@ -11,6 +11,7 @@ import { AuthHelper } from '@helpers/auth.helper';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { EducationInterface } from '@interfaces/education.interface';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-user-edit',
@@ -41,6 +42,7 @@ export class UserEditComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private notificationService: NotificationService,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -63,7 +65,7 @@ export class UserEditComponent implements OnInit {
             age: this.fb.control(user ? user.age : '', []),
             educationId: this.fb.control(user && user.education ? user.education.id : null, [Validators.required]),
             experience: this.fb.control(
-                {value: user && user.experience ? user.experience.map(item => item.id) : null, disabled: true},
+                {value: user && user.experience ? user.experience : [], disabled: false},
                 [Validators.required]),
             graduationYear: this.fb.control(user ? user.graduationYear : '', []),
         }, {validators: this.checkPasswords});
@@ -92,6 +94,9 @@ export class UserEditComponent implements OnInit {
         });
     }
 
+    openVerticallyCentered(content) {
+        this.modalService.open(content, { centered: true, backdrop: 'static' });
+    }
 
     isSubmittedAndValid(control: string) {
         return this.submitted && this.form.get(control) && this.form.get(control).valid && this.form.get(control).value;
@@ -143,6 +148,18 @@ export class UserEditComponent implements OnInit {
 
             this.router.navigate(['/', 'users']);
         });
+    }
+
+    modalSubmit(modal: NgbActiveModal, event = null) {
+        modal.close();
+        const experience: any[] = this.form.get('experience').value || [];
+        experience.push(event);
+        this.experiences = experience;
+        this.form.get('experience').setValue(experience);
+    }
+
+    modalClose(modal: NgbActiveModal) {
+        modal.dismiss('Cross click');
     }
 
     checkPasswords(group: FormGroup) { // here we have the 'passwords' group

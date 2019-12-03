@@ -87,8 +87,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             return;
         }
 
-        const credentials = this.form.value;
-        this.subH.subscribe = this.authService.requestResetPassword(credentials).pipe(
+        const {email} = this.resetPasswordForm.value;
+        this.subH.subscribe = this.authService.requestResetPassword(email).pipe(
             tap(() => {
                 this.loading = true;
             }),

@@ -113,14 +113,14 @@
                 <ng-select
                     id="experience"
                     [items]="experiences"
-                    [typeahead]="experienceObserver"
                     [multiple]="true"
                     formControlName="experience"
-                    bindValue="id"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('experience'), 'is-invalid': isSubmittedAndInvalid('experience')}"
                     bindLabel="companyName"
-                    [placeholder]="'Experinece'| ucfirst"
+                    [placeholder]="'Experience'| ucfirst"
                 >
                 </ng-select>
+                <a href="javascript:void(0);" (click)="openVerticallyCentered(content)"> Add experience</a>
             </div>
             <div class="col-md-4"></div>
         </div>
@@ -185,3 +185,12 @@
         </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <app-experience-form
+        (formSubmit)="modalSubmit(modal, $event)"
+        (crossClick)="modalClose(modal)"
+    ></app-experience-form>
+</ng-template>
+
+

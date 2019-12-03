@@ -23,7 +23,7 @@ export const Api = {
     Management: {
         register: '/api/register',
         resetPassword: '/api/reset-password',
-        requestPassword: '/api/reset-password-request',
+        requestPassword: '/api/security/users/password-request/',
         login: '/api/security/users/log',
     },
     File: {
