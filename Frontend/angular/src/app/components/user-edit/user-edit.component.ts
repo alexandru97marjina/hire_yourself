@@ -64,11 +64,11 @@ export class UserEditComponent implements OnInit {
             ),
             age: this.fb.control(user ? user.age : '', []),
             educationId: this.fb.control(user && user.education ? user.education.id : null, [Validators.required]),
-            experience: this.fb.control(
-                {value: user && user.experience ? user.experience : [], disabled: false},
-                [Validators.required]),
+            experience: this.fb.control(user ? user.experience : [], [Validators.required]),
             graduationYear: this.fb.control(user ? user.graduationYear : '', []),
         }, {validators: this.checkPasswords});
+
+        this.modalSubmit();
     }
 
     confirmPasswordControl() {
@@ -150,11 +150,21 @@ export class UserEditComponent implements OnInit {
         });
     }
 
-    modalSubmit(modal: NgbActiveModal, event = null) {
-        modal.close();
+    modalSubmit(modal: NgbActiveModal = null, event = null) {
+        if (modal) {
+            modal.close();
+        }
+
         const experience: any[] = this.form.get('experience').value || [];
-        experience.push(event);
-        this.experiences = experience;
+        if (event) {
+            experience.push(event);
+        }
+
+        experience.forEach(item => {
+            if (!this.experiences.includes(item)) {
+                this.experiences.push(item);
+            }
+        });
         this.form.get('experience').setValue(experience);
     }
 
