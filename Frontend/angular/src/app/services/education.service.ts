@@ -25,8 +25,8 @@ export class EducationService {
         return this.httpService.put(this.educationApi.update(education.id), education);
     }
 
-    public createEducation(education: EducationInterface) {
-        return this.httpService.post(this.educationApi.create, education);
+    public createEducation(education: EducationInterface, authenticated = true) {
+        return this.httpService.post(this.educationApi.create, education, authenticated);
     }
 
     public deleteEducation(education: EducationInterface) {

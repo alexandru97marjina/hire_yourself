@@ -126,12 +126,32 @@ export class RegisterComponent implements OnInit {
         this.modalService.open(content, { centered: true, backdrop: 'static' });
     }
 
-    modalSubmit(modal: NgbActiveModal, event = null) {
-        modal.close();
+    experienceModalSubmit(modal: NgbActiveModal, event = null) {
+        if (modal) {
+            modal.close();
+        }
+
         const experience: any[] = this.form.get('experience').value || [];
-        experience.push(event);
-        this.experiences = experience;
+        if (event) {
+            experience.push(event);
+        }
+
+        experience.forEach(item => {
+            if (!this.experiences.includes(item)) {
+                this.experiences.push(item);
+            }
+        });
         this.form.get('experience').setValue(experience);
+    }
+
+    educationModalSubmit(modal: NgbActiveModal, event = null) {
+        if (modal) {
+            modal.close();
+        }
+
+        this.educationService.createEducation(event, false).subscribe( (data) => {
+            this.educationObserver.next('');
+        });
     }
 
     modalClose(modal: NgbActiveModal) {

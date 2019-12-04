@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IsAuthenticatedGuard } from '@app/guards/isAuthenticated.guard';
@@ -10,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastComponent } from '@components/toast/toast.component';
 import { ExperienceFormComponent } from '@components/experience-form/experience-form.component';
+import { EducationFormComponent } from '@components/education-form/education-form.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +17,7 @@ import { ExperienceFormComponent } from '@components/experience-form/experience-
         ...Directives,
         ToastComponent,
         ExperienceFormComponent,
+        EducationFormComponent,
     ],
     imports: [
         HttpClientModule,
@@ -35,6 +36,7 @@ import { ExperienceFormComponent } from '@components/experience-form/experience-
         ...Pipes,
         ...Directives,
         ExperienceFormComponent,
+        EducationFormComponent,
         NgbModule,
         NgbDropdownModule,
         NgSelectModule,

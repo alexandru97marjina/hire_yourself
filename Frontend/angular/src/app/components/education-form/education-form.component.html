@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title">Create education</h4>
+    <button type="button" class="close" aria-label="Close" (click)="onCrossClick()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form">
+        <div class="form-row modal-form">
+            <div class="col-md-4">
+                <label for="specialityName">Speciality Name</label>
+            </div>
+            <div class="col-md-8">
+                <input
+                    formControlName="specialityName"
+                    type="text"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('specialityName'), 'is-invalid': isSubmittedAndInvalid('specialityName')}"
+                    id="specialityName"
+                    placeholder="Speciality Name"
+                />
+            </div>
+        </div>
+        <div class="form-row modal-form">
+            <div class="col-md-4">
+                <label for="studyGrade">Study Grade</label>
+            </div>
+            <div class="col-md-8">
+                <input
+                    formControlName="studyGrade"
+                    type="text"
+                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('studyGrade'), 'is-invalid': isSubmittedAndInvalid('studyGrade')}"
+                    id="studyGrade"
+                    placeholder="Study Grade..."
+                />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="onFormSubmit()">Submit form</button>
+</div>

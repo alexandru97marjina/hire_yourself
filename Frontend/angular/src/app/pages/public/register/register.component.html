@@ -104,6 +104,7 @@
                                     [placeholder]="'Education'| ucfirst"
                                 >
                                 </ng-select>
+                                <a href="/public/register#" (click)="openVerticallyCentered(educationContent)"> Add education</a>
                             </div>
                             <div class="col-md-4"></div>
                         </div>
@@ -122,7 +123,7 @@
                                     [placeholder]="'Experience'| ucfirst"
                                 >
                                 </ng-select>
-                                <a href="/public/register#" (click)="openVerticallyCentered(content)"> Add experience</a>
+                                <a href="/public/register#" (click)="openVerticallyCentered(experienceContent)"> Add experience</a>
                             </div>
                             <div class="col-md-4"></div>
                         </div>
@@ -200,11 +201,19 @@
     </div>
 </div>
 
-<ng-template #content let-modal>
+<ng-template #experienceContent let-modal>
     <app-experience-form
-        (formSubmit)="modalSubmit(modal, $event)"
+        (formSubmit)="experienceModalSubmit(modal, $event)"
         (crossClick)="modalClose(modal)"
     ></app-experience-form>
+</ng-template>
+
+
+<ng-template #educationContent let-modal>
+    <app-education-form
+        (formSubmit)="educationModalSubmit(modal, $event)"
+        (crossClick)="modalClose(modal)"
+    ></app-education-form>
 </ng-template>
 
 
