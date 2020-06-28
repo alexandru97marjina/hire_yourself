@@ -68,7 +68,25 @@ export class PostService {
     }
 
     public getList() {
-        return this.httpService.get(this.postApi.getList);
+        const images = [
+            'https://res.cloudinary.com/dvspkouqw/image/upload/v1593358313/Webp.net-resizeimage_3_bnspcw.jpg',
+            'https://res.cloudinary.com/dvspkouqw/image/upload/v1593358313/Webp.net-resizeimage_2_c0di3d.jpg',
+            'https://res.cloudinary.com/dvspkouqw/image/upload/v1593358313/Webp.net-resizeimage_n27az3.jpg',
+            'https://res.cloudinary.com/dvspkouqw/image/upload/v1593358313/Webp.net-resizeimage_4_fu4kwx.jpg',
+            'https://res.cloudinary.com/dvspkouqw/image/upload/v1593358313/Webp.net-resizeimage_1_ha8w7w.jpg',
+        ];
+
+        return this.httpService.get(this.postApi.getList).pipe(
+            map((data: PostInterface[]) => {
+                if (data && Array.isArray(data)) {
+                    data.forEach(item => {
+                        item.imagePath = images[PostService.getRandomInt(5)];
+                    });
+                }
+
+                return data;
+            })
+        );
     }
 
     public updatePost(id: number, post: PostInterface) {
