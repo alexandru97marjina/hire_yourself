@@ -38,19 +38,7 @@
                         bindValue="id"
                         bindLabel="username"
                         formControlName="user"
-                        [placeholder]="'user-show ... '"
-                    >
-                    </ng-select>
-                </div>
-                <div class="col-md-4 text-left">
-                    <ng-select
-                        class="form-control"
-                        [items]="educations$| async"
-                        [typeahead]="educationObserver"
-                        formControlName="education"
-                        bindValue="id"
-                        bindLabel="specialityName"
-                        [placeholder]="'education ... '"
+                        [placeholder]="'user ... '"
                     >
                     </ng-select>
                 </div>
@@ -74,19 +62,6 @@
                         formControlName="location"
                         [items]="locations"
                         [placeholder]="'location ... '"
-                    >
-                    </ng-select>
-                </div>
-                <div class="col-md-4 text-left">
-                    <ng-select
-                        class="form-control"
-                        [items]="activities$| async"
-                        [typeahead]="activityObserver"
-                        [hideSelected]="true"
-                        bindValue="id"
-                        bindLabel="activityName"
-                        formControlName="activity"
-                        [placeholder]="'activity ... '"
                     >
                     </ng-select>
                 </div>
