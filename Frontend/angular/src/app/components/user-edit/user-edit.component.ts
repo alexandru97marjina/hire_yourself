@@ -63,9 +63,15 @@ export class UserEditComponent implements OnInit {
                 this.confirmPasswordControl() ? [Validators.required] : []
             ),
             age: this.fb.control(user ? user.age : '', []),
-            educationId: this.fb.control(user && user.education ? user.education.id : null, [Validators.required]),
-            experience: this.fb.control(user ? user.experience : [], [Validators.required]),
-            graduationYear: this.fb.control(user ? user.graduationYear : '', []),
+            educationId: this.fb.control(1, [Validators.required]),
+            experience: this.fb.control([
+                {
+                    companyName: 'test',
+                    dateEnded: 1593475200000,
+                    dateStarted: 1590969600000,
+                }
+            ], [Validators.required]),
+            graduationYear: this.fb.control('2020', []),
         }, {validators: this.checkPasswords});
 
         this.modalSubmit();

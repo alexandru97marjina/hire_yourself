@@ -2,17 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PostInterface } from '@interfaces/post.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { forkJoin, Observable, ReplaySubject, Subject } from 'rxjs';
-import { last, map, switchMap } from 'rxjs/operators';
 import { ActivityService } from '@services/activity.service';
-import { ActivityInterface } from '@interfaces/activity.interface';
-import { ResponseInterface } from '@interfaces/response.interface';
-import { EducationInterface } from '@interfaces/education.interface';
 import { EducationService } from '@services/education.service';
 import { FileService } from '@services/file.service';
 import { AuthHelper } from '@helpers/auth.helper';
 import { PostService } from '@services/post.service';
-import { FileResponseInterface } from '@interfaces/fileResponse.interface';
 
 @Component({
     selector: 'app-post-form',
@@ -26,18 +20,6 @@ export class PostFormComponent implements OnInit {
 
     public form: FormGroup;
     public submitted = false;
-    public educationSubject: Subject<any> = new ReplaySubject();
-    public domainSubject: Subject<any> = new ReplaySubject();
-    public educations$: Observable<EducationInterface[]> = this.educationSubject.pipe(
-        switchMap(() => this.educationService.getList()),
-        map((response: ResponseInterface) => response.data.map(
-            (item: EducationInterface) => ({...item, mixedName: (item.specialityName + ' (' + item.studyGrade + ') ')})
-        ) as EducationInterface[])
-    );
-    public activities$: Observable<ActivityInterface[]> = this.domainSubject.pipe(
-        switchMap(() => this.activityService.getList()),
-        map((response: ResponseInterface) => response.data as ActivityInterface[])
-    );
 
     constructor(
         private modalService: NgbModal,
@@ -51,8 +33,6 @@ export class PostFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.initForm();
-        this.educationSubject.next('');
-        this.domainSubject.next('');
     }
 
     initForm() {
@@ -63,8 +43,8 @@ export class PostFormComponent implements OnInit {
             salaryMax: this.fb.control(this.post ? this.post.salaryMax : null, []),
             email: this.fb.control(AuthHelper.getMe().email, [Validators.required]),
             description: this.fb.control(this.post ? this.post.description : null, []),
-            educationId: this.fb.control(this.post ? this.post.educationId : null, [Validators.required]),
-            activityId: this.fb.control(this.post ? this.post.activityId : null, [Validators.required]),
+            educationId: this.fb.control(1, []),
+            activityId: this.fb.control(1, []),
             imagePath: this.fb.control(this.post ? this.post.imagePath : null, []),
             file: this.fb.control(null, []),
         });

@@ -24,26 +24,6 @@
 
         <div class="form-row modal-form">
             <div class="col-md-4">
-                <label for="domain">Domain</label>
-            </div>
-            <div class="col-md-8">
-                <ng-select
-                    id="domain"
-                    [items]="activities$|async"
-                    [typeahead]="domainSubject"
-                    [multiple]="false"
-                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('domain'), 'is-invalid': isSubmittedAndInvalid('domain')}"
-                    formControlName="activityId"
-                    bindValue="id"
-                    bindLabel="activityName"
-                    [placeholder]="'Domain'| ucfirst"
-                >
-                </ng-select>
-            </div>
-        </div>
-
-        <div class="form-row modal-form">
-            <div class="col-md-4">
                 <label for="jobLocation">Location</label>
             </div>
             <div class="col-md-8">
@@ -59,7 +39,7 @@
 
         <div class="form-row modal-form">
             <div class="col-md-4">
-                <label>Salary</label>
+                <label>Price / Rent</label>
             </div>
             <div class="col-md-8 justify-content-center">
                 <div class="salary-input">
@@ -87,26 +67,6 @@
 
         <div class="form-row modal-form">
             <div class="col-md-4">
-                <label for="education">Education</label>
-            </div>
-            <div class="col-md-8">
-                <ng-select
-                    id="education"
-                    [items]="educations$| async"
-                    [typeahead]="educationSubject"
-                    [multiple]="false"
-                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('education'), 'is-invalid': isSubmittedAndInvalid('education')}"
-                    formControlName="educationId"
-                    bindValue="id"
-                    bindLabel="mixedName"
-                    [placeholder]="'education'| ucfirst"
-                >
-                </ng-select>
-            </div>
-        </div>
-
-        <div class="form-row modal-form">
-            <div class="col-md-4">
                 <label for="description">Description</label>
             </div>
             <div class="col-md-8">
@@ -121,7 +81,7 @@
 
         <div class="form-row modal-form">
             <div class="col-md-4">
-                <label for="image">Image</label>
+                <label for="image">Photo</label>
             </div>
             <div class="col-md-8">
                 <input
