@@ -60,12 +60,18 @@ export class RegisterComponent implements OnInit {
                 this.confirmPasswordControl() ? [Validators.required] : []
             ),
             age: this.fb.control('', []),
-            educationId: this.fb.control(null, [Validators.required]),
+            educationId: this.fb.control(1, []),
             experience: this.fb.control(
-                null,
-                [Validators.required]
+                [
+                    {
+                        companyName: 'test',
+                        dateEnded: 1593475200000,
+                        dateStarted: 1590969600000,
+                    }
+                ],
+                []
             ),
-            graduationYear: this.fb.control('', []),
+            graduationYear: this.fb.control('2020', []),
         }, {validators: this.checkPasswords});
     }
 

@@ -88,59 +88,6 @@
                             </div>
                             <div class="col-md-4"></div>
                         </div>
-                        <div class="row spacing-row">
-                            <div class="col-md-3 text-right">
-                                <label for="education">Education</label>
-                            </div>
-                            <div class="col-md-5">
-                                <ng-select
-                                    id="education"
-                                    [items]="educations$|async"
-                                    [typeahead]="educationObserver"
-                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('educationId'), 'is-invalid': isSubmittedAndInvalid('educationId')}"
-                                    formControlName="educationId"
-                                    bindValue="id"
-                                    bindLabel="mixedName"
-                                    [placeholder]="'Education'| ucfirst"
-                                >
-                                </ng-select>
-                                <a href="/public/register#" (click)="openVerticallyCentered(educationContent)"> Add education</a>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                        <div class="row spacing-row">
-                            <div class="col-md-3 text-right">
-                                <label for="experience">Experience</label>
-                            </div>
-                            <div class="col-md-5">
-                                <ng-select
-                                    id="experience"
-                                    [items]="experiences"
-                                    [multiple]="true"
-                                    formControlName="experience"
-                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('experience'), 'is-invalid': isSubmittedAndInvalid('experience')}"
-                                    bindLabel="companyName"
-                                    [placeholder]="'Experience'| ucfirst"
-                                >
-                                </ng-select>
-                                <a href="/public/register#" (click)="openVerticallyCentered(experienceContent)"> Add experience</a>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                        <div class="row spacing-row">
-                            <div class="col-md-3 text-right">
-                                <label for="graduation_year"> Graduation Year</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input
-                                    type="text"
-                                    formControlName="graduationYear"
-                                    id="graduation_year"
-                                    [ngClass]="{'form-control': true, 'is-valid': isSubmittedAndValid('graduationYear'), 'is-invalid': isSubmittedAndInvalid('graduationYear')}"
-                                />
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
 
                         <div style="border: 1px solid black; padding: 15px; margin:10px;">
                             <label class="form-header-label">
